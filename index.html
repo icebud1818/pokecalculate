@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack EV Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #09ff9d;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .feature {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        li {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .packs-list {
+            margin-top: 30px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .link {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .link a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+        #lastUpdated {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pokémon Pack Expected Value Calculator</h1>
+
+        <!-- FAQ Link -->
+        <div class="link">
+            <a href="faq.html">FAQ</a>
+        </div>
+
+        <!-- Last Updated Section -->
+        <p id="lastUpdated">Last Updated: Loading...</p>
+
+        <!-- Features Section -->
+        <div class="feature">
+            <button id="productValueButton">Calculate Sealed Product Value</button>
+        </div>
+
+        <div class="feature">
+            <button id="sealedProductEvButton">Calculate EV for Sealed Product</button>
+        </div>
+
+        <div class="feature">
+            <button id="singlePackEvButton">Calculate EV for Single Pack</button>
+        </div>
+
+        <div class="feature">
+            <button id="multiplePacksEvButton">Calculate EV for Multiple Packs</button>
+        </div>
+
+        <!-- Sorting Dropdown -->
+        <div class="feature">
+            <select id="sortDropdown">
+                <option value="nameAsc" selected>Alphabetically (A-Z)</option>
+                <option value="nameDesc">Alphabetically (Z-A)</option>
+                <option value="evDesc">EV (Highest to Lowest)</option>
+                <option value="evAsc">EV (Lowest to Highest)</option>
+                <option value="adjEvDesc">Adjusted EV (Highest to Lowest)</option>
+                <option value="adjEvAsc">Adjusted EV (Lowest to Highest)</option>
+                <option value="valueDesc">Pack Price (Highest to Lowest)</option>
+                <option value="valueAsc">Pack Price (Lowest to Highest)</option>
+                <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
+                <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
+            </select>
+        </div>
+
+        <!-- Packs List Section -->
+        <div class="packs-list">
+            <h2>Booster Packs</h2>
+            <ul id="packs-list">
+                <!-- List of packs will be populated here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

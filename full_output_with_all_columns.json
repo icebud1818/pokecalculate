@@ -1,0 +1,90 @@
+[
+    {
+        "Set Name": "Base Set",
+        "Adj. EV": 0.3313077824358017,
+        "Pack Value": 400.24,
+        "EV": 33.15065671052632,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 100
+    },
+    {
+        "Set Name": "Jungle",
+        "Adj. EV": 0.39244229246604545,
+        "Pack Value": 164.19,
+        "EV": 16.108775,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 101
+    },
+    {
+        "Set Name": "Fossil",
+        "Adj. EV": 0.33743084468664847,
+        "Pack Value": 183.5,
+        "EV": 15.479639999999998,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 102
+    },
+    {
+        "Set Name": "Base Set 2",
+        "Adj. EV": 0.34839240759240764,
+        "Pack Value": 221.65,
+        "EV": 19.30529428571429,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 103
+    },
+    {
+        "Set Name": "Team Rocket",
+        "Adj. EV": 0.4001787653802329,
+        "Pack Value": 235.23,
+        "EV": 23.533512745098044,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 104
+    },
+    {
+        "Set Name": "Gym Heroes",
+        "Adj. EV": 0.5079283942496079,
+        "Pack Value": 189.17,
+        "EV": 24.02120358504958,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 105
+    },
+    {
+        "Set Name": "Gym Challenge",
+        "Adj. EV": 0.5786520187009705,
+        "Pack Value": 253.31,
+        "EV": 36.64458571428571,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 106
+    },
+    {
+        "Set Name": "Neo Genesis",
+        "Adj. EV": 0.24090218915174116,
+        "Pack Value": 450.0,
+        "EV": 27.10149627957088,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 107
+    },
+    {
+        "Set Name": "Neo Discovery",
+        "Adj. EV": 0.2944006821544651,
+        "Pack Value": 339.99,
+        "EV": 25.023321981424147,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 108
+    },
+    {
+        "Set Name": "Neo Revelation",
+        "Adj. EV": 0.6245177316966672,
+        "Pack Value": 315.0,
+        "EV": 49.18077137111254,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 109
+    },
+    {
+        "Set Name": "Neo Destiny",
+        "Adj. EV": 0.46518455410244197,
+        "Pack Value": 599.95,
+        "EV": 69.77186830844002,
+        "Last Updated": "2024-11-23 23:52:18",
+        "SetNumber": 110
+    }
+]
