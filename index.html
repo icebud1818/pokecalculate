@@ -56,7 +56,7 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 5px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -78,6 +78,28 @@
             text-align: center;
             color: #888;
             font-size: 14px;
+        }
+
+        /* Container for the sort and filter dropdowns */
+        .dropdowns-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .dropdown-container {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        select {
+            width: 100%;
         }
     </style>
 </head>
@@ -111,20 +133,34 @@
             <button id="multiplePacksEvButton">Calculate EV for Multiple Packs</button>
         </div>
 
-        <!-- Sorting Dropdown -->
-        <div class="feature">
-            <select id="sortDropdown">
-                <option value="nameAsc" selected>Alphabetically (A-Z)</option>
-                <option value="nameDesc">Alphabetically (Z-A)</option>
-                <option value="evDesc">EV (Highest to Lowest)</option>
-                <option value="evAsc">EV (Lowest to Highest)</option>
-                <option value="adjEvDesc">Percent Return (Highest to Lowest)</option>
-                <option value="adjEvAsc">Percent Return (Lowest to Highest)</option>
-                <option value="valueDesc">Pack Price (Highest to Lowest)</option>
-                <option value="valueAsc">Pack Price (Lowest to Highest)</option>
-                <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
-                <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
-            </select>
+        <!-- Sorting and Filtering Dropdowns -->
+        <div class="dropdowns-container">
+            <!-- Sorting Dropdown -->
+            <div class="dropdown-container">
+                <label for="sortDropdown">Sort By</label>
+                <select id="sortDropdown">
+                    <option value="nameAsc" selected>Alphabetically (A-Z)</option>
+                    <option value="nameDesc">Alphabetically (Z-A)</option>
+                    <option value="evDesc">EV (Highest to Lowest)</option>
+                    <option value="evAsc">EV (Lowest to Highest)</option>
+                    <option value="adjEvDesc">Percent Return (Highest to Lowest)</option>
+                    <option value="adjEvAsc">Percent Return (Lowest to Highest)</option>
+                    <option value="valueDesc">Pack Price (Highest to Lowest)</option>
+                    <option value="valueAsc">Pack Price (Lowest to Highest)</option>
+                    <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
+                    <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
+                </select>
+            </div>
+
+            <!-- Filtering Dropdown -->
+            <div class="dropdown-container">
+                <label for="filterDropdown">Filter By</label>
+                <select id="filterDropdown">
+                    <option value="all" selected>All Packs</option>
+                    <option value="less">Generation 1</option>
+                    <option value="greater">Generation 2</option>
+                </select>
+            </div>
         </div>
 
         <!-- Packs List Section -->
