@@ -1,16 +1,18 @@
 let packs = [];
+let filteredPacks = []; // To hold the currently filtered packs
+let activeFilter = "all"; // To track the active filter
+let lastSortCriteria = "nameAsc"; // To track the last sorting criteria
 const packsDataUrl = "full_output_with_all_columns.json";
+
 
 // Fetch packs data and populate the initial list
 function fetchPacks() {
     if (window.fetch) {
-        // Use fetch if available
         fetch(packsDataUrl)
             .then((response) => response.json())
             .then((data) => initializePacks(data))
             .catch(handleError);
     } else {
-        // Fallback for Safari or older browsers
         const xhr = new XMLHttpRequest();
         xhr.open("GET", packsDataUrl, true);
         xhr.onload = function () {
@@ -35,16 +37,10 @@ function initializePacks(data) {
         setNumber: parseInt(item["SetNumber"], 10),
     }));
 
-    // Assuming that the "Last Updated" field is the same for all packs
-    const lastUpdated = data[0]["Last Updated"]; // Adjust this if necessary
-
-    // Update the "Last Updated" timestamp on the page
+    const lastUpdated = data[0]["Last Updated"];
     document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated}`;
 
-    // Sort packs alphabetically (A-Z) by default
-    packs.sort((a, b) => a.name.localeCompare(b.name));
-
-    displayPacks(); // Initial render
+    applyFilter(); // Apply the default filter (all packs)
 }
 
 function handleError(error) {
@@ -57,16 +53,14 @@ function displayPacks() {
     const ul = document.getElementById("packs-list");
     ul.innerHTML = ""; // Clear the existing list
 
-    // Append sorted packs to the list
-    packs.forEach((pack) => {
+    filteredPacks.forEach((pack) => {
         const li = document.createElement("li");
         li.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(
             2
-        )} - Percent Return: ${ (pack.adjEv * 100).toFixed(2) }%`;
+        )} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
         ul.appendChild(li);
     });
 }
-
 
 // Function to handle sorting based on selected criteria
 function sortPacks(criteria) {
@@ -84,24 +78,48 @@ function sortPacks(criteria) {
     };
 
     if (sorters[criteria]) {
-        packs.sort(sorters[criteria]);
+        lastSortCriteria = criteria; // Update the sorting criteria
+        filteredPacks.sort(sorters[criteria]); // Sort the currently filtered packs
         displayPacks(); // Refresh the list
     } else {
         console.error("Invalid sort criteria:", criteria);
     }
 }
 
-// Event listener for dropdown selection
+// Function to filter packs based on the selected criteria
+function applyFilter() {
+    const filterers = {
+        all: () => packs,
+        less: () => packs.filter((pack) => pack.setNumber <= 106),
+        greater: () => packs.filter((pack) => pack.setNumber > 106),
+    };
+
+    if (filterers[activeFilter]) {
+        filteredPacks = filterers[activeFilter](); // Apply the selected filter
+        sortPacks(lastSortCriteria); // Reapply the last sorting
+    } else {
+        console.error("Invalid filter criteria:", activeFilter);
+    }
+}
+
+// Event listener for sorting dropdown
 document.getElementById("sortDropdown").addEventListener("change", (event) => {
-    sortPacks(event.target.value); // Sort based on selected value
+    const sortCriteria = event.target.value;
+    sortPacks(sortCriteria); // Sort the filtered list
+});
+
+// Event listener for filtering dropdown
+document.getElementById("filterDropdown").addEventListener("change", (event) => {
+    activeFilter = event.target.value; // Update the active filter
+    applyFilter(); // Apply the new filter
 });
 
 // Fetch and initialize packs on page load
 fetchPacks();
 
+
+
 // Add your calculation buttons here (kept unchanged)
-
-
 
 // Sealed Product Value Calculation
 document.getElementById("productValueButton").addEventListener("click", function () {
@@ -139,7 +157,6 @@ document.getElementById("productValueButton").addEventListener("click", function
           `Percent Profit: ${percentProfit.toFixed(2)}%`);
 });
 
-
 // Calculate EV for a Sealed Product
 document.getElementById("sealedProductEvButton").addEventListener("click", function () {
     const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
@@ -174,7 +191,6 @@ document.getElementById("sealedProductEvButton").addEventListener("click", funct
           `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
 });
 
-
 // Calculate EV for Multiple Packs
 document.getElementById("multiplePacksEvButton").addEventListener("click", function () {
     let totalEv = 0;
@@ -196,7 +212,6 @@ document.getElementById("multiplePacksEvButton").addEventListener("click", funct
     alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
 });
 
-
 // Calculate EV for a Single Pack
 document.getElementById("singlePackEvButton").addEventListener("click", function () {
     const packName = prompt("Enter the name of the pack:").trim();
@@ -204,24 +219,12 @@ document.getElementById("singlePackEvButton").addEventListener("click", function
 
     if (pack) {
         const totalEv = parseFloat(pack.ev); // EV for a single pack
-        alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}`);
+        alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
     } else {
-        alert(`Pack '${packName}' not found. Please try again.`);
+        alert(`Pack '${packName}' not found.`);
     }
 });
 
-
-function findExactPack(inputName) {
-    const lowerCaseInput = inputName.toLowerCase();
-
-    // Try to find an exact match first
-    const exactMatch = packs.find((p) => p.name.toLowerCase() === lowerCaseInput);
-    if (exactMatch) return exactMatch;
-
-    // If no exact match, fall back to the first partial match
-    const partialMatch = packs.find((p) => p.name.toLowerCase().includes(lowerCaseInput));
-    return partialMatch || null; // Return null if nothing is found
+function findExactPack(packName) {
+    return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
 }
-
-
-
