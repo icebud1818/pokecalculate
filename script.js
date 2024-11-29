@@ -62,10 +62,11 @@ function displayPacks() {
         const li = document.createElement("li");
         li.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(
             2
-        )} - Adjusted EV: $${pack.adjEv.toFixed(2)}`;
+        )} - Percent Return: ${ (pack.adjEv * 100).toFixed(2) }%`;
         ul.appendChild(li);
     });
 }
+
 
 // Function to handle sorting based on selected criteria
 function sortPacks(criteria) {
