@@ -750,5 +750,69 @@
         "EV": 2.0461745114157823,
         "Last Updated": "2024-11-30 00:46:13",
         "SetNumber": 1103
+    },
+    {
+        "Set Name": "SV01: Scarlet & Violet Base Set",
+        "Adj. EV": 0.8302390687851513,
+        "Pack Value": 2.78,
+        "EV": 2.3080646112227203,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1200
+    },
+    {
+        "Set Name": "SV02: Paldea Evolved",
+        "Adj. EV": 0.7207275203703146,
+        "Pack Value": 3.66,
+        "EV": 2.6378627245553514,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1201
+    },
+    {
+        "Set Name": "SV03: Obsidian Flames",
+        "Adj. EV": 0.7114474827380676,
+        "Pack Value": 3.19,
+        "EV": 2.2695174699344354,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1202
+    },
+    {
+        "Set Name": "SV04: Paradox Rift",
+        "Adj. EV": 0.8999793877063692,
+        "Pack Value": 2.95,
+        "EV": 2.654939193733789,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1203
+    },
+    {
+        "Set Name": "SV05: Temporal Forces",
+        "Adj. EV": 0.7352350556396398,
+        "Pack Value": 3.28,
+        "EV": 2.4115709824980183,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1204
+    },
+    {
+        "Set Name": "SV06: Twilight Masquerade",
+        "Adj. EV": 0.5882144701302905,
+        "Pack Value": 4.49,
+        "EV": 2.6410829708850043,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1205
+    },
+    {
+        "Set Name": "SV07: Stellar Crown",
+        "Adj. EV": 0.9297610044087663,
+        "Pack Value": 3.72,
+        "EV": 3.458710936400611,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1206
+    },
+    {
+        "Set Name": "SV08: Surging Sparks",
+        "Adj. EV": 0.6510372375651151,
+        "Pack Value": 5.55,
+        "EV": 3.6132566684863887,
+        "Last Updated": "2024-11-30 15:43:55",
+        "SetNumber": 1207
     }
 ]
