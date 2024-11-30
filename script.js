@@ -90,8 +90,14 @@ function sortPacks(criteria) {
 function applyFilter() {
     const filterers = {
         all: () => packs,
-        less: () => packs.filter((pack) => pack.setNumber <= 106),
-        greater: () => packs.filter((pack) => pack.setNumber > 106),
+        gen1: () => packs.filter((pack) => pack.setNumber <= 106),
+        gen2: () => packs.filter((pack) => pack.setNumber >= 107 && pack.setNumber <= 203),
+        gen3: () => packs.filter((pack) => pack.setNumber >= 300 && pack.setNumber <= 408),
+        gen4: () => packs.filter((pack) => pack.setNumber >= 500 && pack.setNumber <= 604),
+        gen5: () => packs.filter((pack) => pack.setNumber >= 700 && pack.setNumber <= 710),
+        gen6: () => packs.filter((pack) => pack.setNumber >= 800 && pack.setNumber <= 811),
+        gen7: () => packs.filter((pack) => pack.setNumber >= 900 && pack.setNumber <= 911),
+        gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1103),
     };
 
     if (filterers[activeFilter]) {
