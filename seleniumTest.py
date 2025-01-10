@@ -17,6 +17,7 @@ from datetime import datetime
 
 
 
+
 class VintageSet:
     def __init__(self, name, url, secretOdds, commonsPer):
         self.name = name
@@ -358,6 +359,7 @@ def reset():
     saveChanges.click()
 
 # Set up Chrome options
+'''
 chrome_options = Options()
 #chrome_options.add_argument("--headless")  # Ensure GUI is off
 chrome_options.add_argument("--no-sandbox")
@@ -367,6 +369,19 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 webdriver_service = Service("/Users/gavinschrader/Downloads/chromedriver-mac-x643/chromedriver")
 
 # Choose Chrome Browser
+driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)'''
+
+# Set up Chrome options
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Ensure GUI is off
+chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+chrome_options.add_argument("--window-size=1920,1080")  # Set window size for headless mode
+
+# Set path to chromedriver in the GitHub Actions environment
+webdriver_service = Service("/usr/bin/chromedriver")  # Adjust for your CI setup
+
+# Initialize the WebDriver
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
 
