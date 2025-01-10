@@ -9,6 +9,10 @@ on:
       - main  # Run the workflow on pull requests to the main branch
   workflow_dispatch:  # This allows manual triggering of the workflow
 
+permissions:
+  contents: write  # Allow write access to repository contents
+  actions: write   # Allow write access to GitHub Actions
+
 jobs:
   selenium:
     runs-on: ubuntu-latest  # The runner environment (latest version of Ubuntu)
@@ -50,7 +54,5 @@ jobs:
         git config --global user.name "Your Name"  # Replace with your name
         git add full_output_with_all_columns.json  # Add the updated JSON file
         git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"  # Commit changes (if any)
-        git push origin main  # Push changes to the main branch
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the GitHub token for authentication
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main  # Push changes using the GitHub token
 
