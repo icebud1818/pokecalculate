@@ -8,7 +8,7 @@ on:
 jobs:
   run-selenium-script:
     runs-on: ubuntu-latest  # Uses the latest Ubuntu environment on GitHub Actions
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3  # Checkout the code from your repository
@@ -30,7 +30,6 @@ jobs:
             libatk1.0-0 \
             libcups2 \
             libxss1 \
-            libasound2-t64 \ # Alternative for libasound2
             libappindicator3-1 \
             libx11-xcb1 \
             libgbm1
