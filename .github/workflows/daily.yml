@@ -1,3 +1,10 @@
+name: Selenium Task Every 5 Minutes
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  workflow_dispatch:  # Allow manual trigger of the workflow
+
 jobs:
   run-selenium-script:
     runs-on: ubuntu-latest  # Uses the latest Ubuntu environment on GitHub Actions
