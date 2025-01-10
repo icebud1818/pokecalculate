@@ -2,7 +2,11 @@ name: Selenium Task Every 5 Minutes
 
 on:
   schedule:
+<<<<<<< HEAD
     - cron: '0 0 * * *'  # Runs every 5 minutes
+=======
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+>>>>>>> 2ba923743286407de2dce57b5cdb9293a0b8d2c0
   workflow_dispatch:  # Allow manual trigger of the workflow
 
 jobs:
