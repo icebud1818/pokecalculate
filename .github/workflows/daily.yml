@@ -1,12 +1,12 @@
-name: Daily Selenium Task
+name: Selenium Task Every 5 Minutes
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
 
 jobs:
   run-selenium-script:
-    runs-on: ubuntu-latest  # This uses the latest Ubuntu environment on GitHub Actions
+    runs-on: ubuntu-latest  # Uses the latest Ubuntu environment on GitHub Actions
     
     steps:
       - name: Checkout repository
