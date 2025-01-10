@@ -2332,7 +2332,7 @@ for set in vintageSetList:
     actualEvList.append(ev)
     setNumberList.append(100 + num)
     num += 1
-'''
+
 num = 0
 
 
@@ -2346,7 +2346,7 @@ for set in earlyReverseSetList:
     num += 1
 
 num = 0
-
+'''
 #need to get rid of box toppers?
 for set in earlyExSetList:
     adjev, price, ev = earlyExSets(set.url)
