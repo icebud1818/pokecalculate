@@ -2332,7 +2332,7 @@ for set in vintageSetList:
     actualEvList.append(ev)
     setNumberList.append(100 + num)
     num += 1
-
+'''
 num = 0
 
 
@@ -2463,7 +2463,7 @@ for set in svSetList:
     actualEvList.append(ev)
     setNumberList.append(1200 + num)
     num += 1
-
+'''
 
 last_updated_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
