@@ -405,7 +405,7 @@ def gen1Calculate(url):
     driver.get(url)
     # Allow the page to load completely
     time.sleep(5)
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 10)
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
