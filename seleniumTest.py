@@ -404,7 +404,7 @@ def gen1Calculate(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(4)
+    time.sleep(5)
     wait = WebDriverWait(driver, 5)
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
@@ -448,7 +448,7 @@ def gen1Calculate(url):
     else:
         unlimited = "+unlimited"
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + unlimited + "+booster+pack")
-    time.sleep(1)
+    time.sleep(3)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -469,7 +469,7 @@ def gen1Calculate(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(1)
+    time.sleep(2)
     return (expValue / (packPrice)), packPrice, expValue
 
 def earlyReverseSets(url):
