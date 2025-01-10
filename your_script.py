@@ -1,32 +1,44 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 
-# Set up Chrome in headless mode (no GUI)
+# Configure Chrome options for headless mode
 options = Options()
-options.headless = True  # Run in headless mode
-options.add_argument('--no-sandbox')  # Important for GitHub Actions
-options.add_argument('--disable-dev-shm-usage')  # Solve for memory issues
-options.add_argument('--remote-debugging-port=9222')  # Avoid 'DevToolsActivePort' issue
+options.add_argument('--headless')  # Run in headless mode
 options.add_argument('--disable-gpu')  # Disable GPU acceleration
-options.add_argument('--disable-software-rasterizer')  # Disable software rasterization
-options.add_argument('--disable-features=VizDisplayCompositor')  # Fix rendering issues on CI environments
-options.add_argument('--enable-logging')  # Enable logging for debugging purposes
-options.add_argument('--log-level=0')  # Set log level to the least verbose
+options.add_argument('--no-sandbox')  # Required for some CI environments
+options.add_argument('--disable-dev-shm-usage')  # Overcomes limited resource problems
+options.add_argument('--remote-debugging-port=9222')  # Debugging
+options.add_argument('--window-size=1920,1080')  # Set window size for headless
 
-# Specify the path for the WebDriver using Service (for Selenium 4)
-service = Service(ChromeDriverManager().install())  # Automatically download and use the correct chromedriver
+# Path to the ChromeDriver
+service = Service("/usr/bin/chromedriver")  # Adjust path if necessary
 
-# Initialize the WebDriver with the specified options and service
+# Create a new WebDriver instance
 driver = webdriver.Chrome(service=service, options=options)
 
-# Navigate to a webpage
-driver.get('https://www.example.com')
+try:
+    # Navigate to a website (example: Google)
+    driver.get("https://www.google.com")
 
-# Print the title of the page
-print("Page Title:", driver.title)
+    # Interact with the website (example: search for 'GitHub Actions')
+    search_box = driver.find_element(By.NAME, "q")
+    search_box.send_keys("GitHub Actions")
+    search_box.send_keys(Keys.RETURN)
 
-# Close the browser
-driver.quit()
+    # Wait for results to load and print page title
+    driver.implicitly_wait(10)  # Wait for the page to load
+    print("Page title is:", driver.title)
+
+    # Capture a screenshot (optional)
+    driver.save_screenshot("screenshot.png")
+
+    # Output a success message
+    print("Selenium script executed successfully!")
+
+finally:
+    # Close the WebDriver instance
+    driver.quit()
 
