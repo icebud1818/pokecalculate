@@ -24,13 +24,14 @@ try:
     driver.get("https://www.google.com")
 
     # Interact with the website (example: search for 'GitHub Actions')
-    search_box = driver.find_element(By.NAME, "q")
+    test = driver.find_element(By.XPATH, "/html/body/div[3]/header/div[2]/a[2]")
+    '''
     search_box.send_keys("GitHub Actions")
     search_box.send_keys(Keys.RETURN)
-
+'''
     # Wait for results to load and print page title
     driver.implicitly_wait(10)  # Wait for the page to load
-    print("Page title is:", driver.title)
+    print("Page title is:", test.text)
 
     # Capture a screenshot (optional)
     driver.save_screenshot("screenshot.png")
