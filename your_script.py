@@ -11,6 +11,9 @@ options.add_argument('--disable-dev-shm-usage')  # Solve for memory issues
 options.add_argument('--remote-debugging-port=9222')  # Avoid 'DevToolsActivePort' issue
 options.add_argument('--disable-gpu')  # Disable GPU acceleration
 options.add_argument('--disable-software-rasterizer')  # Disable software rasterization
+options.add_argument('--disable-features=VizDisplayCompositor')  # Fix rendering issues on CI environments
+options.add_argument('--enable-logging')  # Enable logging for debugging purposes
+options.add_argument('--log-level=0')  # Set log level to the least verbose
 
 # Specify the path for the WebDriver using Service (for Selenium 4)
 service = Service(ChromeDriverManager().install())  # Automatically download and use the correct chromedriver
