@@ -1,62 +1,44 @@
-name: Run Selenium Script
+name: Run Selenium Tests
 
 on:
   push:
     branches:
-      - main
+      - main  # Run the workflow on push to the main branch
   pull_request:
     branches:
-      - main
+      - main  # Run the workflow on pull requests to the main branch
 
 jobs:
-  selenium-test:
-    runs-on: ubuntu-latest
+  selenium:
+    runs-on: ubuntu-latest  # The runner environment (latest version of Ubuntu)
 
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v3
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2  # Check out the code in your repository
 
-    - name: Set up Python
+    # Step 2: Set up Python environment
+    - name: Set up Python environment
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'  # Adjust this to your Python version
+        python-version: '3.9'  # You can specify the Python version required for your project
 
-    - name: Install dependencies
+    # Step 3: Install system dependencies
+    - name: Install system dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        sudo apt update  # Update the package list
+        sudo apt install -y wget curl unzip libgconf-2-4  # Install necessary packages
+        sudo add-apt-repository universe  # Add the universe repository if needed
+        sudo apt update  # Update package list again after adding repository
 
-    - name: Set up Chrome dependencies
+    # Step 4: Install Python dependencies from requirements.txt
+    - name: Install Python packages
       run: |
-        sudo apt-get update
-        sudo apt-get install -y wget curl unzip
-        sudo apt-get install -y libx11-dev libx11-6 libxcomposite-dev libxrandr-dev libgdk-pixbuf2.0-0
-        sudo apt-get install -y libnss3 libgconf-2-4
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
-        sudo apt-get -f install
+        python -m pip install --upgrade pip  # Upgrade pip to the latest version
+        pip install -r requirements.txt  # Install Python dependencies listed in requirements.txt
 
-    - name: Install ChromeDriver
+    # Step 5: Run the Selenium tests
+    - name: Run Selenium tests
       run: |
-        CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-
-    - name: Run the Selenium Test
-      run: |
-        python seleniumTest.py
-
-    - name: Save output JSON file
-      run: |
-        echo "Saving output JSON file for review"
-        cat full_output_with_all_columns.json
-        # Optional: Move the file to an artifact for download
-        # mv full_output_with_all_columns.json $GITHUB_WORKSPACE/
-
-    - name: Upload output JSON as artifact (optional)
-      uses: actions/upload-artifact@v3
-      with:
-        name: selenium-output
-        path: full_output_with_all_columns.json
+        python seleniumTest.py  # Execute the seleniumTest.py script
 
