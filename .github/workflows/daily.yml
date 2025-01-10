@@ -2,8 +2,8 @@ name: Selenium Task Every 5 Minutes
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Runs every 5 minutes
-  workflow_dispatch:  # Allow manual trigger of the workflow
+    - cron: '0 0 * * *'  # Runs every 5 minutes
+  workflow_dispatch:  # Allows manual trigger of the workflow
 
 jobs:
   run-selenium-script:
@@ -30,11 +30,11 @@ jobs:
             libatk1.0-0 \
             libcups2 \
             libxss1 \
-            libasound2 \
+            libasound2-t64 \ # Alternative for libasound2
             libappindicator3-1 \
             libx11-xcb1 \
             libgbm1
-          pip install -r requirements.txt  # Install dependencies from requirements.txt
+          pip install -r requirements.txt  # Install Python dependencies
 
       - name: Run the script
         run: |
