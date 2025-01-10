@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main  # Run the workflow on pull requests to the main branch
+  workflow_dispatch:  # This allows manual triggering of the workflow
 
 jobs:
   selenium:
@@ -27,7 +28,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt update  # Update the package list
-        sudo apt install -y wget curl unzip libgconf-2-4  # Install necessary packages
+        sudo apt install -y wget curl unzip  # Install necessary packages without libgconf-2-4
         sudo add-apt-repository universe  # Add the universe repository if needed
         sudo apt update  # Update package list again after adding repository
 
