@@ -7,16 +7,16 @@ on:
 
 jobs:
   run-selenium-script:
-    runs-on: ubuntu-latest  # Uses the latest Ubuntu environment on GitHub Actions
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Checkout the code from your repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Set the version of Python you want to use
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
@@ -34,14 +34,24 @@ jobs:
             libappindicator3-1 \
             libx11-xcb1 \
             libgbm1
-          pip install -r requirements.txt  # Install Python dependencies
+          pip install -r requirements.txt
 
       - name: Set up virtual display
         run: |
           Xvfb :99 -screen 0 1920x1080x24 &  # Start virtual display
-          export DISPLAY=:99  # Set the DISPLAY variable
+          export DISPLAY=:99
+
+      - name: Verify Chrome installation
+        run: |
+          which google-chrome
+          google-chrome --version
 
       - name: Run the script
-        run: |
-          python your_script.py  # Run the Selenium script
+        env:
+          DISPLAY: :99  # Pass the DISPLAY variable to the script
+        run: python your_script.py
+
+      - name: View ChromeDriver Logs
+        if: failure()
+        run: cat /tmp/chromedriver.log
 
