@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Configure Chrome options for headless mode
 options = Options()
@@ -22,19 +24,21 @@ driver = webdriver.Chrome(service=service, options=options)
 try:
     # Navigate to a website (example: Google)
     driver.get("https://www.google.com")
+    print("Navigated to Google.")
 
     # Interact with the website (example: search for 'GitHub Actions')
-    test = driver.find_element(By.XPATH, "/html/body/div[3]/header/div[2]/a[2]")
-    '''
+    search_box = driver.find_element(By.NAME, "q")
     search_box.send_keys("GitHub Actions")
     search_box.send_keys(Keys.RETURN)
-'''
-    # Wait for results to load and print page title
-    driver.implicitly_wait(10)  # Wait for the page to load
-    print("Page title is:", test.text)
+    print("Entered search query.")
+
+    # Wait for the page title to contain the search query
+    WebDriverWait(driver, 10).until(EC.title_contains("GitHub Actions"))
+    print("Page title is:", driver.title)
 
     # Capture a screenshot (optional)
     driver.save_screenshot("screenshot.png")
+    print("Screenshot captured.")
 
     # Output a success message
     print("Selenium script executed successfully!")
@@ -42,4 +46,3 @@ try:
 finally:
     # Close the WebDriver instance
     driver.quit()
-
