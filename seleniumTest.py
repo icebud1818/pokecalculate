@@ -676,9 +676,13 @@ def earlyExSets(url):
 
     tempSet = findSet(setName.strip(), earlyExSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace("&", "and").replace(" ", "+") + "+booster+pack")
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
-    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+    if(tempSet.name != "Dragon"):
+        driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace("&", "and").replace(" ", "+") + "+booster+pack")
+        priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+        packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+    else:
+       packPrice = float(600)
+    
 
     commonQuantity = 5
     uncommonQuantity = 2
