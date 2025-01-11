@@ -303,12 +303,12 @@ def findSet(name, list):
 
 def setReverse():
 
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 10)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
 
-    time.sleep(2)
+    time.sleep(4)
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
 
@@ -316,17 +316,17 @@ def setReverse():
         checkbox = option.find_element(By.CSS_SELECTOR, "input.tcg-input-checkbox__input")  
         if(option.text == "Normal" or option.text == "Holofoil"):
             driver.execute_script("arguments[0].click();", checkbox)
-    time.sleep(1)
-    saveChanges = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
     time.sleep(3)
+    saveChanges = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
+    time.sleep(5)
     saveChanges.click()
 
 def reverseOn():
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 10)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
-    time.sleep(2)
+    time.sleep(3)
 
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
@@ -334,17 +334,17 @@ def reverseOn():
         checkbox = option.find_element(By.CLASS_NAME, "tcg-input-checkbox__input")  
         driver.execute_script("arguments[0].click();", checkbox)
 
-    time.sleep(1)
+    time.sleep(3)
     saveChanges = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
-    time.sleep(2)
+    time.sleep(5)
     saveChanges.click()
 
 def reset():
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 10)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
-    time.sleep(2)
+    time.sleep(3)
 
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
@@ -353,9 +353,9 @@ def reset():
         if(option.text == "Reverse Holofoil"):
             driver.execute_script("arguments[0].click();", checkbox)
 
-    time.sleep(1)
+    time.sleep(3)
     saveChanges = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
-    time.sleep(2)
+    time.sleep(5)
     saveChanges.click()
 
 # Set up Chrome options
@@ -405,7 +405,7 @@ def gen1Calculate(url):
     driver.get(url)
     # Allow the page to load completely
     time.sleep(5)
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
@@ -448,7 +448,7 @@ def gen1Calculate(url):
     else:
         unlimited = "+unlimited"
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + unlimited + "+booster+pack")
-    time.sleep(3)
+    time.sleep(5)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -469,7 +469,7 @@ def gen1Calculate(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(2)
+    time.sleep(5)
     return (expValue / (packPrice)), packPrice, expValue
 
 def earlyReverseSets(url):
@@ -492,15 +492,15 @@ def earlyReverseSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(2)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(5)
+    wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
 
-    time.sleep(3)
+    time.sleep(5)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -522,7 +522,7 @@ def earlyReverseSets(url):
 
 
     reverseOn()
-    time.sleep(2)
+    time.sleep(3)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -560,7 +560,7 @@ def earlyReverseSets(url):
     tempSet = findSet(setName.strip(), earlyReverseSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(1)
+    time.sleep(3)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -582,7 +582,7 @@ def earlyReverseSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(1)
+    time.sleep(2)
     return (expValue / (packPrice)), packPrice, expValue
 
 def earlyExSets(url):
