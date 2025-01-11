@@ -1,58 +1,38 @@
-name: Run Selenium Tests
+name: Selenium Test Automation
 
 on:
-  push:
-    branches:
-      - main  # Run the workflow on push to the main branch
-  pull_request:
-    branches:
-      - main  # Run the workflow on pull requests to the main branch
-  workflow_dispatch:  # This allows manual triggering of the workflow
-
-permissions:
-  contents: write  # Allow write access to repository contents
-  actions: write   # Allow write access to GitHub Actions
+  schedule:
+    - cron: "0 0 * * *"  # Runs at midnight UTC every day
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
-  selenium:
-    runs-on: ubuntu-latest  # The runner environment (latest version of Ubuntu)
+  selenium-test:
+    runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v2  # Check out the code in your repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Step 2: Set up Python environment
-    - name: Set up Python environment
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'  # You can specify the Python version required for your project
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
 
-    # Step 3: Install system dependencies
-    - name: Install system dependencies
-      run: |
-        sudo apt update  # Update the package list
-        sudo apt install -y wget curl unzip  # Install necessary packages without libgconf-2-4
-        sudo add-apt-repository universe  # Add the universe repository if needed
-        sudo apt update  # Update package list again after adding repository
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    # Step 4: Install Python dependencies from requirements.txt
-    - name: Install Python packages
-      run: |
-        python -m pip install --upgrade pip  # Upgrade pip to the latest version
-        pip install -r requirements.txt  # Install Python dependencies listed in requirements.txt
+      - name: Run Selenium Test
+        run: python seleniumTest.py
 
-    # Step 5: Run the Selenium tests
-    - name: Run Selenium tests
-      run: |
-        python seleniumTest.py  # Execute the seleniumTest.py script
-
-    # Step 6: Commit and push the updated JSON file (full_output_with_all_columns.json)
-    - name: Commit and push updated JSON file
-      run: |
-        git config --global user.email "gws18115@gmail.com"  # Replace with your email
-        git config --global user.name "icebud1818"  # Replace with your name
-        git add full_output_with_all_columns.json  # Add the updated JSON file
-        git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"  # Commit changes (if any)
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main  # Push changes using the GitHub token
+      - name: Commit and Push Updated File
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add full_output_with_all_columns.json
+          git commit -m "Update full_output_with_all_columns.json"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
