@@ -26,13 +26,11 @@ jobs:
       - name: Run Selenium Test
         run: python seleniumTest.py
 
-      - name: Commit and Push Updated File
+# Step 6: Commit and push the updated JSON file (full_output_with_all_columns.json)
+      - name: Commit and push updated JSON file
         run: |
-          git config --global icebud1818 "github-actions[bot]"
-          git config --global gws18115@gmail.com "github-actions[bot]@users.noreply.github.com"
-          git add full_output_with_all_columns.json
-          git commit -m "Update full_output_with_all_columns.json"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          git config --global user.email "gws18115@gmail.com"  # Replace with your email
+          git config --global user.name "icebud1818"  # Replace with your name
+          git add full_output_with_all_columns.json  # Add the updated JSON file
+          git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"  # Commit changes (if any)
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main  # Push changes using the GitHub token
