@@ -303,12 +303,12 @@ def findSet(name, list):
 
 def setReverse():
 
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
 
-    time.sleep(4)
+    time.sleep(10)
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
 
@@ -316,17 +316,17 @@ def setReverse():
         checkbox = option.find_element(By.CSS_SELECTOR, "input.tcg-input-checkbox__input")  
         if(option.text == "Normal" or option.text == "Holofoil"):
             driver.execute_script("arguments[0].click();", checkbox)
-    time.sleep(3)
+    time.sleep(10)
     saveChanges = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
-    time.sleep(5)
+    time.sleep(10)
     saveChanges.click()
 
 def reverseOn():
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
-    time.sleep(3)
+    time.sleep(10)
 
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
@@ -334,17 +334,17 @@ def reverseOn():
         checkbox = option.find_element(By.CLASS_NAME, "tcg-input-checkbox__input")  
         driver.execute_script("arguments[0].click();", checkbox)
 
-    time.sleep(3)
+    time.sleep(10)
     saveChanges = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
-    time.sleep(5)
+    time.sleep(10)
     saveChanges.click()
 
 def reset():
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
     #only for sets w/ reverses
     preferences = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/button')))
     preferences.click()
-    time.sleep(3)
+    time.sleep(10)
 
     menu = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[6]/div[2]/div[1]/div[2]')))
     options = menu.find_elements(By.TAG_NAME, "div")
@@ -353,9 +353,9 @@ def reset():
         if(option.text == "Reverse Holofoil"):
             driver.execute_script("arguments[0].click();", checkbox)
 
-    time.sleep(3)
+    time.sleep(10)
     saveChanges = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="app"]/div/div/section[2]/section/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[7]/button[1]')))
-    time.sleep(5)
+    time.sleep(10)
     saveChanges.click()
 
 # Set up Chrome options
@@ -404,7 +404,7 @@ def gen1Calculate(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
@@ -448,7 +448,7 @@ def gen1Calculate(url):
     else:
         unlimited = "+unlimited"
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + unlimited + "+booster+pack")
-    time.sleep(5)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -469,7 +469,7 @@ def gen1Calculate(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(5)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def earlyReverseSets(url):
@@ -492,7 +492,7 @@ def earlyReverseSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
@@ -500,7 +500,7 @@ def earlyReverseSets(url):
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
 
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -522,7 +522,7 @@ def earlyReverseSets(url):
 
 
     reverseOn()
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -560,7 +560,7 @@ def earlyReverseSets(url):
     tempSet = findSet(setName.strip(), earlyReverseSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -582,7 +582,7 @@ def earlyReverseSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(2)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def earlyExSets(url):
@@ -607,14 +607,14 @@ def earlyExSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -636,7 +636,7 @@ def earlyExSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -712,7 +712,7 @@ def earlyExSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def goldStarSets(url):
@@ -738,14 +738,14 @@ def goldStarSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -767,7 +767,7 @@ def goldStarSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -813,7 +813,7 @@ def goldStarSets(url):
     tempSet = findSet(setName.strip(), goldStarSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -850,7 +850,7 @@ def goldStarSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def dpSets(url):
@@ -880,14 +880,14 @@ def dpSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -916,9 +916,9 @@ def dpSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     #tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
-    tbody_element = WebDriverWait(driver, 10).until(
+    tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
@@ -970,7 +970,7 @@ def dpSets(url):
     tempSet = findSet(setName.strip(), levelXSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1012,7 +1012,7 @@ def dpSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def hgssSets(url):
@@ -1040,14 +1040,14 @@ def hgssSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1069,9 +1069,9 @@ def hgssSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     #tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
-    tbody_element = WebDriverWait(driver, 10).until(
+    tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
@@ -1126,7 +1126,7 @@ def hgssSets(url):
     tempSet = findSet(setName.strip(), hgssSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1194,14 +1194,14 @@ def bwSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1223,7 +1223,7 @@ def bwSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     #tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
@@ -1277,7 +1277,7 @@ def bwSets(url):
     tempSet = findSet(setName.strip(), bwSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1317,7 +1317,7 @@ def bwSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def legendaryTreasures():
@@ -1349,14 +1349,14 @@ def legendaryTreasures():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-treasures")
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "")
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1376,9 +1376,9 @@ def legendaryTreasures():
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     #tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
-    tbody_element = WebDriverWait(driver, 10).until(
+    tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
@@ -1414,10 +1414,10 @@ def legendaryTreasures():
 
     reset()
 
-    time.sleep(5)
+    time.sleep(10)
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-treasures-radiant-collection")
     # Allow the page to load completely
-    time.sleep(3)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
 
     tbody_element = WebDriverWait(driver, 15).until(
@@ -1445,7 +1445,7 @@ def legendaryTreasures():
             #print(f"Error processing row:")
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + "legendary+treasures+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1488,7 +1488,7 @@ def legendaryTreasures():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def xySets(url):
@@ -1517,14 +1517,14 @@ def xySets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1545,7 +1545,7 @@ def xySets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
@@ -1607,7 +1607,7 @@ def xySets(url):
     else:
         modifier = tempSet.name.split("-")[1].strip().replace(" ", "+") + "+booster+pack"
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + modifier)
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1649,7 +1649,7 @@ def xySets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def smSets(url):
@@ -1680,14 +1680,14 @@ def smSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1708,7 +1708,7 @@ def smSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
@@ -1765,7 +1765,7 @@ def smSets(url):
     else:
         modifier = tempSet.name.split("-")[1].strip().replace(" ", "+") + "+booster+pack"
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + modifier)
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1805,7 +1805,7 @@ def smSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice)), packPrice, expValue
 
 def swshSets(url):
@@ -1838,14 +1838,14 @@ def swshSets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -1866,7 +1866,7 @@ def swshSets(url):
 
 
     reverseOn()
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
@@ -1922,7 +1922,7 @@ def swshSets(url):
     tempSet = findSet(setName.strip(), swshSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace("&", "and").replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -1966,7 +1966,7 @@ def swshSets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def lateSwshSets(url, url2):
@@ -2003,14 +2003,14 @@ def lateSwshSets(url, url2):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2031,8 +2031,8 @@ def lateSwshSets(url, url2):
 
 
     reverseOn()
-    time.sleep(5)
-    tbody_element = WebDriverWait(driver, 10).until(
+    time.sleep(10)
+    tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
@@ -2090,10 +2090,10 @@ def lateSwshSets(url, url2):
 
     driver.get(url2)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
 
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2114,7 +2114,7 @@ def lateSwshSets(url, url2):
     tempSet = findSet(setName.strip(), lateSwshSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2161,7 +2161,7 @@ def lateSwshSets(url, url2):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def svsets(url):
@@ -2192,14 +2192,14 @@ def svsets(url):
 
     driver.get(url)
     # Allow the page to load completely
-    time.sleep(5)
+    time.sleep(10)
     wait = WebDriverWait(driver, 15)
     
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(5)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2220,8 +2220,8 @@ def svsets(url):
 
 
     reverseOn()
-    time.sleep(5)
-    tbody_element = WebDriverWait(driver, 10).until(
+    time.sleep(10)
+    tbody_element = WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "tbody.tcg-table-body"))
 )
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
@@ -2273,7 +2273,7 @@ def svsets(url):
     tempSet = findSet(setName.strip(), svSetList)
 
     driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace("&", "and").replace(" ", "+") + "+booster+pack")
-    time.sleep(3)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2314,7 +2314,7 @@ def svsets(url):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(3)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 expectedValueList = []
