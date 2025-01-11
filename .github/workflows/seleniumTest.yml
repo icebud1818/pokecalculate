@@ -52,3 +52,12 @@ jobs:
         git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"  # Commit changes (if any)
         git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main  # Push changes using the GitHub token
 
+    # Step 7: Upload debug artifacts if the Selenium test fails
+    - name: Upload debug artifacts on failure
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: selenium-debug-artifacts
+        path: |
+          error_screenshot.png
+          page_source.html
