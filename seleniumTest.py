@@ -739,7 +739,7 @@ def goldStarSets(url):
     driver.get(url)
     # Allow the page to load completely
     time.sleep(10)
-    wait = WebDriverWait(driver, 15)
+    wait = WebDriverWait(driver, 30)
     
     setReverse()
 
