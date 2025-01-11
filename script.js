@@ -38,7 +38,7 @@ function initializePacks(data) {
     }));
 
     const lastUpdated = data[0]["Last Updated"];
-    document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated}`;
+    document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated} UTC`;
 
     applyFilter(); // Apply the default filter (all packs)
 }
