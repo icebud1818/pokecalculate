@@ -19,41 +19,45 @@ from datetime import datetime
 
 
 class VintageSet:
-    def __init__(self, name, url, secretOdds, commonsPer):
+    def __init__(self, name, url, secretOdds, commonsPer, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
         self.commonsPer = commonsPer 
         self.holoOdds = .33 - self.secretOdds
+        self.productId = productId
 
 class EarlyReverseSet:
-    def __init__(self, name, url, secretOdds, commonsPer, uncommonsPer):
+    def __init__(self, name, url, secretOdds, commonsPer, uncommonsPer, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
         self.commonsPer = commonsPer 
         self.uncommonsPer = uncommonsPer
         self.holoOdds = .33 - self.secretOdds
+        self.productId = productId
 
 class EarlyExSet:
-    def __init__(self, name, url, secretOdds, ultraOdds):
+    def __init__(self, name, url, secretOdds, ultraOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
         self.ultraOdds = ultraOdds
         self.holoOdds = .33 - self.secretOdds - self.ultraOdds
+        self.productId = productId
 
 class GoldStarSet:
-    def __init__(self, name, url, secretOdds, ultraOdds, goldStarOdds):
+    def __init__(self, name, url, secretOdds, ultraOdds, goldStarOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
         self.ultraOdds = ultraOdds
         self.goldStarOdds = goldStarOdds
         self.holoOdds = .33 - self.secretOdds - self.ultraOdds - self.goldStarOdds
+        self.productId = productId
 
 class LevelXSet:
-    def __init__(self, name, url, secretOdds, ultraOdds, shinyOdds, rotomOdds, arceusOdds):
+    def __init__(self, name, url, secretOdds, ultraOdds, shinyOdds, rotomOdds, arceusOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -63,9 +67,10 @@ class LevelXSet:
         self.arceusOdds = arceusOdds
         self.reverseOdds = 1 - self.shinyOdds - self.rotomOdds - self.arceusOdds
         self.holoOdds = .33 - self.secretOdds - self.ultraOdds
+        self.productId = productId
 
 class HgssSet:
-    def __init__(self, name, url, secretOdds, primeOdds, legendOdds, shinyOdds):
+    def __init__(self, name, url, secretOdds, primeOdds, legendOdds, shinyOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -74,9 +79,10 @@ class HgssSet:
         self.shinyOdds = shinyOdds
         self.reverseOdds = 1 - self.primeOdds - self.shinyOdds
         self.holoOdds = .33 - self.secretOdds - self.legendOdds
+        self.productId = productId
 
 class BWSet:
-    def __init__(self, name, url, secretOdds, exOdds, faOdds, aceOdds):
+    def __init__(self, name, url, secretOdds, exOdds, faOdds, aceOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -85,9 +91,10 @@ class BWSet:
         self.aceOdds = aceOdds
         self.reverseOdds = 1 - self.aceOdds
         self.holoOdds = .33 - self.secretOdds - self.exOdds - self.faOdds
+        self.productId = productId
 
 class XYSet:
-    def __init__(self, name, url, secretOdds, exOdds, faOdds, breakOdds):
+    def __init__(self, name, url, secretOdds, exOdds, faOdds, breakOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -96,9 +103,10 @@ class XYSet:
         self.breakOdds = breakOdds
         self.reverseOdds = 1 - self.breakOdds
         self.holoOdds = (1/6)
+        self.productId = productId
 
 class SMSet:
-    def __init__(self, name, url, secretOdds, gxOdds, faOdds, prismOdds, galleryOdds):
+    def __init__(self, name, url, secretOdds, gxOdds, faOdds, prismOdds, galleryOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -109,9 +117,10 @@ class SMSet:
         self.reverseOdds = 1 - galleryOdds - prismOdds
         self.holoOdds = .33 - secretOdds - gxOdds - faOdds
         self.rareOdds = 1 - self.holoOdds - secretOdds - gxOdds - faOdds
+        self.productId = productId
 
 class SWSHSet:
-    def __init__(self, name, url, secretOdds, vOdds, vmaxOdds, faOdds, arOdds, altOdds):
+    def __init__(self, name, url, secretOdds, vOdds, vmaxOdds, faOdds, arOdds, altOdds, productId):
         self.name = name
         self.url = url
         self.secretOdds = secretOdds
@@ -123,9 +132,10 @@ class SWSHSet:
         self.reverseOdds = 1 - arOdds
         self.holoOdds = .33 - secretOdds - vOdds - vmaxOdds - faOdds - altOdds
         self.rareOdds = 1 - self.holoOdds - vOdds - vmaxOdds - faOdds - secretOdds - altOdds
+        self.productId = productId
 
 class lateSWSHSet:
-    def __init__(self, name, url, url2, holoOdds, secretOdds, vOdds, vmaxOdds, vstarOdds, faOdds, altOdds, tgOdds, radiantOdds):
+    def __init__(self, name, url, url2, holoOdds, secretOdds, vOdds, vmaxOdds, vstarOdds, faOdds, altOdds, tgOdds, radiantOdds, productId):
         self.name = name
         self.url = url
         self.url2 = url2
@@ -140,9 +150,10 @@ class lateSWSHSet:
         self.holoOdds = holoOdds
         self.radiantOdds = radiantOdds
         self.rareOdds = 1 - vOdds - vmaxOdds - faOdds - secretOdds - altOdds - holoOdds
+        self.productId = productId
 
 class svSet:
-    def __init__(self, name, url, hyperOdds, doubleOdds, ultraOdds, irOdds, sirOdds, aceOdds):
+    def __init__(self, name, url, hyperOdds, doubleOdds, ultraOdds, irOdds, sirOdds, aceOdds, productId):
         self.name = name
         self.url = url
         self.hyperOdds = hyperOdds
@@ -153,146 +164,147 @@ class svSet:
         self.aceOdds = aceOdds
         self.reverseOdds = (1 - aceOdds) + (1 - irOdds - sirOdds)
         self.rareOdds = 1 - doubleOdds - ultraOdds
+        self.productId = productId
 
 
 vintageSetList = [
-    VintageSet("Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set", 0, 5),
-    VintageSet("Jungle", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/jungle", 0, 7),
-    VintageSet("Fossil", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/fossil", 0, 7),
-    VintageSet("Base Set 2", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set-2", 0, 7),
-    VintageSet("Team Rocket", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket", 1/81, 7),
-    VintageSet("Gym Heroes", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/gym-heroes", 0, 7),
-    VintageSet("Gym Challenge", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/gym-challenge", 0, 7),
-    VintageSet("Neo Genesis", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-genesis", 0, 7),
-    VintageSet("Neo Discovery", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-discovery", 0, 7),
-    VintageSet("Neo Revelation", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-revelation", 1/18, 7),
-    VintageSet("Neo Destiny", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-destiny", 1/12, 7)
+    VintageSet("Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set", 0, 5, 138130),
+    VintageSet("Jungle", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/jungle", 0, 7, 138129),
+    VintageSet("Fossil", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/fossil", 0, 7, 138134),
+    VintageSet("Base Set 2", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set-2", 0, 7, 138149),
+    VintageSet("Team Rocket", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket", 1/81, 7, 138135),
+    VintageSet("Gym Heroes", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/gym-heroes", 0, 7, 138138),
+    VintageSet("Gym Challenge", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/gym-challenge", 0, 7, 138139),
+    VintageSet("Neo Genesis", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-genesis", 0, 7, 138142),
+    VintageSet("Neo Discovery", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-discovery", 0, 7, 138143),
+    VintageSet("Neo Revelation", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-revelation", 1/18, 7, 138146),
+    VintageSet("Neo Destiny", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/neo-destiny", 1/12, 7, 138147)
 ]
 
 earlyReverseSetList = [
-    EarlyReverseSet("Legendary Collection", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-collection", 0, 6, 3),
-    EarlyReverseSet("Expedition", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/expedition", 0, 5, 2),
-    EarlyReverseSet("Aquapolis", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/aquapolis", 1/36, 5, 2),
-    EarlyReverseSet("Skyridge", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/skyridge", 1/15, 5, 2)
+    EarlyReverseSet("Legendary Collection", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-collection", 0, 6, 3, 138150),
+    EarlyReverseSet("Expedition", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/expedition", 0, 5, 2, 138151),
+    EarlyReverseSet("Aquapolis", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/aquapolis", 1/36, 5, 2, 138152),
+    EarlyReverseSet("Skyridge", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/skyridge", 1/15, 5, 2, 138153)
 ]
 
 earlyExSetList = [
-    EarlyExSet("Ruby and Sapphire", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/ruby-and-sapphire", 0, 1/15),
-    EarlyExSet("Sandstorm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sandstorm", 0, 1/15),
-    EarlyExSet("Dragon", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon", 1/36, 1/15),
-    EarlyExSet("Team Magma vs Team Aqua", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-magma-vs-team-aqua", 1/36, 1/15),
-    EarlyExSet("Hidden Legends", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/hidden-legends", 0, 1/15),
-    EarlyExSet("FireRed & LeafGreen", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/firered-and-leafgreen", 1/36, 1/15),
-    EarlyExSet("Emerald", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerald", 0, 1/15)
+    EarlyExSet("Ruby and Sapphire", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/ruby-and-sapphire", 0, 1/15, 98558),
+    EarlyExSet("Sandstorm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sandstorm", 0, 1/15, 98565),
+    EarlyExSet("Dragon", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon", 1/36, 1/15, 98519),
+    EarlyExSet("Team Magma vs Team Aqua", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-magma-vs-team-aqua", 1/36, 1/15, 98550),
+    EarlyExSet("Hidden Legends", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/hidden-legends", 0, 1/15, 98595),
+    EarlyExSet("FireRed & LeafGreen", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/firered-and-leafgreen", 1/36, 1/15, 98946),
+    EarlyExSet("Emerald", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerald", 0, 1/15, 98546)
 ]
 
 goldStarSetList = [
-    GoldStarSet("Team Rocket Returns", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket-returns", 1/36, 1/15, 1/72),
-    GoldStarSet("Deoxys", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/deoxys", 0, 1/15, 1/72),
-    GoldStarSet("Unseen Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unseen-forces", 1/36, 1/15, 1/72),
-    GoldStarSet("Delta Species", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/delta-species", 0, 1/15, 1/72),
-    GoldStarSet("Legend Maker", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legend-maker", 0, 1/15, 1/72),
-    GoldStarSet("Holon Phantoms", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/holon-phantoms", 0, 1/36, 1/72),
-    GoldStarSet("Crystal Guardians", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crystal-guardians", 0, 1/15, 1/72),
-    GoldStarSet("Dragon Frontiers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-frontiers", 0, 1/15, 1/72),
-    GoldStarSet("Power Keepers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/power-keepers", 0, 1/10, 1/54)
+    GoldStarSet("Team Rocket Returns", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket-returns", 1/36, 1/15, 1/72, 98578),
+    GoldStarSet("Deoxys", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/deoxys", 0, 1/15, 1/72, 98562),
+    GoldStarSet("Unseen Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unseen-forces", 1/36, 1/15, 1/72, 98577),
+    GoldStarSet("Delta Species", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/delta-species", 0, 1/15, 1/72, 98944),
+    GoldStarSet("Legend Maker", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legend-maker", 0, 1/15, 1/72, 98557),
+    GoldStarSet("Holon Phantoms", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/holon-phantoms", 0, 1/36, 1/72, 98522),
+    GoldStarSet("Crystal Guardians", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crystal-guardians", 0, 1/15, 1/72, 98566),
+    GoldStarSet("Dragon Frontiers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-frontiers", 0, 1/15, 1/72, 98533),
+    GoldStarSet("Power Keepers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/power-keepers", 0, 1/10, 1/54, 98529)
 ]
 
 levelXSetList = [
-    LevelXSet("Diamond and Pearl", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/diamond-and-pearl", 0, 1/36, 0, 0, 0),
-    LevelXSet("Mysterious Treasures", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/mysterious-treasures", 1/72, 1/36, 0, 0, 0),
-    LevelXSet("Secret Wonders", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/secret-wonders", 0, 1/36, 0, 0, 0),
-    LevelXSet("Great Encounters", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/great-encounters", 0, 1/36, 0, 0, 0),
-    LevelXSet("Majestic Dawn", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/majestic-dawn", 0, 1/36, 0, 0, 0),
-    LevelXSet("Legends Awakened", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legends-awakened", 0, 1/12, 0, 0, 0),
-    LevelXSet("Stormfront", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/stormfront", 1/36, 1/12, 1/36, 0, 0),
-    LevelXSet("Platinum", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/platinum", 1/36, 1/12, 1/36, 0, 0),
-    LevelXSet("Rising Rivals", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/rising-rivals", 1/36, 1/12, 0, 1/18, 0),
-    LevelXSet("Supreme Victors", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/supreme-victors", 1/36, 1/12, 1/36, 0, 0),
-    LevelXSet("Arceus", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/arceus", 0, 1/12, 1/36, 0, 1/4)
+    LevelXSet("Diamond and Pearl", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/diamond-and-pearl", 0, 1/36, 0, 0, 0, 98525),
+    LevelXSet("Mysterious Treasures", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/mysterious-treasures", 1/72, 1/36, 0, 0, 0, 98561),
+    LevelXSet("Secret Wonders", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/secret-wonders", 0, 1/36, 0, 0, 0, 98569),
+    LevelXSet("Great Encounters", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/great-encounters", 0, 1/36, 0, 0, 0, 98545),
+    LevelXSet("Majestic Dawn", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/majestic-dawn", 0, 1/36, 0, 0, 0, 98585),
+    LevelXSet("Legends Awakened", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legends-awakened", 0, 1/12, 0, 0, 0, 98537),
+    LevelXSet("Stormfront", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/stormfront", 1/36, 1/12, 1/36, 0, 0, 98589),
+    LevelXSet("Platinum", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/platinum", 1/36, 1/12, 1/36, 0, 0, 98591),
+    LevelXSet("Rising Rivals", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/rising-rivals", 1/36, 1/12, 0, 1/18, 0, 98542),
+    LevelXSet("Supreme Victors", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/supreme-victors", 1/36, 1/12, 1/36, 0, 0, 98574),
+    LevelXSet("Arceus", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/arceus", 0, 1/12, 1/36, 0, 1/4, 98594)
 ]
 
 hgssSetList = [
-    HgssSet("HeartGold SoulSilver", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/heartgold-soulsilver", 1/108, 1/6, 1/12, 0),
-    HgssSet("Unleashed", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unleashed", 1/108, 1/7, 1/12, 0),
-    HgssSet("Undaunted", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/undaunted", 1/108, 1/7, 1/12, 0),
-    HgssSet("Triumphant", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/triumphant", 1/108, 1/7, 1/12, 0),
-    HgssSet("Call of Legends", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/call-of-legends", 0, 0, 0, 1/18)
+    HgssSet("HeartGold SoulSilver", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/heartgold-soulsilver", 1/108, 1/6, 1/12, 0, 98530),
+    HgssSet("Unleashed", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unleashed", 1/108, 1/7, 1/12, 0, 98582),
+    HgssSet("Undaunted", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/undaunted", 1/108, 1/7, 1/12, 0, 98586),
+    HgssSet("Triumphant", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/triumphant", 1/108, 1/7, 1/12, 0, 98534),
+    HgssSet("Call of Legends", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/call-of-legends", 0, 0, 0, 1/18, 98515)
 ]
 
 bwSetList = [
-    BWSet("Black and White", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/black-and-white", 1/72, 0, 1/36, 0),
-    BWSet("Emerging Powers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerging-powers", 0, 0, 1/36, 0),
-    BWSet("Noble Victories", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/noble-victories", 1/72, 0, 1/18, 0),
-    BWSet("Next Destinies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/next-destinies", 1/72, 1/18, 1/36, 0),
-    BWSet("Dark Explorers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dark-explorers", 1/72, 1/18, 1/36, 0),
-    BWSet("Dragons Exalted", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragons-exalted", 1/72, 1/18, 1/36, 0),
-    BWSet("Boundaries Crossed", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/boundaries-crossed", 1/72, 1/18, 1/36, 1/36),
-    BWSet("Plasma Storm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-storm", 1/72, 1/18, 1/36, 1/36),
-    BWSet("Plasma Freeze", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-freeze", 1/72, 1/18, 1/36, 1/36),
-    BWSet("Plasma Blast", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-blast", 1/72, 1/18, 1/36, 1/36)
+    BWSet("Black and White", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/black-and-white", 1/72, 0, 1/36, 0, 98553),
+    BWSet("Emerging Powers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerging-powers", 0, 0, 1/36, 0, 98549),
+    BWSet("Noble Victories", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/noble-victories", 1/72, 0, 1/18, 0, 98570),
+    BWSet("Next Destinies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/next-destinies", 1/72, 1/18, 1/36, 0, 98538),
+    BWSet("Dark Explorers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dark-explorers", 1/72, 1/18, 1/36, 0, 98521),
+    BWSet("Dragons Exalted", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragons-exalted", 1/72, 1/18, 1/36, 0, 98541),
+    BWSet("Boundaries Crossed", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/boundaries-crossed", 1/72, 1/18, 1/36, 1/36, 98554),
+    BWSet("Plasma Storm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-storm", 1/72, 1/18, 1/36, 1/36, 98526),
+    BWSet("Plasma Freeze", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-freeze", 1/72, 1/18, 1/36, 1/36, 98517),
+    BWSet("Plasma Blast", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/plasma-blast", 1/72, 1/18, 1/36, 1/36, 98573)
 ]
 
 legendaryTreasuresUrl = "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-treasures"
 legendaryTreasuresRadiantUrl = "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legendary-treasures-radiant-collection"
 
 xySetList = [
-    XYSet("XY Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-base-set", 0, 1/18, 1/36, 0),
-    XYSet("XY - Flashfire", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-flashfire", 1/72, 1/12, 1/18, 0),
-    XYSet("XY - Furious Fists", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-furious-fists", 1/72, 1/12, 1/18, 0),
-    XYSet("XY - Phantom Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-phantom-forces", 1/72, 1/9, 1/18, 0),
-    XYSet("XY - Primal Clash", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-primal-clash", 1/72, 1/9, 1/18, 0),
-    XYSet("XY - Roaring Skies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-roaring-skies", 1/72, 1/9, 1/18, 0),
-    XYSet("XY - Ancient Origins", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-ancient-origins", 1/72, 1/6, 1/12, 0),
-    XYSet("XY - BREAKthrough", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-breakthrough", 1/72, 1/6, 1/12, 1/12),
-    XYSet("XY - BREAKpoint", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-breakpoint", 1/72, 1/6, 1/12, 1/12),
-    XYSet("XY - Fates Collide", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-fates-collide", 1/72, 1/6, 1/12, 1/12),
-    XYSet("XY - Steam Siege", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-steam-siege", 1/72, 1/6, 1/12, 1/12),
-    XYSet("XY - Evolutions", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-evolutions", 0, 1/6, 1/12, 1/12)
+    XYSet("XY Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-base-set", 0, 1/18, 1/36, 0, 91602),
+    XYSet("XY - Flashfire", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-flashfire", 1/72, 1/12, 1/18, 0, 91595),
+    XYSet("XY - Furious Fists", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-furious-fists", 1/72, 1/12, 1/18, 0, 92169),
+    XYSet("XY - Phantom Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-phantom-forces", 1/72, 1/9, 1/18, 0, 94622),
+    XYSet("XY - Primal Clash", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-primal-clash", 1/72, 1/9, 1/18, 0, 97751),
+    XYSet("XY - Roaring Skies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-roaring-skies", 1/72, 1/9, 1/18, 0, 129906),
+    XYSet("XY - Ancient Origins", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-ancient-origins", 1/72, 1/6, 1/12, 0, 100490),
+    XYSet("XY - BREAKthrough", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-breakthrough", 1/72, 1/6, 1/12, 1/12, 107666),
+    XYSet("XY - BREAKpoint", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-breakpoint", 1/72, 1/6, 1/12, 1/12, 111279),
+    XYSet("XY - Fates Collide", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-fates-collide", 1/72, 1/6, 1/12, 1/12, 168114),
+    XYSet("XY - Steam Siege", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-steam-siege", 1/72, 1/6, 1/12, 1/12, 130013),
+    XYSet("XY - Evolutions", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/xy-evolutions", 0, 1/6, 1/12, 1/12, 129907)
 ]
 
 smSetList = [
-    SMSet("SM Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-base-set", .0277, 1/9, 1/24, 0, 0),
-    SMSet("SM - Guardians Rising", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-guardians-rising", .0265, 1/9, 1/28, 0, 0),
-    SMSet("SM - Burning Shadows", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-burning-shadows", .0276, 1/9, 1/25, 0, 0),
-    SMSet("SM - Crimson Invasion", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-crimson-invasion", .0222, 1/12, 1/22, 0, 0),
-    SMSet("SM - Ultra Prism", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-ultra-prism", .0254, 1/12, 1/22, 1/12, 0),
-    SMSet("SM - Forbidden Light", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-forbidden-light", .0227, 1/12, 1/28, 1/12, 0),
-    SMSet("SM - Celestial Storm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-celestial-storm", .0229, 1/9, 1/28, 1/18, 0),
-    SMSet("SM - Lost Thunder", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-lost-thunder", .0255, 1/10, 1/22, 1/9, 0),
-    SMSet("SM - Team Up", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-team-up", 0.0176, 1/10, 1/22, 1/18, 0),
-    SMSet("SM - Unbroken Bonds", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-unbroken-bonds", .0228, 1/10, 1/22, 0, 0),
-    SMSet("SM - Unified Minds", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-unified-minds", .0228, 1/8, 1/22, 0, 0),
-    SMSet("SM - Cosmic Eclipse", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-cosmic-eclipse", 0.02861, 1/9, 1/27, 0, 1/9)
+    SMSet("SM Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-base-set", .0277, 1/9, 1/24, 0, 0, 129385),
+    SMSet("SM - Guardians Rising", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-guardians-rising", .0265, 1/9, 1/28, 0, 0, 129889),
+    SMSet("SM - Burning Shadows", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-burning-shadows", .0276, 1/9, 1/25, 0, 0, 133774),
+    SMSet("SM - Crimson Invasion", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-crimson-invasion", .0222, 1/12, 1/22, 0, 0, 146996),
+    SMSet("SM - Ultra Prism", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-ultra-prism", .0254, 1/12, 1/22, 1/12, 0, 155662),
+    SMSet("SM - Forbidden Light", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-forbidden-light", .0227, 1/12, 1/28, 1/12, 0, 164297),
+    SMSet("SM - Celestial Storm", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-celestial-storm", .0229, 1/9, 1/28, 1/18, 0, 170274),
+    SMSet("SM - Lost Thunder", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-lost-thunder", .0255, 1/10, 1/22, 1/9, 0, 175510),
+    SMSet("SM - Team Up", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-team-up", 0.0176, 1/10, 1/22, 1/18, 0, 181699),
+    SMSet("SM - Unbroken Bonds", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-unbroken-bonds", .0228, 1/10, 1/22, 0, 0, 185718),
+    SMSet("SM - Unified Minds", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-unified-minds", .0228, 1/8, 1/22, 0, 0, 191883),
+    SMSet("SM - Cosmic Eclipse", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-cosmic-eclipse", 0.02861, 1/9, 1/27, 0, 1/9, 199263)
 ]
 
 swshSetList = [
-    SWSHSet("SWSH01: Sword & Shield Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh01-sword-and-shield-base-set", 0.0237, 1/7, 1/45, 1/27, 0, 0),
-    SWSHSet("SWSH02: Rebel Clash", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh02-rebel-clash", 0.0263, 1/8, 1/30, 1/27, 0, 0),
-    SWSHSet("SWSH03: Darkness Ablaze", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh03-darkness-ablaze", 0.0239, 1/8, 1/26, 1/27, 0, 0),
-    SWSHSet("SWSH04: Vivid Voltage", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh04-vivid-voltage", 0.0452, 1/8, 1/24, 1/24, 1/20, 0),
-    SWSHSet("SWSH05: Battle Styles", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh05-battle-styles", 0.0187, 1/8, 1/24, 1/48 + 1/94, 0, 1/201 + 1/703),
-    SWSHSet("SWSH06: Chilling Reign", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh06-chilling-reign", 0.0196, 1/8, 1/24, 1/49 + 1/78, 0, 1/147 + 1/454),
-    SWSHSet("SWSH07: Evolving Skies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh07-evolving-skies", 0.0225, 1/8, 1/18, 1/197 + 1/56, 0, 1/82 + 1/283),
-    SWSHSet("SWSH08: Fusion Strike", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh08-fusion-strike", 0.0160, 1/8, 1/30, 1/64 + 1/58, 0, 1/180 + 1/332),
+    SWSHSet("SWSH01: Sword & Shield Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh01-sword-and-shield-base-set", 0.0237, 1/7, 1/45, 1/27, 0, 0, 206028),
+    SWSHSet("SWSH02: Rebel Clash", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh02-rebel-clash", 0.0263, 1/8, 1/30, 1/27, 0, 0, 210562),
+    SWSHSet("SWSH03: Darkness Ablaze", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh03-darkness-ablaze", 0.0239, 1/8, 1/26, 1/27, 0, 0, 216852),
+    SWSHSet("SWSH04: Vivid Voltage", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh04-vivid-voltage", 0.0452, 1/8, 1/24, 1/24, 1/20, 0, 221312),
+    SWSHSet("SWSH05: Battle Styles", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh05-battle-styles", 0.0187, 1/8, 1/24, 1/48 + 1/94, 0, 1/201 + 1/703, 229276),
+    SWSHSet("SWSH06: Chilling Reign", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh06-chilling-reign", 0.0196, 1/8, 1/24, 1/49 + 1/78, 0, 1/147 + 1/454, 236257),
+    SWSHSet("SWSH07: Evolving Skies", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh07-evolving-skies", 0.0225, 1/8, 1/18, 1/197 + 1/56, 0, 1/82 + 1/283, 244337),
+    SWSHSet("SWSH08: Fusion Strike", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh08-fusion-strike", 0.0160, 1/8, 1/30, 1/64 + 1/58, 0, 1/180 + 1/332, 247646),
 ]
 
 lateSwshSetList = [
-    lateSWSHSet("SWSH09: Brilliant Stars", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh09-brilliant-stars", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh09-brilliant-stars-trainer-gallery", .264, .0191, 1/7, 1/96, 1/43, 1/30, 1/127, 0.1944, 0 ),
-    lateSWSHSet("SWSH10: Astral Radiance", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh10-astral-radiance", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh10-astral-radiance-trainer-gallery", .255, .0141, .1512, .0081, .0026, .0537, 1/135, .125, .0488),
-    lateSWSHSet("SWSH11: Lost Origin", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh11-lost-origin", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh11-lost-origin-trainer-gallery", .265, .0316, .1309, .0167, .0418, .046, 14/2211, .1146, .0404),
-    lateSWSHSet("SWSH12: Silver Tempest", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh12-silver-tempest", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh12-silver-tempest-trainer-gallery", .254, .0287, .1295, .0167, .0279, .0599, 1/684+1/636+1/636+1/741, .1146, .0557),
+    lateSWSHSet("SWSH09: Brilliant Stars", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh09-brilliant-stars", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh09-brilliant-stars-trainer-gallery", .264, .0191, 1/7, 1/96, 1/43, 1/30, 1/127, 0.1944, 0, 256124 ),
+    lateSWSHSet("SWSH10: Astral Radiance", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh10-astral-radiance", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh10-astral-radiance-trainer-gallery", .255, .0141, .1512, .0081, .0026, .0537, 1/135, .125, .0488, 265521),
+    lateSWSHSet("SWSH11: Lost Origin", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh11-lost-origin", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh11-lost-origin-trainer-gallery", .265, .0316, .1309, .0167, .0418, .046, 14/2211, .1146, .0404, 277325),
+    lateSWSHSet("SWSH12: Silver Tempest", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh12-silver-tempest", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/swsh12-silver-tempest-trainer-gallery", .254, .0287, .1295, .0167, .0279, .0599, 1/684+1/636+1/636+1/741, .1146, .0557, 283388),
 ]
 
 svSetList = [
-    svSet("SV01: Scarlet & Violet Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv01-scarlet-and-violet-base-set", .0185, .1428, .0666, .0769, .03125, 0 ),
-    svSet("SV02: Paldea Evolved", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv02-paldea-evolved", .0175, .1428, .0666, .0769, .03125, 0 ),
-    svSet("SV03: Obsidian Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv03-obsidian-flames", .0192, .1428, .0666, .0769, .03125, 0 ),
-    svSet("SV04: Paradox Rift", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv04-paradox-rift", .0121, .1666, .0666, .0769, .0212, 0 ),
-    svSet("SV05: Temporal Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv05-temporal-forces", .0071, .1666, .0666, .0769, .0116, .05 ),
-    svSet("SV06: Twilight Masquerade", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv06-twilight-masquerade", .0175, .1666, .0666, .0769, .0116, .05 ),
-    svSet("SV07: Stellar Crown", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv07-stellar-crown", .0192, .1666, .0666, .0769, .0111, .05 ),
-    svSet("SV08: Surging Sparks", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv08-surging-sparks", .0121, .1666, .0666, .0769, .0114, .05 ),
+    svSet("SV01: Scarlet & Violet Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv01-scarlet-and-violet-base-set", .0185, .1428, .0666, .0769, .03125, 0, 476451 ),
+    svSet("SV02: Paldea Evolved", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv02-paldea-evolved", .0175, .1428, .0666, .0769, .03125, 0, 493976 ),
+    svSet("SV03: Obsidian Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv03-obsidian-flames", .0192, .1428, .0666, .0769, .03125, 0, 501256 ),
+    svSet("SV04: Paradox Rift", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv04-paradox-rift", .0121, .1666, .0666, .0769, .0212, 0, 512822 ),
+    svSet("SV05: Temporal Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv05-temporal-forces", .0071, .1666, .0666, .0769, .0116, .05, 532841 ),
+    svSet("SV06: Twilight Masquerade", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv06-twilight-masquerade", .0175, .1666, .0666, .0769, .0116, .05, 543843 ),
+    svSet("SV07: Stellar Crown", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv07-stellar-crown", .0192, .1666, .0666, .0769, .0111, .05, 557331 ),
+    svSet("SV08: Surging Sparks", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv08-surging-sparks", .0121, .1666, .0666, .0769, .0114, .05, 565604 ),
 ]
 
 def findSet(name, list):
@@ -443,13 +455,9 @@ def gen1Calculate(url):
 
     tempSet = findSet(setName.strip(), vintageSetList)
 
-    if(tempSet.name == "Base Set 2"):
-        unlimited = ""
-    else:
-        unlimited = "+unlimited"
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + unlimited + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     expValue = 0
@@ -559,9 +567,9 @@ def earlyReverseSets(url):
 
     tempSet = findSet(setName.strip(), earlyReverseSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     expValue = 0
@@ -676,12 +684,10 @@ def earlyExSets(url):
 
     tempSet = findSet(setName.strip(), earlyExSetList)
 
-    if(tempSet.name != "Dragon"):
-        driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace("&", "and").replace(" ", "+") + "+booster+pack")
-        priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
-        packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
-    else:
-       packPrice = float(600)
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
     
 
     commonQuantity = 5
@@ -812,9 +818,9 @@ def goldStarSets(url):
 
     tempSet = findSet(setName.strip(), goldStarSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -969,9 +975,9 @@ def dpSets(url):
 
     tempSet = findSet(setName.strip(), levelXSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1125,9 +1131,9 @@ def hgssSets(url):
 
     tempSet = findSet(setName.strip(), hgssSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1276,9 +1282,9 @@ def bwSets(url):
 
     tempSet = findSet(setName.strip(), bwSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1444,9 +1450,9 @@ def legendaryTreasures():
             pass
             #print(f"Error processing row:")
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + "legendary+treasures+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/98581")
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 4
@@ -1602,13 +1608,9 @@ def xySets(url):
 
     tempSet = findSet(setName.strip(), xySetList)
 
-    if(tempSet.name == "XY Base Set"):
-        modifier = "XY+base+booster+pack"
-    else:
-        modifier = tempSet.name.split("-")[1].strip().replace(" ", "+") + "+booster+pack"
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + modifier)
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1760,13 +1762,9 @@ def smSets(url):
 
     tempSet = findSet(setName.strip(), smSetList)
 
-    if(tempSet.name == "SM Base Set"):
-        modifier = "Sun+and+Moon+Base+booster+pack"
-    else:
-        modifier = tempSet.name.split("-")[1].strip().replace(" ", "+") + "+booster+pack"
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + modifier)
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1921,9 +1919,9 @@ def swshSets(url):
 
     tempSet = findSet(setName.strip(), swshSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace("&", "and").replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -2113,9 +2111,9 @@ def lateSwshSets(url, url2):
 
     tempSet = findSet(setName.strip(), lateSwshSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -2272,9 +2270,9 @@ def svsets(url):
 
     tempSet = findSet(setName.strip(), svSetList)
 
-    driver.get("https://app.getcollectr.com/?query=Pokemon+" + tempSet.name.split(":")[1].strip().replace("&", "and").replace(" ", "+") + "+booster+pack")
+    driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[3]/div[3]/div/div/main/div/div/div[4]/h2')))
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 4
