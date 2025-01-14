@@ -46,12 +46,14 @@ jobs:
     # Step 6: Commit and push the updated JSON file
     - name: Commit and push updated JSON file
       run: |
-        git config --global user.email "gws18115@gmail.com"  # Replace with your email
-        git config --global user.name "icebud1818"  # Replace with your username
-        git pull --rebase https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main  # Pull latest changes
-        git add full_output_with_all_columns.json  # Add the updated JSON file
-        git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"  # Commit changes (if any)
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main  # Push changes using the GitHub token
+       git config --global user.email "gws18115@gmail.com"
+       git config --global user.name "icebud1818"
+       git stash  # Save any unstaged changes
+       git pull --rebase https://***@github.com/icebud1818/pokecalculate.git main
+       git stash pop || echo "No changes to apply"  # Reapply changes after pulling
+       git add full_output_with_all_columns.json
+       git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"
+       git push https://***@github.com/icebud1818/pokecalculate.git HEAD:main
 
     # Step 7: Upload debug artifacts if the Selenium test fails
     - name: Upload debug artifacts on failure
