@@ -41,14 +41,12 @@
             border-radius: 5px;
             margin-top: 10px;
         }
-        /* Specific styles for orange buttons */
         .orange-button {
             background-color: orange;
         }
         .orange-button:hover {
             background-color: darkorange;
         }
-        /* Specific styles for blue buttons */
         button:not(.orange-button) {
             background-color: #007BFF;
         }
@@ -95,6 +93,7 @@
             color: #888;
             font-size: 14px;
         }
+
         /* Container for the sort and filter dropdowns */
         .dropdowns-container {
             display: flex;
@@ -102,14 +101,17 @@
             gap: 20px;
             margin-top: 20px;
         }
+
         .dropdown-container {
             flex: 1;
         }
+
         label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
         }
+
         select {
             width: 100%;
         }
@@ -128,14 +130,11 @@
         <!-- Last Updated Section -->
         <p id="lastUpdated">Last Updated: Loading...</p>
 
-        <!-- Button Section -->
+        <!-- Orange Button -->
         <div class="button-container">
-            <button class="orange-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
-            <button id="productValueButton">Calculate Sealed Product Value</button>
-            <button id="sealedProductEvButton">Calculate EV for Sealed Product</button>
-            <button id="singlePackEvButton">Calculate EV for Single Pack</button>
-            <button id="multiplePacksEvButton">Calculate EV for Multiple Packs</button>
+            <button class="orange-button" onclick="location.href='index.html'">Booster Pack Calculator</button>
         </div>
+
 
         <!-- Sorting and Filtering Dropdowns -->
         <div class="dropdowns-container">
@@ -145,12 +144,10 @@
                 <select id="sortDropdown">
                     <option value="nameAsc" selected>Alphabetically (A-Z)</option>
                     <option value="nameDesc">Alphabetically (Z-A)</option>
-                    <option value="evDesc">EV (Highest to Lowest)</option>
-                    <option value="evAsc">EV (Lowest to Highest)</option>
-                    <option value="adjEvDesc">Percent Return (Highest to Lowest)</option>
-                    <option value="adjEvAsc">Percent Return (Lowest to Highest)</option>
-                    <option value="valueDesc">Pack Price (Highest to Lowest)</option>
-                    <option value="valueAsc">Pack Price (Lowest to Highest)</option>
+                    <option value="evDesc">Box Price (Highest to Lowest)</option>
+                    <option value="evAsc">Box Price (Lowest to Highest)</option>
+                    <option value="valueDesc">Price Per Pack (Highest to Lowest)</option>
+                    <option value="valueAsc">Price Per Pack (Lowest to Highest)</option>
                     <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
                     <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
                 </select>
@@ -161,11 +158,6 @@
                 <label for="filterDropdown">Filter By</label>
                 <select id="filterDropdown">
                     <option value="all" selected>All Packs</option>
-                    <option value="gen1">Generation 1</option>
-                    <option value="gen2">Generation 2</option>
-                    <option value="gen3">Generation 3</option>
-                    <option value="gen4">Generation 4</option>
-                    <option value="gen5">Generation 5</option>
                     <option value="gen6">Generation 6</option>
                     <option value="gen7">Generation 7</option>
                     <option value="gen8">Generation 8</option>
@@ -176,14 +168,14 @@
 
         <!-- Packs List Section -->
         <div class="packs-list">
-            <h2>Booster Packs</h2>
+            <h2>Booster Boxes</h2>
             <ul id="packs-list">
                 <!-- List of packs will be populated here -->
             </ul>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="boxScript.js"></script>
 
 </body>
 </html>
