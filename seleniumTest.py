@@ -2399,7 +2399,7 @@ def getSetName(set):
 
 num = 0
 
-'''for set in vintageSetList:
+for set in vintageSetList:
     adjev, price, ev = gen1Calculate(set.url)
     expectedValueList.append(adjev)
     packValueList.append(price)
@@ -2483,7 +2483,7 @@ packValueList.append(price)
 setNameList.append("Legendary Treasures")
 actualEvList.append(ev)
 setNumberList.append(710)
-'''
+
 num = 0
 
 for set in xySetList:
@@ -2497,7 +2497,7 @@ for set in xySetList:
 
 num = 0
 
-'''for set in smSetList:
+for set in smSetList:
     adjev, price, ev = smSets(set.url)
     expectedValueList.append(adjev)
     packValueList.append(price)
@@ -2537,7 +2537,7 @@ for set in svSetList:
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(1200 + num)
-    num += 1'''
+    num += 1
 
 for bb in boosterBoxList:
     boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)
