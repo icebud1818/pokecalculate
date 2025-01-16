@@ -2,7 +2,7 @@ name: Update TCG Data
 
 on:
   schedule:
-    - cron: "0 */4 * * *" # Runs Every 4 Hours
+    - cron: "0 */5 * * *" # Runs Every 4 Hours
   workflow_dispatch:
 
 permissions:
@@ -52,7 +52,8 @@ jobs:
        git pull --rebase https://***@github.com/icebud1818/pokecalculate.git main
        git stash pop || echo "No changes to apply"  # Reapply changes after pulling
        git add full_output_with_all_columns.json
-       git commit -m "Update full_output_with_all_columns.json" || echo "No changes to commit"
+       git add boxData.json
+       git commit -m "Update jsons" || echo "No changes to commit"
        git push https://***@github.com/icebud1818/pokecalculate.git HEAD:main
 
     # Step 7: Upload debug artifacts if the Selenium test fails

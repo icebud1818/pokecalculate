@@ -15,8 +15,11 @@ from datetime import datetime
 
 
 
-
-
+class BoosterBox:
+    def __init__(self, name, setNumber, productId):
+        self.name = name
+        self.setNumber = setNumber
+        self.productId = productId
 
 class VintageSet:
     def __init__(self, name, url, secretOdds, commonsPer, productId):
@@ -166,6 +169,52 @@ class svSet:
         self.rareOdds = 1 - doubleOdds - ultraOdds
         self.productId = productId
 
+boosterBoxList = [
+    BoosterBox("XY Base Set", 800, 91601),
+    BoosterBox("Flashfire", 801, 91594),
+    BoosterBox("Furious Fists", 802, 92168),
+    BoosterBox("Phantom Forces", 803, 94623),
+    BoosterBox("Primal Clash", 804, 97750),
+    BoosterBox("Roaring Skies", 805, 98026),
+    BoosterBox("Ancient Origins", 806, 100489),
+    BoosterBox("BREAKthrough", 807, 107101),
+    BoosterBox("BREAKpoint", 808, 111278),
+    BoosterBox("Fates Collide", 809, 117478),
+    BoosterBox("Steam Siege", 810, 120076),
+    BoosterBox("Evolutions", 811, 123446),
+    BoosterBox("Sun and Moon", 900, 126048),
+    BoosterBox("Guardians Rising", 901, 129888),
+    BoosterBox("Burning Shadows", 902, 133773),
+    BoosterBox("Crimson Invasion", 903, 146995),
+    BoosterBox("Ultra Prism", 904, 155661),
+    BoosterBox("Forbidden Light", 905, 164296),
+    BoosterBox("Celestial Storm", 906, 170273),
+    BoosterBox("Lost Thunder", 907, 175509),
+    BoosterBox("Team Up", 908, 181698),
+    BoosterBox("Unbroken Bonds", 909, 185717),
+    BoosterBox("Unified Minds", 910, 191882),
+    BoosterBox("Cosmic Eclipse", 911, 199261),
+    BoosterBox("Sword and Shield", 1000, 206027),
+    BoosterBox("Rebel Clash", 1001, 210561),
+    BoosterBox("Darkness Ablaze", 1002, 216853),
+    BoosterBox("Vivid Voltage", 1003, 221313),
+    BoosterBox("Battle Styles", 1004, 229277),
+    BoosterBox("Chilling Reign", 1005, 236258),
+    BoosterBox("Evolving Skies", 1006, 242436),
+    BoosterBox("Fusion Strike", 1007, 247654),
+    BoosterBox("Brilliant Stars", 1100, 256141),
+    BoosterBox("Astral Radiance", 1101, 265519),
+    BoosterBox("Lost Origin", 1102, 277324),
+    BoosterBox("Silver Tempest", 1103, 283389),
+    BoosterBox("Scarlet and Violet", 1200, 476452),
+    BoosterBox("Paldea Evolved", 1201, 493975),
+    BoosterBox("Obsidian Flames", 1202, 501257),
+    BoosterBox("Paradox Rift", 1203, 512821),
+    BoosterBox("Temporal Forces", 1204, 536225),
+    BoosterBox("Twilight Masquerade", 1205, 543846),
+    BoosterBox("Stellar Crown", 1206, 557354),
+    BoosterBox("Surging Sparks", 1207, 565606)
+]
 
 vintageSetList = [
     VintageSet("Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set", 0, 5, 138130),
@@ -396,6 +445,24 @@ webdriver_service = Service("/usr/bin/chromedriver")  # Adjust for your CI setup
 # Initialize the WebDriver
 driver = webdriver.Chrome(service=webdriver_service, options=chrome_options)
 
+
+def getBoxPrices(boxSet):
+
+    driver.get("https://app.getcollectr.com/explore/product/" + str(boxSet.productId))
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 30)
+
+    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    price = float(priceElement.text.replace("$", "").replace(",", ""))
+    pricePer = float(price/36)
+
+    print("\n")
+    print("Set Name: " + boxSet.name)
+    print("Box Price: $" + str(price))
+    print(f"Price Per Pack: ${pricePer:.2f}")
+
+    return price, round(pricePer, 2), boxSet.name, boxSet.setNumber
 
 def gen1Calculate(url):
 
@@ -2321,12 +2388,18 @@ packValueList = []
 actualEvList = []
 setNumberList = []
 
+boxSetNameList = []
+boxSetNumberList = []
+boxPriceList = []
+boxPricePerList = []
+boxSetNumberList = []
+
 def getSetName(set):
     return set.name
 
 num = 0
 
-for set in vintageSetList:
+'''for set in vintageSetList:
     adjev, price, ev = gen1Calculate(set.url)
     expectedValueList.append(adjev)
     packValueList.append(price)
@@ -2410,7 +2483,7 @@ packValueList.append(price)
 setNameList.append("Legendary Treasures")
 actualEvList.append(ev)
 setNumberList.append(710)
-
+'''
 num = 0
 
 for set in xySetList:
@@ -2424,7 +2497,7 @@ for set in xySetList:
 
 num = 0
 
-for set in smSetList:
+'''for set in smSetList:
     adjev, price, ev = smSets(set.url)
     expectedValueList.append(adjev)
     packValueList.append(price)
@@ -2464,7 +2537,14 @@ for set in svSetList:
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(1200 + num)
-    num += 1
+    num += 1'''
+
+for bb in boosterBoxList:
+    boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)
+    boxPriceList.append(boxPrice)
+    boxPricePerList.append(boxPricePer)
+    boxSetNameList.append(setName)
+    boxSetNumberList.append(setNumber)
 
 
 last_updated_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -2496,3 +2576,22 @@ with open('full_output_with_all_columns.json', 'w') as json_file:
 
 # Optionally, print the JSON to the console for verification
 print(json.dumps(output_data, indent=4))
+
+#Booster Box JSON
+
+boxOutput_data = []
+for i in range(len(boxSetNameList)):
+    boxOutput_data.append({
+        "Set Name": boxSetNameList[i],
+        "Box Price": boxPriceList[i],
+        "Price Per": boxPricePerList[i],
+        "Last Updated": last_updated_timestamp,
+        "Set Number": boxSetNumberList[i]
+    })
+
+# Write the output data to a JSON file
+with open('boxData.json', 'w') as json_file:
+    json.dump(boxOutput_data, json_file, indent=4)
+
+# Optionally, print the JSON to the console for verification
+print(json.dumps(boxOutput_data, indent=4))
