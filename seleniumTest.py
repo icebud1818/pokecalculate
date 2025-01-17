@@ -453,7 +453,7 @@ def getBoxPrices(boxSet):
     time.sleep(10)
     wait = WebDriverWait(driver, 30)
 
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     price = float(priceElement.text.replace("$", "").replace(",", ""))
     pricePer = float(price/36)
 
@@ -524,7 +524,7 @@ def gen1Calculate(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     expValue = 0
@@ -636,7 +636,7 @@ def earlyReverseSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     expValue = 0
@@ -753,7 +753,7 @@ def earlyExSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
     
 
@@ -887,7 +887,7 @@ def goldStarSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1044,7 +1044,7 @@ def dpSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1200,7 +1200,7 @@ def hgssSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1351,7 +1351,7 @@ def bwSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1519,7 +1519,7 @@ def legendaryTreasures():
 
     driver.get("https://app.getcollectr.com/explore/product/98581")
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 4
@@ -1677,7 +1677,7 @@ def xySets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1831,7 +1831,7 @@ def smSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -1988,7 +1988,7 @@ def swshSets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -2180,7 +2180,7 @@ def lateSwshSets(url, url2):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 5
@@ -2339,7 +2339,7 @@ def svsets(url):
 
     driver.get("https://app.getcollectr.com/explore/product/" + str(tempSet.productId))
     time.sleep(10)
-    priceElement = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[1]/div[4]/div[3]/div/main/div[4]/div[2]/div[2]/div/div/h3')))
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
     commonQuantity = 4
