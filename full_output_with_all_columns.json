@@ -1,1505 +1,818 @@
 [
     {
         "Set Name": "Base Set",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09002187680132616,
+        "Adj. EV": 0.0902276414354138,
         "Pack Value": 404.49,
-        "EV": 36.41294894736842,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09016180967325976,
-        "Pack Value": 404.49,
-        "EV": 36.46955039473684,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 36.49617868421053,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 100
     },
     {
         "Set Name": "Jungle",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0966936587591241,
+        "Adj. EV": 0.09673482083609823,
         "Pack Value": 180.84,
-        "EV": 17.48608125,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09670074375138245,
-        "Pack Value": 180.84,
-        "EV": 17.487362500000003,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 17.493525000000005,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 101
     },
     {
         "Set Name": "Fossil",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0977308108386565,
+        "Adj. EV": 0.09777279517824027,
         "Pack Value": 194.12,
-        "EV": 18.971505,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09771806099320009,
-        "Pack Value": 194.12,
-        "EV": 18.96903,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 18.979655,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 102
     },
     {
         "Set Name": "Base Set 2",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09170652638890653,
+        "Adj. EV": 0.09503289242406913,
         "Pack Value": 224.86,
-        "EV": 20.621129523809522,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09506934897057638,
-        "Pack Value": 224.86,
-        "EV": 21.377293809523806,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 21.36909619047619,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 103
     },
     {
         "Set Name": "Team Rocket",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10460849684655743,
+        "Adj. EV": 0.10487300184398299,
         "Pack Value": 247.29,
-        "EV": 25.868635185185187,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.10479827561705711,
-        "Pack Value": 247.29,
-        "EV": 25.91556557734205,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 25.934044625998553,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 104
     },
     {
         "Set Name": "Gym Heroes",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.13003065424674365,
+        "Adj. EV": 0.13010213383557356,
         "Pack Value": 195.83,
-        "EV": 25.46390302113981,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.13002393317639102,
-        "Pack Value": 195.83,
-        "EV": 25.462586833932654,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 25.477900869020374,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 105
     },
     {
         "Set Name": "Gym Challenge",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.14868806864475828,
+        "Adj. EV": 0.14866807554770958,
         "Pack Value": 252.48,
-        "EV": 37.54076357142857,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.14869372680155715,
-        "Pack Value": 252.48,
-        "EV": 37.54219214285715,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 37.535715714285715,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 106
     },
     {
         "Set Name": "Neo Genesis",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.06013191480305385,
+        "Adj. EV": 0.06014361927765498,
         "Pack Value": 475.0,
-        "EV": 28.562659531450578,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.06013370464350864,
-        "Pack Value": 475.0,
-        "EV": 28.563509705666604,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 28.568219156886116,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 107
     },
     {
         "Set Name": "Neo Discovery",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.07496738648359286,
+        "Adj. EV": 0.07497697079817744,
         "Pack Value": 345.96,
-        "EV": 25.93571702786378,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.07497195044291885,
-        "Pack Value": 345.96,
-        "EV": 25.937295975232203,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 25.939032817337466,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 108
     },
     {
         "Set Name": "Neo Revelation",
-        "Adj. EV": 0.15134093774922988,
+        "Adj. EV": 0.1513305288272968,
         "Pack Value": 336.25,
-        "EV": 50.88839031817855,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 50.88489031817855,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 109
     },
     {
         "Set Name": "Neo Destiny",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.11541477136051073,
+        "Adj. EV": 0.11542568463224029,
         "Pack Value": 596.98,
-        "EV": 68.9003102067977,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.1154221933753702,
-        "Pack Value": 596.98,
-        "EV": 68.9047410012285,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 68.9068252117548,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 110
     },
     {
         "Set Name": "Legendary Collection",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0532750735787632,
+        "Adj. EV": 0.05330254124844249,
         "Pack Value": 2499.99,
-        "EV": 133.1871511961722,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.053305050349387983,
-        "Pack Value": 2499.99,
-        "EV": 133.26209282296645,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 133.25582009569374,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 200
     },
     {
         "Set Name": "Expedition",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.07892771696233068,
+        "Adj. EV": 0.0789683958231481,
         "Pack Value": 1174.99,
-        "EV": 92.73927815356893,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.07893110031597503,
-        "Pack Value": 1174.99,
-        "EV": 92.7432535602675,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 92.78707540824078,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 201
     },
     {
         "Set Name": "Aquapolis",
-        "Adj. EV": 0.14022032582916183,
+        "Adj. EV": 0.1402754130390158,
         "Pack Value": 832.46,
-        "EV": 116.72781243974407,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 116.77367033845911,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 202
     },
     {
         "Set Name": "Skyridge",
-        "Adj. EV": 0.13286243772921646,
+        "Adj. EV": 0.1329264103319562,
         "Pack Value": 1500.0,
-        "EV": 199.2936565938247,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 199.3896154979343,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 203
     },
     {
         "Set Name": "Ruby and Sapphire",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0547437712007067,
+        "Adj. EV": 0.05476517439016957,
         "Pack Value": 359.99,
-        "EV": 19.707210194542405,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.05474518149629183,
-        "Pack Value": 359.99,
-        "EV": 19.707717886850098,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 19.714915128717145,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 300
     },
     {
         "Set Name": "Sandstorm",
-        "Adj. EV": 0.055090051808613996,
+        "Adj. EV": 0.05509177241078173,
         "Pack Value": 499.95,
-        "EV": 27.542271401716565,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 27.543131616770328,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 301
     },
     {
         "Set Name": "Dragon",
-        "Adj. EV": 0.03852389328579916,
+        "Adj. EV": 0.038520105407011285,
         "Pack Value": 850.0,
-        "EV": 32.745309292929285,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 32.74208959595959,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 302
     },
     {
         "Set Name": "Team Magma vs Team Aqua",
-        "Adj. EV": 0.06842557885637149,
+        "Adj. EV": 0.06841548361827625,
         "Pack Value": 525.0,
-        "EV": 35.92342889959503,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 35.91812889959503,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 303
     },
     {
         "Set Name": "Hidden Legends",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.08920374584833844,
+        "Adj. EV": 0.08930554269945834,
         "Pack Value": 250.0,
-        "EV": 22.30093646208461,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.08925703965598009,
-        "Pack Value": 250.0,
-        "EV": 22.31425991399502,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 22.326385674864586,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 304
     },
     {
         "Set Name": "FireRed & LeafGreen",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.05156862118707829,
+        "Adj. EV": 0.05156749290763455,
         "Pack Value": 699.95,
-        "EV": 36.095456399895454,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.05156170566043237,
-        "Pack Value": 699.95,
-        "EV": 36.09061587701964,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 36.094666660698806,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 305
     },
     {
         "Set Name": "Emerald",
-        "Adj. EV": 0.08511086289231944,
+        "Adj. EV": 0.0856240778277405,
         "Pack Value": 399.5,
-        "EV": 34.001789725481615,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 34.20681909218233,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 306
     },
     {
         "Set Name": "Team Rocket Returns",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0565799968497,
+        "Adj. EV": 0.05563360638718007,
         "Pack Value": 1250.0,
-        "EV": 70.724996062125,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.056583251135414285,
-        "Pack Value": 1250.0,
-        "EV": 70.72906391926786,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 69.54200798397508,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 400
     },
     {
         "Set Name": "Deoxys",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.03160015541038775,
+        "Adj. EV": 0.03160183768482278,
         "Pack Value": 1049.0,
-        "EV": 33.14856302549675,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.03160071616853276,
-        "Pack Value": 1049.0,
-        "EV": 33.149151260790866,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 33.1503277313791,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 401
     },
     {
         "Set Name": "Unseen Forces",
-        "Adj. EV": 0.06916518070810221,
+        "Adj. EV": 0.06915449330877184,
         "Pack Value": 699.95,
-        "EV": 48.41216823663614,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 48.404687591474854,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 402
     },
     {
         "Set Name": "Delta Species",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10133519274656207,
+        "Adj. EV": 0.10135560250044784,
         "Pack Value": 649.98,
-        "EV": 65.86584858141042,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.10134762661330547,
-        "Pack Value": 649.98,
-        "EV": 65.8739303461163,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 65.87911451324109,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 403
     },
     {
         "Set Name": "Legend Maker",
-        "Adj. EV": 0.06101411507161607,
+        "Adj. EV": 0.06102910442508103,
         "Pack Value": 490.0,
-        "EV": 29.896916385091874,
-<<<<<<< Updated upstream
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 29.904261168289704,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 404
     },
     {
         "Set Name": "Holon Phantoms",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.05756401909893606,
+        "Adj. EV": 0.057569149980490765,
         "Pack Value": 699.95,
-        "EV": 40.2919351683003,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.05758429197557011,
-        "Pack Value": 699.95,
-        "EV": 40.3061251683003,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 40.29552652884451,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 405
     },
     {
         "Set Name": "Crystal Guardians",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.07329931123268016,
+        "Adj. EV": 0.07336705505887026,
         "Pack Value": 549.99,
-        "EV": 40.31388818486176,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.07330415980568453,
-        "Pack Value": 549.99,
-        "EV": 40.31655485152843,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 40.35114661182806,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 406
     },
     {
         "Set Name": "Dragon Frontiers",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0850081842969164,
+        "Adj. EV": 0.08507540059257686,
         "Pack Value": 566.64,
-        "EV": 48.1690375500047,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.08508128322234768,
-        "Pack Value": 566.64,
-        "EV": 48.210458325111084,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 48.20712499177775,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 407
     },
     {
         "Set Name": "Power Keepers",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.06300232083247448,
-        "Pack Value": 499.99,
-        "EV": 31.500530393028917,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.06300481731097549,
         "Pack Value": 499.99,
         "EV": 31.50177860731463,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 408
     },
     {
         "Set Name": "Diamond and Pearl",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09056280592590818,
+        "Adj. EV": 0.09057546450196124,
         "Pack Value": 159.46,
-        "EV": 14.441145032945318,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09056556266219942,
-        "Pack Value": 159.46,
-        "EV": 14.44158462211432,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 14.44316356948274,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 500
     },
     {
         "Set Name": "Mysterious Treasures",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10809521557488583,
-        "Pack Value": 105.53,
-        "EV": 11.407288099617702,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.10817178684837073,
         "Pack Value": 105.53,
         "EV": 11.415368666108563,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 501
     },
     {
         "Set Name": "Secret Wonders",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.06514720211820306,
+        "Adj. EV": 0.06519015004824283,
         "Pack Value": 274.5,
-        "EV": 17.88290698144674,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.0653033025650139,
-        "Pack Value": 274.5,
-        "EV": 17.925756554096317,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 17.894696188242655,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 502
     },
     {
         "Set Name": "Great Encounters",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.11151919422619551,
+        "Adj. EV": 0.11145790280141306,
         "Pack Value": 132.48,
-        "EV": 14.77406285108638,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.11146665207406897,
-        "Pack Value": 132.48,
-        "EV": 14.767102066772656,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 14.7659429631312,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 503
     },
     {
         "Set Name": "Majestic Dawn",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.0951720550976191,
-        "Pack Value": 269.99,
-        "EV": 25.695503155806183,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.09506599130516391,
         "Pack Value": 269.99,
         "EV": 25.666866992481204,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 504
     },
     {
         "Set Name": "Legends Awakened",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09384701560091212,
-        "Pack Value": 199.99,
-        "EV": 18.768464650026417,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.0939841339223872,
         "Pack Value": 199.99,
         "EV": 18.795886943138218,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 505
     },
     {
         "Set Name": "Stormfront",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09314297102872347,
-        "Pack Value": 211.33,
-        "EV": 19.683904067500134,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.09316550495495503,
         "Pack Value": 211.33,
         "EV": 19.688666162130648,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 506
     },
     {
         "Set Name": "Platinum",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.15489910278567356,
+        "Adj. EV": 0.15496538136576007,
         "Pack Value": 105.02,
-        "EV": 16.267503774551436,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.15488740133019951,
-        "Pack Value": 105.02,
-        "EV": 16.266274887697552,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 16.274464351032123,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 507
     },
     {
         "Set Name": "Rising Rivals",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10890277052378909,
-        "Pack Value": 199.99,
-        "EV": 21.77946507705258,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.1089563688881155,
         "Pack Value": 199.99,
         "EV": 21.790184213934218,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 508
     },
     {
         "Set Name": "Supreme Victors",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.08447489162746077,
-        "Pack Value": 272.49,
-        "EV": 23.018563219566786,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.08445523654901778,
         "Pack Value": 272.49,
         "EV": 23.013207407241854,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 509
     },
     {
         "Set Name": "Arceus",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.11726727417822272,
-        "Pack Value": 156.25,
-        "EV": 18.3230115903473,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.1173082425318667,
         "Pack Value": 156.25,
         "EV": 18.32941289560417,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 510
     },
     {
         "Set Name": "HeartGold SoulSilver",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2218911399331662,
+        "Adj. EV": 0.2218612788220551,
         "Pack Value": 200.0,
-        "EV": 44.37822798663324,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.22185502882205513,
-        "Pack Value": 200.0,
-        "EV": 44.371005764411024,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 44.37225576441102,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 600
     },
     {
         "Set Name": "Unleashed",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.12989770573370307,
-        "Pack Value": 146.25,
-        "EV": 18.997539463554073,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.12982604796710553,
         "Pack Value": 146.25,
         "EV": 18.987059515189184,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 601
     },
     {
         "Set Name": "Undaunted",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.12505305901032449,
+        "Adj. EV": 0.12500826749108346,
         "Pack Value": 207.5,
-        "EV": 25.94850974464233,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.12503576665028185,
-        "Pack Value": 207.5,
-        "EV": 25.94492157993348,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 25.939215504399815,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 602
     },
     {
         "Set Name": "Triumphant",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.11823606591872193,
+        "Adj. EV": 0.11832683072248618,
         "Pack Value": 141.94,
-        "EV": 16.78242719650339,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.1183292780130389,
-        "Pack Value": 141.94,
-        "EV": 16.79565772117074,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 16.795310352749688,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 603
     },
     {
         "Set Name": "Call of Legends",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09740670617785518,
+        "Adj. EV": 0.09764641105269048,
         "Pack Value": 300.0,
-        "EV": 29.222011853356555,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.0976319182990673,
-        "Pack Value": 300.0,
-        "EV": 29.28957548972019,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 29.293923315807145,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 604
     },
     {
         "Set Name": "Black and White",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.11327237523560385,
+        "Adj. EV": 0.11328373788348137,
         "Pack Value": 76.64,
-        "EV": 8.68119483805668,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.11328687303193882,
-        "Pack Value": 76.64,
-        "EV": 8.682305949167791,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 8.682065671390012,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 700
     },
     {
         "Set Name": "Emerging Powers",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.08085142054367195,
-        "Pack Value": 51.78,
-        "EV": 4.186486555751333,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.08090316788094855,
         "Pack Value": 51.78,
         "EV": 4.189166032875516,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 701
     },
     {
         "Set Name": "Noble Victories",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.15799514132585082,
+        "Adj. EV": 0.15811170965943996,
         "Pack Value": 71.46,
-        "EV": 11.290332799145299,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.15806972813131234,
-        "Pack Value": 71.46,
-        "EV": 11.29566277226358,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 11.29866277226358,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 702
     },
     {
         "Set Name": "Next Destinies",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10226139855015659,
+        "Adj. EV": 0.10226087225652689,
         "Pack Value": 79.95,
-        "EV": 8.17579881408502,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.10221361752390627,
-        "Pack Value": 79.95,
-        "EV": 8.171978721036307,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 8.175756736909324,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 703
     },
     {
         "Set Name": "Dark Explorers",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.12192592644142095,
-        "Pack Value": 156.66,
-        "EV": 19.100915636313005,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.12194905972464816,
         "Pack Value": 156.66,
         "EV": 19.10453969646338,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 704
     },
     {
         "Set Name": "Dragons Exalted",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09449807986964745,
+        "Adj. EV": 0.09447794111445984,
         "Pack Value": 118.72,
-        "EV": 11.218812042124545,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09447560134207289,
-        "Pack Value": 118.72,
-        "EV": 11.216143391330894,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 11.216421169108672,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 705
     },
     {
         "Set Name": "Boundaries Crossed",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.09062791552838538,
+        "Adj. EV": 0.09066798606269157,
         "Pack Value": 130.0,
-        "EV": 11.781629018690099,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.09066062613866498,
-        "Pack Value": 130.0,
-        "EV": 11.785881398026447,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 11.786838188149904,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 706
     },
     {
         "Set Name": "Plasma Storm",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.10014398766377129,
+        "Adj. EV": 0.10015230027074894,
         "Pack Value": 147.24,
-        "EV": 14.745200743613685,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.10013573531292332,
-        "Pack Value": 147.24,
-        "EV": 14.74398566747483,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 14.746424691865075,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 707
     },
     {
         "Set Name": "Plasma Freeze",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.08930787405767007,
+        "Adj. EV": 0.08929302098487235,
         "Pack Value": 147.08,
-        "EV": 13.135402116402116,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.08930364445509265,
-        "Pack Value": 147.08,
-        "EV": 13.134780026455028,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 13.133217526455027,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 708
     },
     {
         "Set Name": "Plasma Blast",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.12390281363380971,
+        "Adj. EV": 0.12395990364191647,
         "Pack Value": 67.37,
-        "EV": 8.34733255450976,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.12393135863786307,
-        "Pack Value": 67.37,
-        "EV": 8.349255631432836,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 8.351178708355913,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 709
     },
     {
         "Set Name": "Legendary Treasures",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.19022306066635078,
+        "Adj. EV": 0.19056384334353332,
         "Pack Value": 93.38,
-        "EV": 17.763029405023836,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.19060152291644528,
-        "Pack Value": 93.38,
-        "EV": 17.79837020993766,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 17.79485169141914,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 710
     },
     {
         "Set Name": "XY Base Set",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.1827520926608646,
+        "Adj. EV": 0.18292356844755417,
         "Pack Value": 35.95,
-        "EV": 6.569937731158083,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.1828945930187178,
-        "Pack Value": 35.95,
-        "EV": 6.5750606190229055,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 6.576102285689573,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 800
     },
     {
         "Set Name": "XY - Flashfire",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.1366097492189344,
+        "Adj. EV": 0.13657134968953294,
         "Pack Value": 65.57,
-        "EV": 8.957501256285529,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.1365786120118784,
-        "Pack Value": 65.57,
-        "EV": 8.955459589618865,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 8.954983399142673,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 801
     },
     {
         "Set Name": "XY - Furious Fists",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2499305431461537,
-        "Pack Value": 26.12,
-        "EV": 6.528185786977535,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.25013405258637395,
         "Pack Value": 26.12,
         "EV": 6.533501453556088,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 802
     },
     {
         "Set Name": "XY - Phantom Forces",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2050025408605188,
+        "Adj. EV": 0.20488115192639722,
         "Pack Value": 44.69,
-        "EV": 9.161563551056584,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.20503361131437448,
-        "Pack Value": 44.69,
-        "EV": 9.162952089639395,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 9.156138679590692,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 803
     },
     {
         "Set Name": "XY - Primal Clash",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.25092999599152593,
+        "Adj. EV": 0.250897496340401,
         "Pack Value": 22.55,
-        "EV": 5.65847140960891,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.2510002878578267,
-        "Pack Value": 22.55,
-        "EV": 5.660056491193992,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 5.657738542476043,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 804
     },
     {
         "Set Name": "XY - Roaring Skies",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2431375205994731,
+        "Adj. EV": 0.24367928402940162,
         "Pack Value": 25.58,
-        "EV": 6.219457776934521,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.24369686074570734,
-        "Pack Value": 25.58,
-        "EV": 6.233765697875193,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 6.233316085472093,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 805
     },
     {
         "Set Name": "XY - Ancient Origins",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.20503584445426978,
+        "Adj. EV": 0.2052309547645763,
         "Pack Value": 43.14,
-        "EV": 8.845246329757199,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.20524822294943842,
-        "Pack Value": 43.14,
-        "EV": 8.854408338038773,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 8.853663388543822,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 806
     },
     {
         "Set Name": "XY - BREAKthrough",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.46783000281651227,
+        "Adj. EV": 0.4677975012283665,
         "Pack Value": 16.35,
-        "EV": 7.649020546049976,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.46780562662540287,
-        "Pack Value": 16.35,
-        "EV": 7.648621995325338,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 7.648489145083793,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 807
     },
     {
         "Set Name": "XY - BREAKpoint",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.3722029764162109,
+        "Adj. EV": 0.37229861611664256,
         "Pack Value": 16.47,
-        "EV": 6.130183021574993,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.3723736775583753,
-        "Pack Value": 16.47,
-        "EV": 6.132994469386441,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 6.131758207441102,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 808
     },
     {
         "Set Name": "XY - Fates Collide",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.27487971035219494,
-        "Pack Value": 17.51,
-        "EV": 4.813143728266934,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.2750941205742566,
         "Pack Value": 17.51,
         "EV": 4.816898051255233,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 809
     },
     {
         "Set Name": "XY - Steam Siege",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.32766694572741895,
+        "Adj. EV": 0.3282330450898309,
         "Pack Value": 10.39,
-        "EV": 3.404459566107883,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.32830200767112805,
-        "Pack Value": 10.39,
-        "EV": 3.411057859703021,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 3.4103413384833434,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 810
     },
     {
         "Set Name": "XY - Evolutions",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.27137751565822227,
+        "Adj. EV": 0.271328263210178,
         "Pack Value": 28.88,
-        "EV": 7.837382652209459,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.2713390212120416,
-        "Pack Value": 28.88,
-        "EV": 7.836270932603762,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 7.835960241509941,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 811
     },
     {
         "Set Name": "SM Base Set",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2564704604767992,
+        "Adj. EV": 0.2566609917009625,
         "Pack Value": 9.15,
-        "EV": 2.346704713362713,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.25663014158424197,
-        "Pack Value": 9.15,
-        "EV": 2.348165795495814,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.348448074063807,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 900
     },
     {
         "Set Name": "SM - Guardians Rising",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2059323737824788,
+        "Adj. EV": 0.20583357839476285,
         "Pack Value": 12.5,
-        "EV": 2.574154672280985,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.20608769145519168,
-        "Pack Value": 12.5,
-        "EV": 2.576096143189896,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.5729197299345357,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 901
     },
     {
         "Set Name": "SM - Burning Shadows",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.22959594943008702,
+        "Adj. EV": 0.2297059700438577,
         "Pack Value": 12.82,
-        "EV": 2.9434200716937156,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.22976473847646636,
-        "Pack Value": 12.82,
-        "EV": 2.945583947268299,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.944830535962256,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 902
     },
     {
         "Set Name": "SM - Crimson Invasion",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.27478385458931703,
+        "Adj. EV": 0.27493656101051195,
         "Pack Value": 8.76,
-        "EV": 2.407106566202417,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.27513027020949826,
-        "Pack Value": 8.76,
-        "EV": 2.4101411670352046,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.4084442744520844,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 903
     },
     {
         "Set Name": "SM - Ultra Prism",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.27136833991814563,
+        "Adj. EV": 0.27126212707686187,
         "Pack Value": 22.17,
-        "EV": 6.016236095985289,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.2713074852212963,
-        "Pack Value": 22.17,
-        "EV": 6.014886947356139,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 6.013881357294028,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 904
     },
     {
         "Set Name": "SM - Forbidden Light",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.29602992693023283,
+        "Adj. EV": 0.2961437699829382,
         "Pack Value": 15.69,
-        "EV": 4.644709553535353,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.2960748734131812,
-        "Pack Value": 15.69,
-        "EV": 4.645414763852814,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 4.6464957510323,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 905
     },
     {
         "Set Name": "SM - Celestial Storm",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.21475282943404406,
-        "Pack Value": 21.8,
-        "EV": 4.681611681662161,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
         "Adj. EV": 0.21476925205702302,
         "Pack Value": 21.8,
         "EV": 4.681969694843102,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 906
     },
     {
         "Set Name": "SM - Lost Thunder",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.30476997474200024,
+        "Adj. EV": 0.3050190771913483,
         "Pack Value": 17.11,
-        "EV": 5.214614267835624,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.30487294014527583,
-        "Pack Value": 17.11,
-        "EV": 5.216376005885669,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 5.218876410743969,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 907
     },
     {
         "Set Name": "SM - Team Up",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.15774478957347385,
+        "Adj. EV": 0.1583772234036774,
         "Pack Value": 67.65,
-        "EV": 10.671435014645507,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.1582672554784218,
-        "Pack Value": 67.65,
-        "EV": 10.706779833115236,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 10.714219163258777,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 908
     },
     {
         "Set Name": "SM - Unbroken Bonds",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2458367628900063,
+        "Adj. EV": 0.24626852651061318,
         "Pack Value": 22.31,
-        "EV": 5.4846181800760405,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.24590290901142328,
-        "Pack Value": 22.31,
-        "EV": 5.486093900044853,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 5.49425082645178,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 909
     },
     {
         "Set Name": "SM - Unified Minds",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.29229500185823915,
+        "Adj. EV": 0.29219906098407933,
         "Pack Value": 20.33,
-        "EV": 5.942357387778001,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.29202207305676664,
-        "Pack Value": 20.33,
-        "EV": 5.936808745244065,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 5.940406909806333,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 910
     },
     {
         "Set Name": "SM - Cosmic Eclipse",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.3426781794510351,
+        "Adj. EV": 0.3424712569884962,
         "Pack Value": 22.21,
-        "EV": 7.61088236560749,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.34246641528768196,
-        "Pack Value": 22.21,
-        "EV": 7.606179083539416,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 7.606286617714501,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 911
     },
     {
         "Set Name": "SWSH01: Sword & Shield Base Set",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.4362829220715804,
+        "Adj. EV": 0.43677847423381166,
         "Pack Value": 4.52,
-        "EV": 1.9719988077635433,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.43663545999805936,
-        "Pack Value": 4.52,
-        "EV": 1.9735922791912281,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 1.9742387035368285,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1000
     },
     {
         "Set Name": "SWSH02: Rebel Clash",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.4379031842277882,
+        "Adj. EV": 0.4380549495666588,
         "Pack Value": 4.71,
-        "EV": 2.062523997712882,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.4380451534507602,
-        "Pack Value": 4.71,
-        "EV": 2.0631926727530807,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.063238812458963,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1001
     },
     {
         "Set Name": "SWSH03: Darkness Ablaze",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.3053862806651797,
+        "Adj. EV": 0.3054557169779023,
         "Pack Value": 4.84,
-        "EV": 1.4780695984194696,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.3056091623439026,
-        "Pack Value": 4.84,
-        "EV": 1.4791483457444887,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 1.478405670173047,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1002
     },
     {
         "Set Name": "SWSH04: Vivid Voltage",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.3989036758629956,
+        "Adj. EV": 0.3996095097165623,
         "Pack Value": 4.52,
-        "EV": 1.8030446149007398,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.3993789882382753,
-        "Pack Value": 4.52,
-        "EV": 1.805193026837004,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 1.8062349839188614,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1003
     },
     {
         "Set Name": "SWSH05: Battle Styles",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.3303181095210993,
+        "Adj. EV": 0.3306180925309475,
         "Pack Value": 4.39,
-        "EV": 1.4500965007976259,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.3305890996431979,
-        "Pack Value": 4.39,
-        "EV": 1.4512861474336387,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 1.4514134262108593,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1004
     },
     {
         "Set Name": "SWSH06: Chilling Reign",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.2932364904939159,
+        "Adj. EV": 0.2937623340893673,
         "Pack Value": 6.38,
-        "EV": 1.8708488093511835,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.2936427394571427,
-        "Pack Value": 6.38,
-        "EV": 1.8734406777365704,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 1.8742036914901634,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1005
     },
     {
         "Set Name": "SWSH07: Evolving Skies",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.25806126261158774,
+        "Adj. EV": 0.2578838923536777,
         "Pack Value": 21.11,
-        "EV": 5.447673253730617,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.25783653426210734,
-        "Pack Value": 21.11,
-        "EV": 5.442929238273086,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 5.443928967586136,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1006
     },
     {
         "Set Name": "SWSH08: Fusion Strike",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.30583029061883593,
+        "Adj. EV": 0.30645719729616777,
         "Pack Value": 7.81,
-        "EV": 2.3885345697331086,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.3058191463995331,
-        "Pack Value": 7.81,
-        "EV": 2.3884475333803534,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.39343071088307,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1007
     },
     {
         "Set Name": "SWSH09: Brilliant Stars",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.8146189918391059,
+        "Adj. EV": 0.8178334316417583,
         "Pack Value": 5.01,
-        "EV": 4.081241149113921,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.8183251789685564,
-        "Pack Value": 5.01,
-        "EV": 4.0998091466324675,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 4.097345492525209,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1100
     },
     {
         "Set Name": "SWSH10: Astral Radiance",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.6434520821003075,
+        "Adj. EV": 0.645336491475273,
         "Pack Value": 4.43,
-        "EV": 2.850492723704362,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.6452082332591911,
-        "Pack Value": 4.43,
-        "EV": 2.858272473338216,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.858840657235459,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1101
     },
     {
         "Set Name": "SWSH11: Lost Origin",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.42458193011885625,
+        "Adj. EV": 0.4248042860865962,
         "Pack Value": 7.62,
-        "EV": 3.2353143075056847,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.424526467586218,
-        "Pack Value": 7.62,
-        "EV": 3.234891683006981,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 3.237008659979863,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1102
     },
     {
         "Set Name": "SWSH12: Silver Tempest",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.5841497714955606,
+        "Adj. EV": 0.5818057852418889,
         "Pack Value": 4.58,
-        "EV": 2.6754059534496673,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.5832290559204308,
-        "Pack Value": 4.58,
-        "EV": 2.6711890761155734,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.664670496407851,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1103
     },
     {
         "Set Name": "SV01: Scarlet & Violet Base Set",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.7662864635067923,
+        "Adj. EV": 0.7679007159575397,
         "Pack Value": 3.71,
-        "EV": 2.8429227796101992,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.7704005697138189,
-        "Pack Value": 3.71,
-        "EV": 2.858186113638268,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.8489116562024726,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1200
     },
     {
         "Set Name": "SV02: Paldea Evolved",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.5712597149440873,
+        "Adj. EV": 0.5729678957427394,
         "Pack Value": 5.35,
-        "EV": 3.056239474950867,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.5724116957877389,
-        "Pack Value": 5.35,
-        "EV": 3.0624025724644026,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 3.0653782422236557,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1201
     },
     {
         "Set Name": "SV03: Obsidian Flames",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.5633923214809781,
+        "Adj. EV": 0.5666245288279715,
         "Pack Value": 4.84,
-        "EV": 2.7268188359679337,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.5658215978960168,
-        "Pack Value": 4.84,
-        "EV": 2.7385765338167216,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.7424627195273823,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1202
     },
     {
         "Set Name": "SV04: Paradox Rift",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.7222119711910029,
+        "Adj. EV": 0.7274476911143439,
         "Pack Value": 3.87,
-        "EV": 2.7949603285091813,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.7248735466758239,
-        "Pack Value": 3.87,
-        "EV": 2.8052606256354387,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.8152225646125113,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1203
     },
     {
         "Set Name": "SV05: Temporal Forces",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.6391092020718687,
+        "Adj. EV": 0.6421069341378683,
         "Pack Value": 4.15,
-        "EV": 2.6523031885982555,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.6419252700217367,
-        "Pack Value": 4.15,
-        "EV": 2.6639898705902074,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.664743776672154,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1204
     },
     {
         "Set Name": "SV06: Twilight Masquerade",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.6271466816203978,
+        "Adj. EV": 0.6267266946396184,
         "Pack Value": 4.77,
-        "EV": 2.991489671329297,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.6271195280582817,
-        "Pack Value": 4.77,
-        "EV": 2.991360148838004,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 2.9894863334309796,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1205
     },
     {
         "Set Name": "SV07: Stellar Crown",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.8632410238533103,
+        "Adj. EV": 0.863312117650636,
         "Pack Value": 4.15,
-        "EV": 3.582450248991238,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.8647423497142654,
-        "Pack Value": 4.15,
-        "EV": 3.588680751314202,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 3.58274528825014,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1206
     },
     {
         "Set Name": "SV08: Surging Sparks",
-<<<<<<< Updated upstream
-        "Adj. EV": 0.5927419258909767,
+        "Adj. EV": 0.5943699380056364,
         "Pack Value": 6.77,
-        "EV": 4.0128628382819125,
-        "Last Updated": "2025-01-17 06:35:26",
-=======
-        "Adj. EV": 0.5933528110720018,
-        "Pack Value": 6.77,
-        "EV": 4.016998530957451,
-        "Last Updated": "2025-01-17 09:16:40",
->>>>>>> Stashed changes
+        "EV": 4.023884480298158,
+        "Last Updated": "2025-01-17 14:17:30",
         "SetNumber": 1207
     }
 ]
