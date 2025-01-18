@@ -2393,12 +2393,12 @@ def dragonVault():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-vault")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2425,7 +2425,7 @@ def dragonVault():
 
 
     driver.get("https://app.getcollectr.com/explore/product/98948")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2445,7 +2445,7 @@ def dragonVault():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def doubleCrisis():
@@ -2465,14 +2465,14 @@ def doubleCrisis():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/double-crisis")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
 
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2496,7 +2496,7 @@ def doubleCrisis():
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2530,7 +2530,7 @@ def doubleCrisis():
     reset()
 
     driver.get("https://app.getcollectr.com/explore/product/229226")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2553,7 +2553,7 @@ def doubleCrisis():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def shiningLegends():
@@ -2583,14 +2583,14 @@ def shiningLegends():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/shining-legends")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
 
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2613,7 +2613,7 @@ def shiningLegends():
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2659,7 +2659,7 @@ def shiningLegends():
     reset()
 
     driver.get("https://app.getcollectr.com/explore/product/155880")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2690,7 +2690,7 @@ def shiningLegends():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def dragonMajesty():
@@ -2720,14 +2720,14 @@ def dragonMajesty():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-majesty")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
 
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2750,7 +2750,7 @@ def dragonMajesty():
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2793,7 +2793,7 @@ def dragonMajesty():
     reset()
 
     driver.get("https://app.getcollectr.com/explore/product/173392")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2822,7 +2822,7 @@ def dragonMajesty():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def championsPath():
@@ -2849,14 +2849,14 @@ def championsPath():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/champions-path")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
 
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2879,7 +2879,7 @@ def championsPath():
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -2922,7 +2922,7 @@ def championsPath():
     reset()
 
     driver.get("https://app.getcollectr.com/explore/product/218789")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -2951,7 +2951,7 @@ def championsPath():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 def pokemonGo():
@@ -2984,14 +2984,14 @@ def pokemonGo():
 
     driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/pokemon-go")
     # Allow the page to load completely
-    time.sleep(4)
-    wait = WebDriverWait(driver, 5)
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
 
     setReverse()
 
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -3014,7 +3014,7 @@ def pokemonGo():
     
     setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
     setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
-    time.sleep(3)
+    time.sleep(10)
     tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
     rows = tbody_element.find_elements(By.TAG_NAME, "tr")
 
@@ -3066,7 +3066,7 @@ def pokemonGo():
     reset()
 
     driver.get("https://app.getcollectr.com/explore/product/274421")
-    time.sleep(2)
+    time.sleep(10)
     priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
     packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
 
@@ -3101,7 +3101,7 @@ def pokemonGo():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    time.sleep(1)
+    time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
 expectedValueList = []
