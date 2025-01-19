@@ -3104,6 +3104,1216 @@ def pokemonGo():
     time.sleep(10)
     return (expValue / (packPrice )), packPrice, expValue
 
+def pokemon151():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleRareValue = 0
+    totalReverseValue = 0
+    totalUltraRareValue = 0
+    totalHyperRareValue = 0
+    totalIrValue = 0
+    totalSirValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    rareCount = 0
+    doubleRareCount = 0
+    reverseCount = 0
+    ultraRareCount = 0
+    hyperCount = 0
+    irCount = 0
+    sirCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv-scarlet-and-violet-151")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Hyper Rare"):
+                    hyperCount += 1
+                    totalHyperRareValue += price
+                elif(rarity == "Ultra Rare"):
+                    ultraRareCount += 1
+                    totalUltraRareValue += price
+                elif(rarity == "Double Rare"):
+                    doubleRareCount += 1
+                    totalDoubleRareValue += price
+                elif(rarity == "Illustration Rare"):
+                    irCount += 1
+                    totalIrValue += price
+                elif(rarity == "Special Illustration Rare"):
+                    sirCount += 1
+                    totalSirValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://app.getcollectr.com/explore/product/504467")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += (totalDoubleRareValue / doubleRareCount * (1/8)) #rare slot
+    expValue += (totalUltraRareValue / ultraRareCount * (1/16)) #rare slot
+    expValue += (totalHyperRareValue / hyperCount * (1/51)) #reverse slot 2
+    expValue += (totalIrValue / irCount * (1/12)) #reverse slot 2
+    expValue += (totalSirValue / sirCount * (1/32)) #reverse slot 2
+    expValue += (totalRareValue / rareCount * (1 - (1/8) - (1/16))) #rare slot
+    expValue += (totalReverseValue / reverseCount * (1 + (1 - (1/32) - (1/12) - (1/51)))) #1 Guaranteed
+
+    print("\n")
+    print("Pokemon 151")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleRareCount) + ", Value: $" + f"{totalDoubleRareValue:.2f}")
+    print("Hyper Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperRareValue:.2f}")
+    print("Ultra Rares: " + str(ultraRareCount) + ", Value: $" + f"{totalUltraRareValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
+def shroudedFable():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleRareValue = 0
+    totalReverseValue = 0
+    totalUltraRareValue = 0
+    totalHyperRareValue = 0
+    totalIrValue = 0
+    totalSirValue = 0
+    totalAceSpecValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    rareCount = 0
+    doubleRareCount = 0
+    reverseCount = 0
+    ultraRareCount = 0
+    hyperCount = 0
+    irCount = 0
+    sirCount = 0
+    aceSpecCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv-shrouded-fable")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Hyper Rare"):
+                    hyperCount += 1
+                    totalHyperRareValue += price
+                elif(rarity == "Ultra Rare"):
+                    ultraRareCount += 1
+                    totalUltraRareValue += price
+                elif(rarity == "Double Rare"):
+                    doubleRareCount += 1
+                    totalDoubleRareValue += price
+                elif(rarity == "Illustration Rare"):
+                    irCount += 1
+                    totalIrValue += price
+                elif(rarity == "Special Illustration Rare"):
+                    sirCount += 1
+                    totalSirValue += price
+                elif(rarity == "ACE SPEC Rare"):
+                    aceSpecCount += 1
+                    totalAceSpecValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://app.getcollectr.com/explore/product/552997")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += (totalDoubleRareValue / doubleRareCount * (1/6)) #rare slot
+    expValue += (totalUltraRareValue / ultraRareCount * (1/15)) #rare slot
+    expValue += (totalHyperRareValue / hyperCount * (1/144)) #reverse slot 2
+    expValue += (totalIrValue / irCount * (1/12)) #reverse slot 2
+    expValue += (totalSirValue / sirCount * (1/67)) #reverse slot 2
+    expValue += (totalAceSpecValue / aceSpecCount * (1/20)) #reverse slot 1
+    expValue += (totalRareValue / rareCount * (1 - (1/6) - (1/15))) #rare slot
+    expValue += (totalReverseValue / reverseCount * ((1 - (1/20)) + (1 - (1/144) - (1/12) - (1/67)))) #1 Guaranteed unless ace
+
+    print("\n")
+    print("Shrouded Fable")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleRareCount) + ", Value: $" + f"{totalDoubleRareValue:.2f}")
+    print("Hyper Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperRareValue:.2f}")
+    print("Ultra Rares: " + str(ultraRareCount) + ", Value: $" + f"{totalUltraRareValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("ACE SPECs: " + str(aceSpecCount) + ", Value: $" + f"{totalAceSpecValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
+def paldeanFates():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleRareValue = 0
+    totalReverseValue = 0
+    totalUltraRareValue = 0
+    totalHyperRareValue = 0
+    totalIrValue = 0
+    totalSirValue = 0
+    totalShinyValue = 0
+    totalShinyUltraValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    rareCount = 0
+    doubleRareCount = 0
+    reverseCount = 0
+    ultraRareCount = 0
+    hyperCount = 0
+    irCount = 0
+    sirCount = 0
+    shinyCount = 0
+    shinyUltraCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv-paldean-fates")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Hyper Rare"):
+                    hyperCount += 1
+                    totalHyperRareValue += price
+                elif(rarity == "Ultra Rare"):
+                    ultraRareCount += 1
+                    totalUltraRareValue += price
+                elif(rarity == "Double Rare"):
+                    doubleRareCount += 1
+                    totalDoubleRareValue += price
+                elif(rarity == "Illustration Rare"):
+                    irCount += 1
+                    totalIrValue += price
+                elif(rarity == "Special Illustration Rare"):
+                    sirCount += 1
+                    totalSirValue += price
+                elif(rarity == "Shiny Ultra Rare"):
+                    shinyUltraCount += 1
+                    totalShinyUltraValue += price
+                elif(rarity == "Shiny Rare"):
+                    shinyCount += 1
+                    totalShinyValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://app.getcollectr.com/explore/product/528038")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += (totalDoubleRareValue / doubleRareCount * (1/6)) #rare slot
+    expValue += (totalUltraRareValue / ultraRareCount * (1/15)) #rare slot
+    expValue += (totalHyperRareValue / hyperCount * (1/62)) #reverse slot 2
+    expValue += (totalIrValue / irCount * (1/14)) #reverse slot 2
+    expValue += (totalSirValue / sirCount * (1/58)) #reverse slot 2
+    expValue += (totalShinyUltraValue / shinyUltraCount * (1/13)) #reverse slot 1
+    expValue += (totalShinyValue / shinyCount * (1/4)) #reverse slot 1
+    expValue += (totalRareValue / rareCount * (1 - (1/6) - (1/15))) #rare slot
+    expValue += (totalReverseValue / reverseCount * ((1 - (1/4) - (1/13)) + (1 - (1/62) - (1/14) - (1/58)))) 
+
+    print("\n")
+    print("Paldean Fates")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleRareCount) + ", Value: $" + f"{totalDoubleRareValue:.2f}")
+    print("Hyper Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperRareValue:.2f}")
+    print("Ultra Rares: " + str(ultraRareCount) + ", Value: $" + f"{totalUltraRareValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("Shiny Ultra Rares: " + str(shinyUltraCount) + ", Value: $" + f"{totalShinyUltraValue:.2f}")
+    print("Shiny Rares: " + str(shinyCount) + ", Value: $" + f"{totalShinyValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(1)
+    return (expValue / (packPrice )), packPrice, expValue
+
+def hiddenFates():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalHoloValue = 0
+    totalGxValue = 0
+    totalReverseValue = 0
+    totalFaValue = 0
+    totalFaVaultValue = 0
+    totalRainbowValue = 0
+    totalShinyValue = 0
+    totalShinyGXValue = 0
+    totalGoldValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    holoCount = 0
+    gxCount = 0
+    reverseCount = 0
+    gxCount = 0
+    faCount = 0
+    rainbowCount = 0
+    rareCount = 0
+    shinyCount = 0
+    shinyGxCount = 0
+    faVaultCount = 0
+    goldCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/hidden-fates")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Secret Rare"):
+                    rainbowCount += 1
+                    totalRainbowValue += price
+                elif(rarity == "Ultra Rare" and "Full Art" in cardName):
+                    faCount += 1
+                    totalFaValue += price
+                elif(rarity == "Ultra Rare"):
+                    gxCount += 1
+                    totalGxValue += price
+                elif(rarity == "Holo Rare"):
+                    holoCount += 1
+                    totalHoloValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/hidden-fates-shiny-vault")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                cardNumber = cells[6].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if("GX" in cardName and cardNumber != "SV91/SV94" and cardNumber != "SV92/SV94" and cardNumber != "SV93/SV94" and cardNumber != "SV94/SV94"):
+                    shinyGxCount += 1
+                    totalShinyGXValue += price
+                elif(cardNumber == "SV81/SV94" or cardNumber == "SV82/SV94" or cardNumber == "SV83/SV94" or cardNumber == "SV84/SV94" or cardNumber == "SV85/SV94" or cardNumber == "SV86/SV94"):
+                    faVaultCount += 1
+                    totalFaVaultValue += price
+                elif(cardNumber == "SV87/SV94" or cardNumber == "SV88/SV94" or cardNumber == "SV89/SV94" or cardNumber == "SV90/SV94" or cardNumber == "SV91/SV94" or cardNumber == "SV92/SV94" or cardNumber == "SV93/SV94" or cardNumber == "SV94/SV94"):
+                    goldCount += 1
+                    totalGoldValue += price
+                elif(rarity == "Shiny Holo Rare"):
+                    shinyCount += 1
+                    totalShinyValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+    driver.get("https://app.getcollectr.com/explore/product/198634")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    rareSlot = 0
+    reverseSlot = 0
+
+    rareSlot += (totalRareValue / rareCount * .67 )
+    rareSlot += (totalHoloValue / holoCount * .1244 )
+    rareSlot += (totalGxValue / gxCount * (1/7) )
+    rareSlot += (totalFaValue / faCount * (1/22) )
+    rareSlot += (totalRainbowValue / rainbowCount * (1/58) )
+
+    reverseSlot += (totalReverseValue / reverseCount * .6076 )
+    reverseSlot += (totalShinyValue / shinyCount * .25 )
+    reverseSlot += (totalShinyGXValue / gxCount * (1/9) )
+    reverseSlot += (totalFaVaultValue / faVaultCount * (1/73) )
+    reverseSlot += (totalGoldValue / goldCount * (1/57) )
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 5)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot
+
+    print("\n")
+    print("Hidden Fates")
+    print("Total Cards: " + str(totalCards))
+    print("Holos: " + str(holoCount) + ", Value: $" + f"{totalHoloValue:.2f}")
+    print("GXs: " + str(gxCount) + ", Value: $" + f"{totalGxValue:.2f}")
+    print("Rainbow Rares: " + str(rainbowCount) + ", Value: $" + f"{totalRainbowValue:.2f}")
+    print("Full Arts: " + str(faCount) + ", Value: $" + f"{totalFaValue:.2f}")
+    print("Shiny Holos: " + str(shinyCount) + ", Value: $" + f"{totalShinyValue:.2f}")
+    print("Shiny GXs: " + str(shinyGxCount) + ", Value: $" + f"{totalShinyGXValue:.2f}")
+    print("Vault Full Arts: " + str(faVaultCount) + ", Value: $" + f"{totalFaVaultValue:.2f}")
+    print("Gold Cards: " + str(goldCount) + ", Value: $" + f"{totalGoldValue:.2f}")
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
+
+def shiningFates():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalHoloValue = 0
+    totalVValue = 0
+    totalVmaxValue = 0
+    totalReverseValue = 0
+    totalFaValue = 0
+    totalRainbowValue = 0
+    totalShinyValue = 0
+    totalShinyVmaxValue = 0
+    totalShinyVValue = 0
+    totalGoldValue = 0
+    totalAmazingRareValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    holoCount = 0
+    reverseCount = 0
+    vCount = 0
+    vmaxCount = 0
+    faCount = 0
+    rainbowCount = 0
+    rareCount = 0
+    shinyCount = 0
+    shinyVmaxCount = 0
+    shinyVCount = 0
+    goldCount = 0
+    amazingRareCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/shining-fates")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Secret Rare"):
+                    rainbowCount += 1
+                    totalRainbowValue += price
+                elif(rarity == "Ultra Rare" and "Full Art" in cardName):
+                    faCount += 1
+                    totalFaValue += price
+                elif(rarity == "Ultra Rare" and "VMAX" in cardName):
+                    vmaxCount += 1
+                    totalVmaxValue += price
+                elif(rarity == "Ultra Rare"):
+                    vCount += 1
+                    totalVValue += price
+                elif(rarity == "Holo Rare"):
+                    holoCount += 1
+                    totalHoloValue += price
+                elif(rarity == "Amazing Rare"):
+                    amazingRareCount += 1
+                    totalAmazingRareValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/shining-fates-shiny-vault")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                cardNumber = cells[6].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(cardNumber == "SV121/SV122" or cardNumber == "SV122/SV122"):
+                    goldCount += 1
+                    totalGoldValue += price
+                elif("VMAX" in cardName):
+                    shinyVmaxCount += 1
+                    totalShinyVmaxValue += price
+                elif(" V" in cardName):
+                    shinyVCount += 1
+                    totalShinyVValue += price
+                elif(rarity == "Shiny Holo Rare"):
+                    shinyCount += 1
+                    totalShinyValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+    driver.get("https://app.getcollectr.com/explore/product/232636")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    rareSlot = 0
+    reverseSlot = 0
+
+    rareSlot += (totalRareValue / rareCount * .5251 )
+    rareSlot += (totalHoloValue / holoCount * .2 )
+    rareSlot += (totalVValue / vCount * (1/9) )
+    rareSlot += (totalVmaxValue / vmaxCount * (.0534) )
+    rareSlot += (totalFaValue / faCount * (.08) )
+    rareSlot += (totalRainbowValue / rainbowCount * (1/33) )
+
+    reverseSlot += (totalReverseValue / reverseCount * .6464 )
+    reverseSlot += (totalShinyValue / shinyCount * .25 )
+    reverseSlot += (totalShinyVmaxValue / shinyVmaxCount * (1/39) )
+    reverseSlot += (totalShinyVValue / shinyVCount * (1/14) )
+    reverseSlot += (totalAmazingRareValue / amazingRareCount * (1/19) )
+    reverseSlot += (totalGoldValue / goldCount * (1/155) )
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 5)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot
+
+    print("\n")
+    print("Shining Fates")
+    print("Total Cards: " + str(totalCards))
+    print("Holos: " + str(holoCount) + ", Value: $" + f"{totalHoloValue:.2f}")
+    print("V Cards: " + str(vCount) + ", Value: $" + f"{totalVValue:.2f}")
+    print("VMAX: " + str(vmaxCount) + ", Value: $" + f"{totalVmaxValue:.2f}")
+    print("Rainbow Rares: " + str(rainbowCount) + ", Value: $" + f"{totalRainbowValue:.2f}")
+    print("Full Arts: " + str(faCount) + ", Value: $" + f"{totalFaValue:.2f}")
+    print("Shiny Holos: " + str(shinyCount) + ", Value: $" + f"{totalShinyValue:.2f}")
+    print("Shiny Vs: " + str(shinyVCount) + ", Value: $" + f"{totalShinyVValue:.2f}")
+    print("Shiny VMAX: " + str(shinyVmaxCount) + ", Value: $" + f"{totalShinyVmaxValue:.2f}")
+    print("Gold Cards: " + str(goldCount) + ", Value: $" + f"{totalGoldValue:.2f}")
+    print("Amazing Rares: " + str(amazingRareCount) + ", Value: $" + f"{totalAmazingRareValue:.2f}")
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
+def generations():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalHoloValue = 0
+    totalExValue = 0
+    totalReverseValue = 0
+    totalRcCommonValue = 0
+    totalRcUncommonValue = 0
+    totalRcUltraValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    holoCount = 0
+    reverseCount = 0
+    exCount = 0
+    rcCommonCount = 0
+    rcUncommonCount = 0
+    rareCount = 0
+    rcUltraCount = 0
+
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/generations")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Ultra Rare"):
+                    exCount += 1
+                    totalExValue += price
+                elif(rarity == "Holo Rare"):
+                    holoCount += 1
+                    totalHoloValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/generations-radiant-collection")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                cardNumber = cells[6].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Ultra Rare"):
+                    rcUltraCount += 1
+                    totalRcUltraValue += price
+                elif(rarity == "Uncommon"):
+                    rcUncommonCount += 1
+                    totalRcUncommonValue += price
+                elif("Common"):
+                    rcCommonCount += 1
+                    totalRcCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+    driver.get("https://app.getcollectr.com/explore/product/187238")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    rareSlot = 0
+    reverseSlot = 0
+    rcCommonSlot = 0
+    rcSlot = 0
+
+    rareSlot += (totalRareValue / rareCount * .654 )
+    rareSlot += (totalHoloValue / holoCount * .13 )
+    rareSlot += (totalExValue / exCount * (.216) )
+
+    reverseSlot += (totalReverseValue / reverseCount)
+
+    rcCommonSlot += (totalRcCommonValue / rcCommonCount)
+
+    rcSlot += (totalRcUncommonValue / rcUncommonCount * .732 )
+    rcSlot += (totalRcUltraValue / rcUltraCount * .268 )
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 2)
+    expValue += rareSlot
+    expValue += reverseSlot
+    expValue += rcSlot
+    expValue += rcCommonSlot
+
+    print("\n")
+    print("Generations")
+    print("Total Cards: " + str(totalCards))
+    print("Holos: " + str(holoCount) + ", Value: $" + f"{totalHoloValue:.2f}")
+    print("EXs: " + str(exCount) + ", Value: $" + f"{totalExValue:.2f}")
+    print("Radiant Commons: " + str(rcCommonCount) + ", Value: $" + f"{totalRcCommonValue:.2f}")
+    print("Radiant Uncommons: " + str(rcUncommonCount) + ", Value: $" + f"{totalRcUncommonValue:.2f}")
+    print("Radiant Ultra Rares: " + str(rcUltraCount) + ", Value: $" + f"{totalRcUltraValue:.2f}")
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
+def crownZenith():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalHoloValue = 0
+    totalVValue = 0
+    totalVmaxValue = 0
+    totalReverseValue = 0
+    totalFaValue = 0
+    totalRadiantValue = 0
+    totalGgValue = 0
+    totalGgUltraValue = 0
+    totalGoldValue = 0
+    totalSecretValue = 0
+    totalEnergyValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    holoCount = 0
+    reverseCount = 0
+    vCount = 0
+    vmaxCount = 0
+    faCount = 0
+    radiantCount = 0
+    energyCount = 0
+    rareCount = 0
+    ggCount = 0
+    ggUltraCount = 0
+    goldCount = 0
+    secretCount = 0
+
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crown-zenith")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setReverse()
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                reverseCount += 1
+                totalReverseValue += price
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+
+    reverseOn()
+    
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(10)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Secret Rare"):
+                    secretCount += 1
+                    totalSecretValue += price
+                elif(rarity == "Ultra Rare" and "Energy" in cardName):
+                    energyCount += 1
+                    totalEnergyValue += price
+                elif(rarity == "Ultra Rare" and ("VMAX" in cardName or "VSTAR" in cardName)):
+                    vmaxCount += 1
+                    totalVmaxValue += price
+                elif(rarity == "Ultra Rare" and "Full Art" in cardName):
+                    faCount += 1
+                    totalFaValue += price
+                elif(rarity == "Ultra Rare"):
+                    vCount += 1
+                    totalVValue += price
+                elif(rarity == "Holo Rare"):
+                    holoCount += 1
+                    totalHoloValue += price
+                elif(rarity == "Radiant Rare"):
+                    radiantCount += 1
+                    totalRadiantValue += price
+                elif(rarity == "Rare"):
+                    rareCount += 1
+                    totalRareValue += price
+                elif(rarity == "Uncommon"):
+                    uncommonCount += 1
+                    totalUncommonValue += price
+                elif(rarity == "Common"):
+                    commonCount += 1
+                    totalCommonValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+    
+    reset()
+
+    driver.get("https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crown-zenith-galarian-gallery")
+    # Allow the page to load completely
+    time.sleep(10)
+    wait = WebDriverWait(driver, 15)
+
+    setNameElement = element = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/section[2]/section/div[1]/div/div[1]/h1')))
+    setName = setNameElement.text.replace(" Price Guide", "").replace("Pokemon", "").replace('\n', '')
+    time.sleep(3)
+    tbody_element = driver.find_element(By.CSS_SELECTOR, "tbody.tcg-table-body")
+    rows = tbody_element.find_elements(By.TAG_NAME, "tr")
+
+    for row in rows:
+        try:
+            cells = row.find_elements(By.TAG_NAME, "td")
+            if len(cells) > 7:
+                rarity = cells[5].text
+                cardName = cells[2].text
+                cardNumber = cells[6].text
+                price = float(cells[7].text.replace("$", "").replace(",", ""))
+                if(rarity == "Secret Rare"):
+                    goldCount += 1
+                    totalGoldValue += price
+                elif((("V" in cardName) or (cardNumber == "GG57/GG70" or cardNumber == "GG58/GG70" or cardNumber == "GG59/GG70" or cardNumber == "GG60/GG70" or cardNumber == "GG61/GG70" or cardNumber == "GG62/GG70" or cardNumber == "GG63/GG70" or cardNumber == "GG64/GG70" or cardNumber == "GG65/GG70" or cardNumber == "GG66/GG70")) and (cardNumber != "GG01/GG70")):
+                    ggUltraCount += 1
+                    totalGgUltraValue += price
+                else:
+                    ggCount += 1
+                    totalGgValue += price
+                if(rarity != "Code Card"):
+                    totalCards += 1
+            else:
+                print("Not enough cells in the row.")
+        except Exception as e:
+            pass
+            #print(f"Error processing row: {e}")
+
+    driver.get("https://app.getcollectr.com/explore/product/453466")
+    time.sleep(10)
+    priceElement = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.ml-2.font-bold.dark\\:text-secondaryTextDark.text-secondaryText.text-md')))
+    packPrice = float(priceElement.text.replace("$", "").replace(",", ""))
+
+    rareSlot = 0
+    reverseSlot = 0
+
+    rareSlot += (totalRareValue / rareCount * .3848)
+    rareSlot += (totalHoloValue / holoCount * .4016 )
+    rareSlot += (totalVValue / vCount * (1/8) )
+    rareSlot += (totalVmaxValue / vmaxCount * (1/19) )
+    rareSlot += (totalFaValue / faCount * (1/105) )
+    rareSlot += (totalEnergyValue / energyCount * (1/53) )
+    rareSlot += (totalSecretValue / secretCount * (1/133))
+
+
+    reverseSlot += (totalReverseValue / reverseCount * .5715 )
+    reverseSlot += (totalGgValue / ggCount * .25 )
+    reverseSlot += (totalRadiantValue / radiantCount * (1/22) )
+    reverseSlot += (totalGgUltraValue / ggUltraCount * (1/8) )
+    reverseSlot += (totalGoldValue / goldCount * (1/125) )
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 5)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot
+
+    print("\n")
+    print("Crown Zenith")
+    print("Total Cards: " + str(totalCards))
+    print("Holos: " + str(holoCount) + ", Value: $" + f"{totalHoloValue:.2f}")
+    print("V Cards: " + str(vCount) + ", Value: $" + f"{totalVValue:.2f}")
+    print("VMAX and VSTAR " + str(vmaxCount) + ", Value: $" + f"{totalVmaxValue:.2f}")
+    print("Secret Rares: " + str(secretCount) + ", Value: $" + f"{totalSecretValue:.2f}")
+    print("Full Arts: " + str(faCount) + ", Value: $" + f"{totalFaValue:.2f}")
+    print("GGs: " + str(ggCount) + ", Value: $" + f"{totalGgValue:.2f}")
+    print("GG Ultra Rares: " + str(ggUltraCount) + ", Value: $" + f"{totalGgUltraValue:.2f}")
+    print("Radiant Rares: " + str(radiantCount) + ", Value: $" + f"{totalRadiantValue:.2f}")
+    print("Gold Cards: " + str(goldCount) + ", Value: $" + f"{totalGoldValue:.2f}")
+    print("Ultra Rare Energy: " + str(energyCount) + ", Value: $" + f"{totalEnergyValue:.2f}")
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    time.sleep(10)
+    return (expValue / (packPrice )), packPrice, expValue
+
 expectedValueList = []
 setNameList = []
 packValueList = []
@@ -3302,6 +4512,55 @@ packValueList.append(price)
 setNameList.append("Pokemon Go")
 actualEvList.append(ev)
 setNumberList.append(1101.5)
+
+adjev, price, ev = pokemon151()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Pokemon 151")
+actualEvList.append(ev)
+setNumberList.append(1202.5) 
+
+adjev, price, ev = paldeanFates()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Paldean Fates")
+actualEvList.append(ev)
+setNumberList.append(1203.5) 
+
+adjev, price, ev = shroudedFable()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Shrouded Fable")
+actualEvList.append(ev)
+setNumberList.append(1205.5) 
+
+adjev, price, ev = hiddenFates()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Hidden Fates")
+actualEvList.append(ev)
+setNumberList.append(910.5) 
+
+adjev, price, ev = shiningFates()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Shining Fates")
+actualEvList.append(ev)
+setNumberList.append(1003.5) 
+
+adjev, price, ev = generations()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Generations")
+actualEvList.append(ev)
+setNumberList.append(808.5)
+
+adjev, price, ev = crownZenith()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Crown Zenith")
+actualEvList.append(ev)
+setNumberList.append(1103.5)
 
 for bb in boosterBoxList:
     boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)
