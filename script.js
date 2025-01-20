@@ -34,7 +34,7 @@ function initializePacks(data) {
         value: item["Pack Value"],
         ev: item["EV"],
         adjEv: item["Adj. EV"],
-        setNumber: parseInt(item["SetNumber"], 10),
+        setNumber: parseFloat(item["SetNumber"], 10),
     }));
 
     const lastUpdated = data[0]["Last Updated"];
@@ -97,8 +97,9 @@ function applyFilter() {
         gen5: () => packs.filter((pack) => pack.setNumber >= 700 && pack.setNumber <= 710),
         gen6: () => packs.filter((pack) => pack.setNumber >= 800 && pack.setNumber <= 811),
         gen7: () => packs.filter((pack) => pack.setNumber >= 900 && pack.setNumber <= 911),
-        gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1103),
-        gen9: () => packs.filter((pack) => pack.setNumber >= 1200 && pack.setNumber <= 1211)
+        gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1104),
+        gen9: () => packs.filter((pack) => pack.setNumber >= 1200 && pack.setNumber <= 1211),
+        special: () => packs.filter((pack) => pack.setNumber % 1 === .5 )
     };
 
     if (filterers[activeFilter]) {
