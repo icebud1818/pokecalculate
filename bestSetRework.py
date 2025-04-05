@@ -441,7 +441,7 @@ def gen1Calculate(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice")
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
 
     expValue = 0
     if(set.secretOdds > 0):
@@ -581,7 +581,8 @@ def earlyReverseSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice")
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+
 
     expValue = 0
     if(secretCount > 0):
@@ -733,7 +734,7 @@ def earlyExSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or "300.00"
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
 
     expValue = 0
     if(set.secretOdds > 0):
