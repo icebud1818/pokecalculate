@@ -41,7 +41,7 @@ jobs:
     # Step 5: Run the Selenium tests
     - name: Run Selenium tests
       run: |
-        python seleniumTest.py  # Execute the seleniumTest.py script
+        python bestSetRework.py  # Execute the seleniumTest.py script
 
     # Step 6: Commit and push the updated JSON file
     - name: Commit and push updated JSON file
