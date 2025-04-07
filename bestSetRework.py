@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 # ------------------------------------------------------------------------------------------------------------------
 
@@ -374,6 +375,19 @@ svSetList = [
     svSet("SV08: Surging Sparks", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv08-surging-sparks", .0121, .1666, .0666, .0769, .0114, .05, 565604, 23651 ),
 ]
 
+# Load previous data if available
+previous_data = []
+if os.path.exists('full_output_with_all_columns.json'):
+    with open('full_output_with_all_columns.json', 'r') as f:
+        previous_data = json.load(f)
+
+# Function to get last Pack Value by Set Name
+def get_last_pack_value(set_name):
+    for entry in reversed(previous_data):
+        if entry.get("Set Name") == set_name:
+            return entry.get("Pack Value", 300.00)
+    return 300.00  # fallback if not found
+
 def findSet(name, list):
     for set in list:
         if set.name == name:
@@ -386,7 +400,7 @@ def getBoxPrices(boxSet):
     response = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{boxSet.productId}/details?mpfev=3442")   
     data = response.json() 
     
-    price = data.get("marketPrice") or data.get("medianPrice") or data.get("lowestPrice") or 300.00
+    price = data.get("marketPrice") or data.get("medianPrice") or data.get("lowestPrice") or get_last_pack_value(boxSet.name)
     pricePer = float(price/36)
 
     print("\n")
@@ -441,7 +455,7 @@ def gen1Calculate(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     expValue = 0
     if(set.secretOdds > 0):
@@ -581,7 +595,7 @@ def earlyReverseSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
 
     expValue = 0
@@ -734,7 +748,7 @@ def earlyExSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     expValue = 0
     if(set.secretOdds > 0):
@@ -911,7 +925,7 @@ def goldStarSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
 
     expValue = 0
@@ -1107,7 +1121,7 @@ def dpSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
 
     commonQuantity = 5
@@ -1311,7 +1325,7 @@ def hgssSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 5
     uncommonQuantity = 3
@@ -1507,7 +1521,7 @@ def bwSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 5
     uncommonQuantity = 3
@@ -1822,7 +1836,7 @@ def legendaryTreasures():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/98581/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 4
     uncommonQuantity = 2
@@ -2038,7 +2052,7 @@ def xySets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
 
     commonQuantity = 5
@@ -2244,7 +2258,7 @@ def smSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 5
     uncommonQuantity = 3
@@ -2452,7 +2466,7 @@ def swshSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
 
     commonQuantity = 5
@@ -2779,7 +2793,7 @@ def lateSwshSets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 5
     uncommonQuantity = 3
@@ -2989,7 +3003,7 @@ def svsets(set):
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.name)
 
     commonQuantity = 4
     uncommonQuantity = 3
@@ -3060,6 +3074,7 @@ def dragonVault():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+        setName = item.get("set")
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3132,7 +3147,7 @@ def dragonVault():
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/98948/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
 
@@ -3291,7 +3306,7 @@ def doubleCrisis():
 
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/229226/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 3)
@@ -3474,7 +3489,7 @@ def shiningLegends():
 
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/155880/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -3662,7 +3677,7 @@ def dragonMajesty():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/173392/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -3845,7 +3860,7 @@ def championsPath():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/218789/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -4044,7 +4059,7 @@ def pokemonGo():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/274421/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -4235,7 +4250,7 @@ def pokemon151():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/504467/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 4)
@@ -4427,7 +4442,7 @@ def shroudedFable():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/552997/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
 
     expValue = 0
@@ -4627,7 +4642,7 @@ def paldeanFates():
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/528038/details?mpfev=3442")   
     packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 4)
@@ -4945,7 +4960,7 @@ def hiddenFates():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/198634/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot = 0
@@ -5281,7 +5296,7 @@ def shiningFates():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/232636/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot = 0
@@ -5593,7 +5608,7 @@ def generations():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/187238/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot = 0
@@ -5929,7 +5944,7 @@ def crownZenith():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/453466/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot = 0
@@ -6280,7 +6295,7 @@ def celebrations():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/248577/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot = 0
@@ -6509,7 +6524,7 @@ def prismaticEvolutions():
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/593294/details?mpfev=3442")   
     packData = packResponse.json() 
     
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or 300.00
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
 
     rareSlot = 0
     reverseSlot1 = 0
