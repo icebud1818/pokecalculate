@@ -332,7 +332,7 @@ xySetList = [
 ]
 
 smSetList = [
-    SMSet("SM Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-base-set", .0277, 1/9, 1/24, 0, 0, 12938, 1863),
+    SMSet("SM Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-base-set", .0277, 1/9, 1/24, 0, 0, 129385, 1863),
     SMSet("SM - Guardians Rising", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-guardians-rising", .0265, 1/9, 1/28, 0, 0, 129889, 1919),
     SMSet("SM - Burning Shadows", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-burning-shadows", .0276, 1/9, 1/25, 0, 0, 133774, 1957),
     SMSet("SM - Crimson Invasion", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sm-crimson-invasion", .0222, 1/12, 1/22, 0, 0, 146996, 2071),
