@@ -1,3 +1,4 @@
+
 import requests
 import json
 import os
@@ -4973,7 +4974,7 @@ def hiddenFates():
 
     reverseSlot += (totalReverseValue / reverseCount * .6076 )
     reverseSlot += (totalShinyValue / shinyCount * .25 )
-    reverseSlot += (totalShinyGXValue / gxCount * (1/9) )
+    reverseSlot += (totalShinyGXValue / shinyGxCount * (1/9) )
     reverseSlot += (totalFaVaultValue / faVaultCount * (1/73) )
     reverseSlot += (totalGoldValue / goldCount * (1/57) )
 
