@@ -2982,7 +2982,7 @@ def svsets(set):
             number = product["holofoil"]["number"]
             setName = product["holofoil"]["setName"]
 
-            if rarity == "Rare":
+            if rarity == "Rare" and "Prerelease" not in name:
                 rareCount += 1
                 totalRareValue += marketPrice
             elif rarity == "Double Rare":
