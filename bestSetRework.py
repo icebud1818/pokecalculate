@@ -233,7 +233,9 @@ boosterBoxList = [
     BoosterBox("Temporal Forces", 1204, 536225),
     BoosterBox("Twilight Masquerade", 1205, 543846),
     BoosterBox("Stellar Crown", 1206, 557354),
-    BoosterBox("Surging Sparks", 1207, 565606)
+    BoosterBox("Surging Sparks", 1207, 565606),
+    BoosterBox("Journey Together", 1208, 610931),
+    BoosterBox("Destined Rivals", 1209, 624679)
 ]
 
 vintageSetList = [
@@ -374,6 +376,8 @@ svSetList = [
     svSet("SV06: Twilight Masquerade", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv06-twilight-masquerade", .0175, .1666, .0666, .0769, .0116, .05, 543843, 23473 ),
     svSet("SV07: Stellar Crown", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv07-stellar-crown", .0192, .1666, .0666, .0769, .0111, .05, 557331, 23537 ),
     svSet("SV08: Surging Sparks", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv08-surging-sparks", .0121, .1666, .0666, .0769, .0114, .05, 565604, 23651 ),
+    svSet("SV09: Journey Together", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv09-journey-together", .0072, .2, .0667, .0833, .0116, 0, 610935, 24073),
+    svSet("SV10: Destined Rivals", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv10-destined-rivals", .0067, .2, .0625, .0833, .0106, 0, 624683, 24269),
 ]
 
 # Load previous data if available
