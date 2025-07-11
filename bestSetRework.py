@@ -396,14 +396,12 @@ if os.path.exists('boxData.json'):
 def get_last_pack_value(set_name):
     for entry in reversed(previous_data):
         if entry.get("Set Name") == set_name:
-            return entry.get("Pack Value", 300.00)
-    return 300.00  # fallback if not found
+            return entry.get("Pack Value")
 
 def get_last_box_value(set_name):
     for entry in reversed(previous_box_data):
         if entry.get("Set Name") == set_name:
-            return entry.get("Box Price", 300.00)
-    return 300.00  # fallback if not found
+            return entry.get("Box Price")
 
 def findSet(name, list):
     for set in list:
