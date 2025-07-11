@@ -390,7 +390,7 @@ if os.path.exists('full_output_with_all_columns.json'):
 previous_box_data = []
 if os.path.exists('boxData.json'):
     with open('boxData.json', 'r') as g:
-        previous_data = json.load(g)
+        previous_box_data = json.load(g)
 
 # Function to get last Pack Value by Set Name
 def get_last_pack_value(set_name):
