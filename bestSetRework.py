@@ -386,11 +386,23 @@ if os.path.exists('full_output_with_all_columns.json'):
     with open('full_output_with_all_columns.json', 'r') as f:
         previous_data = json.load(f)
 
+# Load previous data if available
+previous_box_data = []
+if os.path.exists('boxData.json'):
+    with open('boxData.json', 'r') as g:
+        previous_data = json.load(g)
+
 # Function to get last Pack Value by Set Name
 def get_last_pack_value(set_name):
     for entry in reversed(previous_data):
         if entry.get("Set Name") == set_name:
             return entry.get("Pack Value", 300.00)
+    return 300.00  # fallback if not found
+
+def get_last_box_value(set_name):
+    for entry in reversed(previous_box_data):
+        if entry.get("Set Name") == set_name:
+            return entry.get("Box Price", 300.00)
     return 300.00  # fallback if not found
 
 def findSet(name, list):
@@ -405,7 +417,7 @@ def getBoxPrices(boxSet):
     response = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{boxSet.productId}/details?mpfev=3442")   
     data = response.json() 
     
-    price = data.get("marketPrice") or data.get("medianPrice") or data.get("lowestPrice") or get_last_pack_value(boxSet.name)
+    price = data.get("marketPrice") or data.get("medianPrice") or data.get("lowestPrice") or get_last_box_value(boxSet.name)
     pricePer = float(price/36)
 
     print("\n")
