@@ -1,42 +1,42 @@
 [
     {
         "Set Name": "Base Set",
-        "Adj. EV": 0.08240525642839643,
+        "Adj. EV": 0.08235160420886983,
         "Pack Value": 457.53,
-        "EV": 37.70287697368421,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 37.678329473684215,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 100
     },
     {
         "Set Name": "Jungle",
-        "Adj. EV": 0.09861509586509588,
+        "Adj. EV": 0.09868029568029568,
         "Pack Value": 216.45,
-        "EV": 21.345237500000003,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 21.35935,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 101
     },
     {
         "Set Name": "Fossil",
-        "Adj. EV": 0.10006496028628789,
+        "Adj. EV": 0.09993403596054815,
         "Pack Value": 229.14,
-        "EV": 22.928885000000005,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 22.898885,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 102
     },
     {
         "Set Name": "Base Set 2",
-        "Adj. EV": 0.09741465137538438,
+        "Adj. EV": 0.09738786457397197,
         "Pack Value": 246.39,
-        "EV": 24.001995952380955,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 23.995395952380953,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 103
     },
     {
         "Set Name": "Team Rocket",
-        "Adj. EV": 0.15484867800463695,
+        "Adj. EV": 0.15485514472045064,
         "Pack Value": 257.73,
-        "EV": 39.90914978213508,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 39.91081644880175,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 104
     },
     {
@@ -44,7 +44,7 @@
         "Adj. EV": 0.13531413437560613,
         "Pack Value": 262.16,
         "EV": 35.473953467908906,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 105
     },
     {
@@ -52,23 +52,23 @@
         "Adj. EV": 0.225760300026633,
         "Pack Value": 246.74,
         "EV": 55.704096428571425,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 106
     },
     {
         "Set Name": "Neo Genesis",
-        "Adj. EV": 0.061833183973745716,
+        "Adj. EV": 0.061843696558142036,
         "Pack Value": 560.25,
-        "EV": 34.64204132129104,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 34.647930996699074,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 107
     },
     {
         "Set Name": "Neo Discovery",
-        "Adj. EV": 0.10206776540733523,
+        "Adj. EV": 0.10210388121949175,
         "Pack Value": 357.33,
-        "EV": 36.471874613003095,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 36.484779876160985,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 108
     },
     {
@@ -76,39 +76,39 @@
         "Adj. EV": 0.16135233406729405,
         "Pack Value": 422.5,
         "EV": 68.17136114343174,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 109
     },
     {
         "Set Name": "Neo Destiny",
-        "Adj. EV": 0.20570219356600525,
+        "Adj. EV": 0.20570828225795126,
         "Pack Value": 799.0,
-        "EV": 164.3560526592382,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 164.36091752410306,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 110
     },
     {
         "Set Name": "Legendary Collection",
-        "Adj. EV": 0.09845128602137752,
+        "Adj. EV": 0.0984386942653075,
         "Pack Value": 1610.0,
-        "EV": 158.50657049441782,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 158.4862977671451,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 200
     },
     {
         "Set Name": "Expedition",
-        "Adj. EV": 0.12171370867657456,
+        "Adj. EV": 0.12173106404847539,
         "Pack Value": 1100.0,
-        "EV": 133.885079544232,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 133.90417045332293,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 201
     },
     {
         "Set Name": "Aquapolis",
-        "Adj. EV": 0.1392535029332527,
+        "Adj. EV": 0.13923154876517202,
         "Pack Value": 1050.99,
-        "EV": 146.35403904781924,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 146.33096543670814,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 202
     },
     {
@@ -116,63 +116,63 @@
         "Adj. EV": 0.14882922269670046,
         "Pack Value": 1774.495,
         "EV": 264.09671152918145,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 203
     },
     {
         "Set Name": "Ruby and Sapphire",
-        "Adj. EV": 0.45716229385587637,
+        "Adj. EV": 0.4571946837426398,
         "Pack Value": 59.99,
-        "EV": 27.425166008414024,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 27.42710907772096,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 300
     },
     {
         "Set Name": "Sandstorm",
-        "Adj. EV": 0.07338814520383,
+        "Adj. EV": 0.07339723702210274,
         "Pack Value": 499.95,
-        "EV": 36.690403194654806,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 36.69494864920026,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 301
     },
     {
         "Set Name": "Dragon",
-        "Adj. EV": 0.04938060966208042,
+        "Adj. EV": 0.0494020074843139,
         "Pack Value": 897.5,
-        "EV": 44.319097171717175,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 44.338301717171724,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 302
     },
     {
         "Set Name": "Team Magma vs Team Aqua",
-        "Adj. EV": 0.13347451933621934,
+        "Adj. EV": 0.13362258282828285,
         "Pack Value": 375.0,
-        "EV": 50.05294475108225,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 50.10846856060606,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 303
     },
     {
         "Set Name": "Hidden Legends",
-        "Adj. EV": 0.10095060601877995,
+        "Adj. EV": 0.10114838776481168,
         "Pack Value": 350.0,
-        "EV": 35.332712106572984,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 35.40193571768409,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 304
     },
     {
         "Set Name": "FireRed & LeafGreen",
-        "Adj. EV": 0.08798232767982442,
+        "Adj. EV": 0.0879845588983196,
         "Pack Value": 622.48,
-        "EV": 54.76723933413711,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 54.76862822302599,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 305
     },
     {
         "Set Name": "Emerald",
-        "Adj. EV": 0.10983517182671311,
+        "Adj. EV": 0.10981327755663758,
         "Pack Value": 424.5,
-        "EV": 46.625030440439716,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 46.61573632279266,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 306
     },
     {
@@ -180,7 +180,7 @@
         "Adj. EV": 0.062468892394967016,
         "Pack Value": 1999.99,
         "EV": 124.93716010101008,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 400
     },
     {
@@ -188,15 +188,15 @@
         "Adj. EV": 0.03044801027764765,
         "Pack Value": 1499.99,
         "EV": 45.6717109363687,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 401
     },
     {
         "Set Name": "Unseen Forces",
-        "Adj. EV": 0.08791298133761062,
+        "Adj. EV": 0.0879152855838295,
         "Pack Value": 699.97,
-        "EV": 61.53644954688731,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 61.53806245011313,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 402
     },
     {
@@ -204,7 +204,7 @@
         "Adj. EV": 0.1478423929618336,
         "Pack Value": 749.975,
         "EV": 110.87809866155115,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 403
     },
     {
@@ -212,31 +212,31 @@
         "Adj. EV": 0.08617022263335977,
         "Pack Value": 482.495,
         "EV": 41.57670156948292,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 404
     },
     {
         "Set Name": "Holon Phantoms",
-        "Adj. EV": 0.1030164889599669,
+        "Adj. EV": 0.10302801052026267,
         "Pack Value": 699.95,
-        "EV": 72.10639144752884,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 72.11445596365786,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 405
     },
     {
         "Set Name": "Crystal Guardians",
-        "Adj. EV": 0.09525317080426722,
+        "Adj. EV": 0.09525092356831127,
         "Pack Value": 499.99,
-        "EV": 47.62563287042557,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 47.62450927491995,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 406
     },
     {
         "Set Name": "Dragon Frontiers",
-        "Adj. EV": 0.061412997622954824,
+        "Adj. EV": 0.06141415252250686,
         "Pack Value": 899.95,
-        "EV": 55.2686272107782,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 55.26966656263005,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 407
     },
     {
@@ -244,7 +244,7 @@
         "Adj. EV": 0.04922162019838625,
         "Pack Value": 849.5,
         "EV": 41.81376635852912,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 408
     },
     {
@@ -252,31 +252,31 @@
         "Adj. EV": 0.14243491874283348,
         "Pack Value": 144.75,
         "EV": 20.617454488025146,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 500
     },
     {
         "Set Name": "Mysterious Treasures",
-        "Adj. EV": 0.10606777832387942,
+        "Adj. EV": 0.10607288175074323,
         "Pack Value": 143.15,
-        "EV": 15.18360246706334,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 15.184333022618894,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 501
     },
     {
         "Set Name": "Secret Wonders",
-        "Adj. EV": 0.07109737390957488,
+        "Adj. EV": 0.0710988269010279,
         "Pack Value": 312.0,
-        "EV": 22.182380659787363,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 22.182833993120703,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 502
     },
     {
         "Set Name": "Great Encounters",
-        "Adj. EV": 0.09676945186577272,
+        "Adj. EV": 0.09678380668827534,
         "Pack Value": 189.99,
-        "EV": 18.385228159978162,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 18.387955432705432,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 503
     },
     {
@@ -284,39 +284,39 @@
         "Adj. EV": 0.07536122142857143,
         "Pack Value": 450.0,
         "EV": 33.912549642857144,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 504
     },
     {
         "Set Name": "Legends Awakened",
-        "Adj. EV": 0.1021615992705349,
+        "Adj. EV": 0.10216528597855602,
         "Pack Value": 255.745,
-        "EV": 26.12731820544295,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 26.12826106258581,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 505
     },
     {
         "Set Name": "Stormfront",
-        "Adj. EV": 0.08111078216259102,
+        "Adj. EV": 0.08110018797638398,
         "Pack Value": 299.99,
-        "EV": 24.33242354095568,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 24.32924539103543,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 506
     },
     {
         "Set Name": "Platinum",
-        "Adj. EV": 0.14531174443505715,
+        "Adj. EV": 0.14538266096452393,
         "Pack Value": 145.32,
-        "EV": 21.116702701302504,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 21.127008291364618,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 507
     },
     {
         "Set Name": "Rising Rivals",
-        "Adj. EV": 0.14813329814379866,
+        "Adj. EV": 0.14813922268244983,
         "Pack Value": 199.99,
-        "EV": 29.625178295778294,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 29.62636314426314,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 508
     },
     {
@@ -324,7 +324,7 @@
         "Adj. EV": 0.10765262580263192,
         "Pack Value": 304.63,
         "EV": 32.79421939825576,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 509
     },
     {
@@ -332,31 +332,31 @@
         "Adj. EV": 0.15293053082951938,
         "Pack Value": 175.0,
         "EV": 26.76284289516589,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 510
     },
     {
         "Set Name": "HeartGold SoulSilver",
-        "Adj. EV": 0.2183628755463538,
+        "Adj. EV": 0.21835775055997486,
         "Pack Value": 287.5,
-        "EV": 62.77932671957672,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 62.77785328599277,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 600
     },
     {
         "Set Name": "Unleashed",
-        "Adj. EV": 0.14900897315342768,
+        "Adj. EV": 0.14900892009629116,
         "Pack Value": 174.99,
-        "EV": 26.075080212118312,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 26.075070927649993,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 601
     },
     {
         "Set Name": "Undaunted",
-        "Adj. EV": 0.18818286310348226,
+        "Adj. EV": 0.18817430701231538,
         "Pack Value": 201.51,
-        "EV": 37.92072874398271,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 37.91900460605167,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 602
     },
     {
@@ -364,15 +364,15 @@
         "Adj. EV": 0.2056795276825525,
         "Pack Value": 130.0,
         "EV": 26.738338598731822,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 603
     },
     {
         "Set Name": "Call of Legends",
-        "Adj. EV": 0.16752041022214248,
+        "Adj. EV": 0.16752509118196393,
         "Pack Value": 368.33,
-        "EV": 61.70279269712174,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 61.70451683505277,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 604
     },
     {
@@ -380,7 +380,7 @@
         "Adj. EV": 0.17033443988129926,
         "Pack Value": 80.47,
         "EV": 13.706812377248152,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 700
     },
     {
@@ -388,39 +388,39 @@
         "Adj. EV": 0.06959211356703056,
         "Pack Value": 76.96,
         "EV": 5.355809060118672,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 701
     },
     {
         "Set Name": "Noble Victories",
-        "Adj. EV": 0.13048380688080016,
+        "Adj. EV": 0.13050616408089172,
         "Pack Value": 116.48,
-        "EV": 15.198753825475602,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 15.201357992142269,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 702
     },
     {
         "Set Name": "Next Destinies",
-        "Adj. EV": 0.10962842582643552,
+        "Adj. EV": 0.10963462108688428,
         "Pack Value": 104.62,
-        "EV": 11.469325909961684,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 11.469974058109834,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 703
     },
     {
         "Set Name": "Dark Explorers",
-        "Adj. EV": 0.07682852305155626,
+        "Adj. EV": 0.07682882067060387,
         "Pack Value": 350.0,
-        "EV": 26.88998306804469,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 26.890087234711356,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 704
     },
     {
         "Set Name": "Dragons Exalted",
-        "Adj. EV": 0.12146329714950978,
+        "Adj. EV": 0.12144745489529542,
         "Pack Value": 150.5,
-        "EV": 18.28022622100122,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 18.27784196174196,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 705
     },
     {
@@ -428,39 +428,39 @@
         "Adj. EV": 0.1265177073174731,
         "Pack Value": 125.21,
         "EV": 15.841282133220808,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 706
     },
     {
         "Set Name": "Plasma Storm",
-        "Adj. EV": 0.06838743780804979,
+        "Adj. EV": 0.06839563883866767,
         "Pack Value": 287.73,
-        "EV": 19.677117480510166,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 19.67947716304985,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 707
     },
     {
         "Set Name": "Plasma Freeze",
-        "Adj. EV": 0.14100377285259239,
+        "Adj. EV": 0.14098480152038328,
         "Pack Value": 148.25,
-        "EV": 20.90380932539682,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 20.900996825396824,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 708
     },
     {
         "Set Name": "Plasma Blast",
-        "Adj. EV": 0.12612178583845854,
+        "Adj. EV": 0.12612050571439623,
         "Pack Value": 89.35,
-        "EV": 11.26898156466627,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 11.268867185581303,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 709
     },
     {
         "Set Name": "Legendary Treasures",
-        "Adj. EV": 0.263604021749809,
+        "Adj. EV": 0.26358256522046414,
         "Pack Value": 152.44,
-        "EV": 40.18379707554089,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 40.18052624220755,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 710
     },
     {
@@ -468,367 +468,367 @@
         "Adj. EV": 0.13745353198930743,
         "Pack Value": 52.38,
         "EV": 7.199816005599924,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 800
     },
     {
         "Set Name": "XY - Flashfire",
-        "Adj. EV": 0.12511564623935015,
+        "Adj. EV": 0.12514534946339714,
         "Pack Value": 110.41,
-        "EV": 13.814018501286649,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 13.817298034253678,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 801
     },
     {
         "Set Name": "XY - Furious Fists",
-        "Adj. EV": 0.2110240027765282,
+        "Adj. EV": 0.21113070369336198,
         "Pack Value": 49.63,
-        "EV": 10.473121257799095,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 10.478416824301556,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 802
     },
     {
         "Set Name": "XY - Phantom Forces",
-        "Adj. EV": 0.15132657846259312,
+        "Adj. EV": 0.15132478435122546,
         "Pack Value": 109.29,
-        "EV": 16.538481760176804,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 16.538285681745432,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 803
     },
     {
         "Set Name": "XY - Primal Clash",
-        "Adj. EV": 0.2082561410493162,
+        "Adj. EV": 0.20828497062615567,
         "Pack Value": 44.47,
-        "EV": 9.26115059246309,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 9.262432643745143,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 804
     },
     {
         "Set Name": "XY - Roaring Skies",
-        "Adj. EV": 0.19789573982714725,
+        "Adj. EV": 0.19790595663728933,
         "Pack Value": 49.09,
-        "EV": 9.714701868114659,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 9.715203411324534,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 805
     },
     {
         "Set Name": "XY - Ancient Origins",
-        "Adj. EV": 0.21973601624192607,
+        "Adj. EV": 0.21973584723827697,
         "Pack Value": 74.71,
-        "EV": 16.416477773434295,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 16.41646514717167,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 806
     },
     {
         "Set Name": "XY - BREAKthrough",
-        "Adj. EV": 0.44333642033325676,
+        "Adj. EV": 0.44333943382436486,
         "Pack Value": 31.06,
-        "EV": 13.770029215550954,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 13.770122814584772,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 807
     },
     {
         "Set Name": "XY - BREAKpoint",
-        "Adj. EV": 0.4116649214757367,
+        "Adj. EV": 0.4119941479631956,
         "Pack Value": 28.06,
-        "EV": 11.551317696609171,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 11.560555791847268,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 808
     },
     {
         "Set Name": "XY - Fates Collide",
-        "Adj. EV": 0.3097448096813277,
+        "Adj. EV": 0.3097196027285926,
         "Pack Value": 28.22,
-        "EV": 8.740998529207069,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 8.740287189000883,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 809
     },
     {
         "Set Name": "XY - Steam Siege",
-        "Adj. EV": 0.29571574843740567,
+        "Adj. EV": 0.29568911312442164,
         "Pack Value": 19.5,
-        "EV": 5.766457094529411,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 5.765937705926222,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 810
     },
     {
         "Set Name": "XY - Evolutions",
-        "Adj. EV": 0.28743638329085747,
+        "Adj. EV": 0.287407947309816,
         "Pack Value": 42.41,
-        "EV": 12.190177015365265,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 12.188971045409296,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 811
     },
     {
         "Set Name": "SM Base Set",
-        "Adj. EV": 0.21418842620189493,
+        "Adj. EV": 0.21414021248919088,
         "Pack Value": 14.66,
-        "EV": 3.1400023281197798,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.1392955150915385,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 900
     },
     {
         "Set Name": "SM - Guardians Rising",
-        "Adj. EV": 0.1525302199880412,
+        "Adj. EV": 0.15247261251597116,
         "Pack Value": 22.42,
-        "EV": 3.419727532131884,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.4184359726080737,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 901
     },
     {
         "Set Name": "SM - Burning Shadows",
-        "Adj. EV": 0.20776680115083312,
+        "Adj. EV": 0.2077380303900958,
         "Pack Value": 18.74,
-        "EV": 3.893549853566612,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.8930106895103953,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 902
     },
     {
         "Set Name": "SM - Crimson Invasion",
-        "Adj. EV": 0.261866410753076,
+        "Adj. EV": 0.2618879931372252,
         "Pack Value": 12.58,
-        "EV": 3.294279447273696,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.2945509536662936,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 903
     },
     {
         "Set Name": "SM - Ultra Prism",
-        "Adj. EV": 0.24369109905948408,
+        "Adj. EV": 0.24395845453744391,
         "Pack Value": 32.85,
-        "EV": 8.005252604104053,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 8.014035231555033,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 904
     },
     {
         "Set Name": "SM - Forbidden Light",
-        "Adj. EV": 0.2981801480101263,
+        "Adj. EV": 0.29867750624248884,
         "Pack Value": 22.99,
-        "EV": 6.855161602752803,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 6.8665958685148185,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 905
     },
     {
         "Set Name": "SM - Celestial Storm",
-        "Adj. EV": 0.155509673441772,
+        "Adj. EV": 0.15523849290342884,
         "Pack Value": 40.61,
-        "EV": 6.315247838470361,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 6.304235196808245,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 906
     },
     {
         "Set Name": "SM - Lost Thunder",
-        "Adj. EV": 0.26387773920797697,
+        "Adj. EV": 0.2639035735349238,
         "Pack Value": 27.5,
-        "EV": 7.256637828219366,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 7.257348272210404,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 907
     },
     {
         "Set Name": "SM - Team Up",
-        "Adj. EV": 0.11033872793975463,
+        "Adj. EV": 0.1103495412929336,
         "Pack Value": 177.01,
-        "EV": 19.531058232615965,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 19.532972304262177,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 908
     },
     {
         "Set Name": "SM - Unbroken Bonds",
-        "Adj. EV": 0.20111298460848498,
+        "Adj. EV": 0.2011425783653525,
         "Pack Value": 48.07,
-        "EV": 9.667501170129873,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 9.668923742022494,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 909
     },
     {
         "Set Name": "SM - Unified Minds",
-        "Adj. EV": 0.20119443803208986,
+        "Adj. EV": 0.20120186007023064,
         "Pack Value": 52.21,
-        "EV": 10.504361609655412,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 10.504749114266742,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 910
     },
     {
         "Set Name": "SM - Cosmic Eclipse",
-        "Adj. EV": 0.23201671582007052,
+        "Adj. EV": 0.23199851939310828,
         "Pack Value": 59.85,
-        "EV": 13.886200441831221,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 13.885111385677531,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 911
     },
     {
         "Set Name": "SWSH01: Sword & Shield Base Set",
-        "Adj. EV": 0.2881981093156936,
-        "Pack Value": 8.59,
-        "EV": 2.475621759021808,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.2849990518572321,
+        "Pack Value": 8.69,
+        "EV": 2.476641760639347,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1000
     },
     {
         "Set Name": "SWSH02: Rebel Clash",
-        "Adj. EV": 0.3133596283062998,
+        "Adj. EV": 0.3134453853206022,
         "Pack Value": 7.51,
-        "EV": 2.3533308085803117,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 2.3539748437577224,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1001
     },
     {
         "Set Name": "SWSH03: Darkness Ablaze",
-        "Adj. EV": 0.24919196160796958,
+        "Adj. EV": 0.2494538138881116,
         "Pack Value": 7.26,
-        "EV": 1.809133641273859,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 1.8110346888276903,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1002
     },
     {
         "Set Name": "SWSH04: Vivid Voltage",
-        "Adj. EV": 0.351639498793554,
+        "Adj. EV": 0.3511147212545085,
         "Pack Value": 6.5,
-        "EV": 2.285656742158101,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 2.282245688154305,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1003
     },
     {
         "Set Name": "SWSH05: Battle Styles",
-        "Adj. EV": 0.2996635911555905,
+        "Adj. EV": 0.2963107571382385,
         "Pack Value": 6.13,
-        "EV": 1.8369378137837695,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 1.816384941257402,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1004
     },
     {
         "Set Name": "SWSH06: Chilling Reign",
-        "Adj. EV": 0.25412221393740636,
-        "Pack Value": 8.5,
-        "EV": 2.160038818467954,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.2510074802064829,
+        "Pack Value": 8.61,
+        "EV": 2.1611744045778174,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1005
     },
     {
         "Set Name": "SWSH07: Evolving Skies",
-        "Adj. EV": 0.20804168436886533,
-        "Pack Value": 28.67,
-        "EV": 5.964555090855369,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.20523552588025235,
+        "Pack Value": 29.06,
+        "EV": 5.964144382080133,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1006
     },
     {
         "Set Name": "SWSH08: Fusion Strike",
-        "Adj. EV": 0.22430572947942873,
-        "Pack Value": 12.35,
-        "EV": 2.770175759070945,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.22507093487543517,
+        "Pack Value": 12.32,
+        "EV": 2.772873917665361,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1007
     },
     {
         "Set Name": "SWSH09: Brilliant Stars",
-        "Adj. EV": 0.6678842530541454,
-        "Pack Value": 7.09,
-        "EV": 4.7352993541538915,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.6543893933362661,
+        "Pack Value": 7.24,
+        "EV": 4.737779207754567,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1100
     },
     {
         "Set Name": "SWSH10: Astral Radiance",
-        "Adj. EV": 0.47482891761597823,
-        "Pack Value": 6.56,
-        "EV": 3.114877699560817,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4713065916776161,
+        "Pack Value": 6.61,
+        "EV": 3.115336570989043,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1101
     },
     {
         "Set Name": "SWSH11: Lost Origin",
-        "Adj. EV": 0.3640694794722441,
+        "Adj. EV": 0.36442787134004784,
         "Pack Value": 10.31,
-        "EV": 3.753556333358837,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.757251353515893,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1102
     },
     {
         "Set Name": "SWSH12: Silver Tempest",
-        "Adj. EV": 0.40957533391847967,
-        "Pack Value": 7.45,
-        "EV": 3.0513362376926736,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.41553944431969286,
+        "Pack Value": 7.34,
+        "EV": 3.0500595213065456,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1103
     },
     {
         "Set Name": "SV01: Scarlet & Violet Base Set",
-        "Adj. EV": 0.43172805086259697,
-        "Pack Value": 6.32,
-        "EV": 2.728521281451613,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.43164355149933387,
+        "Pack Value": 6.33,
+        "EV": 2.7323036809907832,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1200
     },
     {
         "Set Name": "SV02: Paldea Evolved",
-        "Adj. EV": 0.42891603875174544,
-        "Pack Value": 8.34,
-        "EV": 3.577159763189557,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4279595844939535,
+        "Pack Value": 8.37,
+        "EV": 3.5820217222143906,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1201
     },
     {
         "Set Name": "SV03: Obsidian Flames",
-        "Adj. EV": 0.48960398084602375,
-        "Pack Value": 6.27,
-        "EV": 3.0698169599045686,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.48463076411844064,
+        "Pack Value": 6.34,
+        "EV": 3.0725590445109137,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1202
     },
     {
         "Set Name": "SV04: Paradox Rift",
-        "Adj. EV": 0.4886110495192229,
-        "Pack Value": 5.89,
-        "EV": 2.8779190816682227,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4872043042467904,
+        "Pack Value": 5.86,
+        "EV": 2.855017222886192,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1203
     },
     {
         "Set Name": "SV05: Temporal Forces",
-        "Adj. EV": 0.4376651574214561,
-        "Pack Value": 6.58,
-        "EV": 2.879836735833181,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4332981064280953,
+        "Pack Value": 6.62,
+        "EV": 2.868433464553991,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1204
     },
     {
         "Set Name": "SV06: Twilight Masquerade",
-        "Adj. EV": 0.444447242492854,
-        "Pack Value": 7.04,
-        "EV": 3.128908587149692,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4442353809202493,
+        "Pack Value": 7.02,
+        "EV": 3.1185323740601496,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1205
     },
     {
         "Set Name": "SV07: Stellar Crown",
-        "Adj. EV": 0.43333137638817054,
+        "Adj. EV": 0.43367743099659106,
         "Pack Value": 6.04,
-        "EV": 2.61732151338455,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 2.61941168321941,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1206
     },
     {
         "Set Name": "SV08: Surging Sparks",
-        "Adj. EV": 0.41210851961833056,
-        "Pack Value": 6.56,
-        "EV": 2.7034318886962483,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.4117091551711227,
+        "Pack Value": 6.57,
+        "EV": 2.7049291494742764,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1207
     },
     {
         "Set Name": "SV09: Journey Together",
-        "Adj. EV": 0.5031832139669886,
+        "Adj. EV": 0.5040397897922488,
         "Pack Value": 5.88,
-        "EV": 2.9587172981258933,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 2.9637539639784234,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1208
     },
     {
         "Set Name": "SV10: Destined Rivals",
-        "Adj. EV": 0.5628546851021107,
+        "Adj. EV": 0.562968585140556,
         "Pack Value": 7.96,
-        "EV": 4.480323293412801,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 4.481229937718826,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1209
     },
     {
@@ -836,119 +836,119 @@
         "Adj. EV": 0.13764215579314865,
         "Pack Value": 183.32,
         "EV": 25.232560000000007,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 705.5
     },
     {
         "Set Name": "Double Crisis",
-        "Adj. EV": 0.3579296009189782,
+        "Adj. EV": 0.35836030703491045,
         "Pack Value": 178.39,
-        "EV": 63.851061507936514,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 63.92789517195767,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 804.5
     },
     {
         "Set Name": "Shining Legends",
-        "Adj. EV": 0.18649619489559907,
+        "Adj. EV": 0.18651510181779699,
         "Pack Value": 56.27,
-        "EV": 10.49414088677536,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 10.495204779287437,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 902.5
     },
     {
         "Set Name": "Dragon Majesty",
-        "Adj. EV": 0.20939855675399932,
+        "Adj. EV": 0.2094256307891792,
         "Pack Value": 46.88,
-        "EV": 9.816604340627489,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 9.81787357139672,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 906.5
     },
     {
         "Set Name": "Champions Path",
-        "Adj. EV": 0.22367718772942752,
+        "Adj. EV": 0.22377049846175553,
         "Pack Value": 14.01,
-        "EV": 3.1337174000892793,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.135024683449195,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1002.5
     },
     {
         "Set Name": "Pokemon Go",
-        "Adj. EV": 0.4595245574005496,
+        "Adj. EV": 0.4597571767610401,
         "Pack Value": 7.61,
-        "EV": 3.4969818818181824,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 3.4987521151515155,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1101.5
     },
     {
         "Set Name": "Pokemon 151",
-        "Adj. EV": 0.5719785041554961,
-        "Pack Value": 11.68,
-        "EV": 6.680708928536195,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.5743944140702457,
+        "Pack Value": 11.71,
+        "EV": 6.726158588762578,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1202.5
     },
     {
         "Set Name": "Paldean Fates",
-        "Adj. EV": 0.4217958069560087,
-        "Pack Value": 11.99,
-        "EV": 5.057331725402545,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.40677074852735456,
+        "Pack Value": 12.43,
+        "EV": 5.056160404195017,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1203.5
     },
     {
         "Set Name": "Shrouded Fable",
-        "Adj. EV": 0.6264852231252297,
+        "Adj. EV": 0.6250787882533502,
         "Pack Value": 6.9,
-        "EV": 4.322748039564085,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 4.313043638948116,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1205.5
     },
     {
         "Set Name": "Hidden Fates",
-        "Adj. EV": 0.36206642217348134,
+        "Adj. EV": 0.362135461567269,
         "Pack Value": 33.99,
-        "EV": 12.30663768967663,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 12.308984338671474,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 910.5
     },
     {
         "Set Name": "Shining Fates",
-        "Adj. EV": 0.23804175705171088,
+        "Adj. EV": 0.23792051498262493,
         "Pack Value": 10.91,
-        "EV": 2.5970355694341656,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 2.595712818460438,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1003.5
     },
     {
         "Set Name": "Generations",
-        "Adj. EV": 0.23307764834966493,
+        "Adj. EV": 0.23322813462247183,
         "Pack Value": 190.81,
-        "EV": 44.473546081599565,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 44.50226036731385,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 808.5
     },
     {
         "Set Name": "Crown Zenith",
-        "Adj. EV": 0.497125741006944,
-        "Pack Value": 11.87,
-        "EV": 5.900882545752425,
-        "Last Updated": "2025-08-29 10:11:42",
+        "Adj. EV": 0.49482305876820304,
+        "Pack Value": 11.99,
+        "EV": 5.932928474630755,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1103.5
     },
     {
         "Set Name": "Celebrations",
-        "Adj. EV": 0.43915980180791475,
+        "Adj. EV": 0.4367166657146814,
         "Pack Value": 17.41,
-        "EV": 7.645772149475796,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 7.603237150092603,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1006.5
     },
     {
         "Set Name": "Prismatic Evolutions",
-        "Adj. EV": 0.4574909642092259,
+        "Adj. EV": 0.45638531600719606,
         "Pack Value": 9.85,
-        "EV": 4.506285997460875,
-        "Last Updated": "2025-08-29 10:11:42",
+        "EV": 4.495395362670881,
+        "Last Updated": "2025-08-29 15:10:13",
         "SetNumber": 1207.5
     }
 ]
