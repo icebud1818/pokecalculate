@@ -6588,6 +6588,438 @@ def prismaticEvolutions():
 
     return (expValue / (packPrice )), packPrice, expValue
 
+def blackBolt():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleValue = 0
+    totalReverseValue = 0
+    totalUltraValue = 0
+    totalHyperValue = 0 #using this for black white rare
+    totalPokeballValue = 0
+    totalMasterballValue = 0
+    totalSirValue = 0
+    totalIrValue = 0
+
+
+    commonCount = 0
+    uncommonCount = 0
+    reverseCount = 0
+    doubleCount = 0
+    ultraCount = 0
+    hyperCount = 0 #using this for black white rare
+    rareCount = 0
+    pokeballCount = 0
+    masterballCount = 0
+    sirCount = 0
+    irCount = 0
+
+
+
+      # Make the GET request
+    response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/24325/cards/?rows=5000&productTypeID=1")    
+    data = response.json() 
+
+        # Define condition priority lists (best to worst)
+    condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
+    reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
+    holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
+
+    # Dictionary to store the best available card per productID
+    best_cards = {}
+
+    # First pass: Find the best condition for each card type (Normal, Holofoil, Reverse Holo)
+    for item in data.get("result", []):
+        product_id = item.get("productID")
+        condition = item.get("condition")
+        rarity = item.get("rarity")
+        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
+        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        productName = item.get("productName")
+        number = item.get("number")
+
+        # Identify if this is a Reverse Holo, Holofoil, or Normal card
+        is_reverse = condition in reverse_condition_priority
+        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_normal = printing == "Normal" and condition in condition_priority
+
+        # If this card doesn't match any category, skip it
+        if not (is_reverse or is_holofoil or is_normal):
+            continue
+
+        # Create storage for this productID if it doesn't exist
+        if product_id not in best_cards:
+            best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
+
+        # Check if this is the best condition Reverse Holo for this productID
+        if is_reverse:
+            if (best_cards[product_id]["reverse"] is None or
+                    reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
+                best_cards[product_id]["reverse"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Holofoil for this productID
+        elif is_holofoil:
+            if (best_cards[product_id]["holofoil"] is None or
+                    holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
+                best_cards[product_id]["holofoil"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Normal for this productID
+        elif is_normal:
+            if (best_cards[product_id]["normal"] is None or
+                    condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
+                best_cards[product_id]["normal"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+    # Now, process the best available cards
+    for product in best_cards.values():
+        # Process Normal if it exists
+        if product["normal"]:
+            rarity = product["normal"]["rarity"]
+            marketPrice = product["normal"]["marketPrice"]
+            number = product["normal"]["number"]
+
+            if rarity == "Common":
+                commonCount += 1
+                totalCommonValue += marketPrice
+            elif rarity == "Uncommon":
+                uncommonCount += 1
+                totalUncommonValue += marketPrice
+            elif rarity == "Rare":
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # Process Holofoil if it exists
+        if product["holofoil"]:
+            rarity = product["holofoil"]["rarity"]
+            marketPrice = product["holofoil"]["marketPrice"]
+            name = product["holofoil"]["productName"]
+            number = product["holofoil"]["number"]
+
+            if(rarity == "Black White Rare"):
+                hyperCount += 1
+                totalHyperValue += marketPrice
+            elif(rarity == "Ultra Rare" or rarity == "Secret Rare"):
+                ultraCount += 1
+                totalUltraValue += marketPrice
+            elif(rarity == "Double Rare"):
+                doubleCount += 1
+                totalDoubleValue += marketPrice
+            elif(rarity == "Special Illustration Rare"):
+                sirCount += 1
+                totalSirValue += marketPrice
+            elif(rarity == "Illustration Rare"):
+                irCount += 1
+                totalIrValue += marketPrice
+            elif("Master Ball Pattern" in name):
+                masterballCount += 1
+                totalMasterballValue += marketPrice
+            elif("Poke Ball Pattern" in name):
+                pokeballCount += 1
+                totalPokeballValue += marketPrice
+            elif(rarity == "Rare"):
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # Process Reverse Holo if it exists
+        if product["reverse"]:
+            rarity = product["reverse"]["rarity"]
+            marketPrice = product["reverse"]["marketPrice"]
+            name = product["reverse"]["productName"]
+            number = product["reverse"]["number"]
+            
+            reverseCount += 1
+            totalReverseValue += marketPrice
+
+    
+    packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/642597/details?mpfev=3442")   
+    packData = packResponse.json() 
+    
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
+
+    rareSlot = 0
+    reverseSlot1 = 0
+    reverseSlot2 = 0
+
+    rareSlot += (totalRareValue / rareCount * (1 - (1/5) - (1/17)))
+    rareSlot += (totalDoubleValue / doubleCount * (1/5) )
+    rareSlot += (totalUltraValue / ultraCount * (1/17) )
+
+    reverseSlot1 += (totalReverseValue / reverseCount * (1 - (1/3)) )
+    reverseSlot1 += (totalPokeballValue / pokeballCount * (1/3) )
+    
+    reverseSlot2 += (totalReverseValue / reverseCount * (1 - (1/19) - (1/80) - (1/496) - (1/6)) )
+    reverseSlot2 += (totalMasterballValue / masterballCount * (1/19) )
+    reverseSlot2 += (totalSirValue / sirCount * (1/80) )
+    reverseSlot2 += (totalHyperValue / hyperCount * (1/496) )
+    reverseSlot2 += (totalIrValue / irCount * (1/6))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot1
+    expValue += reverseSlot2
+
+
+    print("\n")
+    print("Black Bolt")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleCount) + ", Value: $" + f"{totalDoubleValue:.2f}")
+    print("Ultra Rares: " + str(ultraCount) + ", Value: $" + f"{totalUltraValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("Poke Ball Patterns: " + str(pokeballCount) + ", Value: $" + f"{totalPokeballValue:.2f}")
+    print("Master Ball Patterns: " + str(masterballCount) + ", Value: $" + f"{totalMasterballValue:.2f}")
+    print("Black White Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    return (expValue / (packPrice )), packPrice, expValue
+
+def whiteFlare():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleValue = 0
+    totalReverseValue = 0
+    totalUltraValue = 0
+    totalHyperValue = 0 #using this for black white rare
+    totalPokeballValue = 0
+    totalMasterballValue = 0
+    totalSirValue = 0
+    totalIrValue = 0
+
+
+    commonCount = 0
+    uncommonCount = 0
+    reverseCount = 0
+    doubleCount = 0
+    ultraCount = 0
+    hyperCount = 0 #using this for black white rare
+    rareCount = 0
+    pokeballCount = 0
+    masterballCount = 0
+    sirCount = 0
+    irCount = 0
+
+
+
+      # Make the GET request
+    response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/24326/cards/?rows=5000&productTypeID=1")    
+    data = response.json() 
+
+        # Define condition priority lists (best to worst)
+    condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
+    reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
+    holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
+
+    # Dictionary to store the best available card per productID
+    best_cards = {}
+
+    # First pass: Find the best condition for each card type (Normal, Holofoil, Reverse Holo)
+    for item in data.get("result", []):
+        product_id = item.get("productID")
+        condition = item.get("condition")
+        rarity = item.get("rarity")
+        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
+        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        productName = item.get("productName")
+        number = item.get("number")
+
+        # Identify if this is a Reverse Holo, Holofoil, or Normal card
+        is_reverse = condition in reverse_condition_priority
+        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_normal = printing == "Normal" and condition in condition_priority
+
+        # If this card doesn't match any category, skip it
+        if not (is_reverse or is_holofoil or is_normal):
+            continue
+
+        # Create storage for this productID if it doesn't exist
+        if product_id not in best_cards:
+            best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
+
+        # Check if this is the best condition Reverse Holo for this productID
+        if is_reverse:
+            if (best_cards[product_id]["reverse"] is None or
+                    reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
+                best_cards[product_id]["reverse"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Holofoil for this productID
+        elif is_holofoil:
+            if (best_cards[product_id]["holofoil"] is None or
+                    holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
+                best_cards[product_id]["holofoil"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Normal for this productID
+        elif is_normal:
+            if (best_cards[product_id]["normal"] is None or
+                    condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
+                best_cards[product_id]["normal"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+    # Now, process the best available cards
+    for product in best_cards.values():
+        # Process Normal if it exists
+        if product["normal"]:
+            rarity = product["normal"]["rarity"]
+            marketPrice = product["normal"]["marketPrice"]
+            number = product["normal"]["number"]
+
+            if rarity == "Common":
+                commonCount += 1
+                totalCommonValue += marketPrice
+            elif rarity == "Uncommon":
+                uncommonCount += 1
+                totalUncommonValue += marketPrice
+            elif rarity == "Rare":
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # Process Holofoil if it exists
+        if product["holofoil"]:
+            rarity = product["holofoil"]["rarity"]
+            marketPrice = product["holofoil"]["marketPrice"]
+            name = product["holofoil"]["productName"]
+            number = product["holofoil"]["number"]
+
+            if(rarity == "Black White Rare"):
+                hyperCount += 1
+                totalHyperValue += marketPrice
+            elif(rarity == "Ultra Rare" or rarity == "Secret Rare"):
+                ultraCount += 1
+                totalUltraValue += marketPrice
+            elif(rarity == "Double Rare"):
+                doubleCount += 1
+                totalDoubleValue += marketPrice
+            elif(rarity == "Special Illustration Rare"):
+                sirCount += 1
+                totalSirValue += marketPrice
+            elif(rarity == "Illustration Rare"):
+                irCount += 1
+                totalIrValue += marketPrice
+            elif("Master Ball Pattern" in name):
+                masterballCount += 1
+                totalMasterballValue += marketPrice
+            elif("Poke Ball Pattern" in name):
+                pokeballCount += 1
+                totalPokeballValue += marketPrice
+            elif(rarity == "Rare"):
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # Process Reverse Holo if it exists
+        if product["reverse"]:
+            rarity = product["reverse"]["rarity"]
+            marketPrice = product["reverse"]["marketPrice"]
+            name = product["reverse"]["productName"]
+            number = product["reverse"]["number"]
+            
+            reverseCount += 1
+            totalReverseValue += marketPrice
+
+    
+    packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/630699/details?mpfev=3442")   
+    packData = packResponse.json() 
+    
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(setName)
+
+    rareSlot = 0
+    reverseSlot1 = 0
+    reverseSlot2 = 0
+
+    rareSlot += (totalRareValue / rareCount * (1 - (1/5) - (1/17)))
+    rareSlot += (totalDoubleValue / doubleCount * (1/5) )
+    rareSlot += (totalUltraValue / ultraCount * (1/17) )
+
+    reverseSlot1 += (totalReverseValue / reverseCount * (1 - (1/3)) )
+    reverseSlot1 += (totalPokeballValue / pokeballCount * (1/3) )
+    
+    reverseSlot2 += (totalReverseValue / reverseCount * (1 - (1/19) - (1/80) - (1/496) - (1/6)) )
+    reverseSlot2 += (totalMasterballValue / masterballCount * (1/19) )
+    reverseSlot2 += (totalSirValue / sirCount * (1/80) )
+    reverseSlot2 += (totalHyperValue / hyperCount * (1/496) )
+    reverseSlot2 += (totalIrValue / irCount * (1/6))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot1
+    expValue += reverseSlot2
+
+
+    print("\n")
+    print("White Flare")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleCount) + ", Value: $" + f"{totalDoubleValue:.2f}")
+    print("Ultra Rares: " + str(ultraCount) + ", Value: $" + f"{totalUltraValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("Poke Ball Patterns: " + str(pokeballCount) + ", Value: $" + f"{totalPokeballValue:.2f}")
+    print("Master Ball Patterns: " + str(masterballCount) + ", Value: $" + f"{totalMasterballValue:.2f}")
+    print("Black White Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Reverse Holos: " + str(reverseCount) + ", Value: $" + f"{totalReverseValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    return (expValue / (packPrice )), packPrice, expValue
+
 expectedValueList = []
 setNameList = []
 packValueList = []
@@ -6847,6 +7279,20 @@ packValueList.append(price)
 setNameList.append("Prismatic Evolutions")
 actualEvList.append(ev)
 setNumberList.append(1207.5) 
+
+adjev, price, ev = blackBolt()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Black Bolt")
+actualEvList.append(ev)
+setNumberList.append(1209.5) 
+
+adjev, price, ev = whiteFlare()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("White Flare")
+actualEvList.append(ev)
+setNumberList.append(1210.5) #may have to change this number
 
 for bb in boosterBoxList:
     boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)
