@@ -7285,14 +7285,14 @@ expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Black Bolt")
 actualEvList.append(ev)
-setNumberList.append(1209.5) 
+setNumberList.append(1209.51) 
 
 adjev, price, ev = whiteFlare()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("White Flare")
 actualEvList.append(ev)
-setNumberList.append(1210.5) #may have to change this number
+setNumberList.append(1209.52)
 
 for bb in boosterBoxList:
     boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)

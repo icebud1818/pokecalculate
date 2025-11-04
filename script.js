@@ -99,7 +99,7 @@ function applyFilter() {
         gen7: () => packs.filter((pack) => pack.setNumber >= 900 && pack.setNumber <= 911),
         gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1104),
         gen9: () => packs.filter((pack) => pack.setNumber >= 1200 && pack.setNumber <= 1215),
-        special: () => packs.filter((pack) => pack.setNumber % 1 === .5 )
+        special: () => packs.filter((pack) => pack.setNumber % 1 !== 0 )
     };
 
     if (filterers[activeFilter]) {
