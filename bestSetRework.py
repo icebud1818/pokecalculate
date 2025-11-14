@@ -236,7 +236,8 @@ boosterBoxList = [
     BoosterBox("Surging Sparks", 1207, 565606),
     BoosterBox("Journey Together", 1208, 610931),
     BoosterBox("Destined Rivals", 1209, 624679),
-    BoosterBox("Mega Evolution", 1210, 644298)
+    BoosterBox("Mega Evolution", 1210, 644298),
+    BoosterBox("Phantasmal Flames", 1211, 654137)
 ]
 
 vintageSetList = [
@@ -379,7 +380,9 @@ svSetList = [
     svSet("SV08: Surging Sparks", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv08-surging-sparks", .0121, .1666, .0666, .0769, .0114, .05, 565604, 23651 ),
     svSet("SV09: Journey Together", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv09-journey-together", .0072, .2, .0667, .0833, .0116, 0, 610935, 24073),
     svSet("SV10: Destined Rivals", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv10-destined-rivals", .0067, .2, .0625, .0833, .0106, 0, 624683, 24269),
-    svSet("ME01: Mega Evolution", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me01-mega-evolution", .0008, .2, .0833, .1111, .0099, 0, 644352, 24380)
+    svSet("ME01: Mega Evolution", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me01-mega-evolution", .0008, .2, .0833, .1111, .0099, 0, 644352, 24380),
+    svSet("ME02: Phantasmal Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me02-phantasmal-flames", .0008, .2, .0833, .1111, .0099, 0, 654144, 24448)
+
 ]
 
 # Load previous data if available
@@ -2982,7 +2985,7 @@ def svsets(set):
             number = product["holofoil"]["number"]
             setName = product["holofoil"]["setName"]
 
-            if rarity == "Rare" and "Prerelease" not in name:
+            if rarity == "Rare" or rarity == "Holo Rare" and "Prerelease" not in name:
                 rareCount += 1
                 totalRareValue += marketPrice
             elif rarity == "Double Rare":
