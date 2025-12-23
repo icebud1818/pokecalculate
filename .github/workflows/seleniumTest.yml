@@ -41,7 +41,7 @@ jobs:
     # Step 5: Run the Selenium tests
     - name: Run Selenium tests
       env:
-	FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: |
         python bestSetFireBase.py  # Execute the seleniumTest.py script
 
