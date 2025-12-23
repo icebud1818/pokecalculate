@@ -1,46 +1,59 @@
 let packs = [];
-let filteredPacks = []; // To hold the currently filtered packs
-let activeFilter = "all"; // To track the active filter
-let lastSortCriteria = "nameAsc"; // To track the last sorting criteria
-const packsDataUrl = "full_output_with_all_columns.json";
+let filteredPacks = [];
+let activeFilter = "all";
+let lastSortCriteria = "nameAsc";
 
+// Fetch packs data from Firebase Firestore
+async function fetchPacks() {
+    try {
+        // Wait for Firebase to be initialized
+        while (!window.db || !window.collection || !window.getDocs) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
 
-// Fetch packs data and populate the initial list
-function fetchPacks() {
-    if (window.fetch) {
-        fetch(packsDataUrl)
-            .then((response) => response.json())
-            .then((data) => initializePacks(data))
-            .catch(handleError);
-    } else {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", packsDataUrl, true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                initializePacks(data);
-            } else {
-                handleError(xhr.statusText);
-            }
-        };
-        xhr.onerror = () => handleError("Network Error");
-        xhr.send();
+        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+        const data = [];
+        
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+
+        initializePacks(data);
+    } catch (error) {
+        handleError(error);
     }
 }
 
 function initializePacks(data) {
     packs = data.map((item) => ({
-        name: item["Set Name"],
-        value: item["Pack Value"],
-        ev: item["EV"],
-        adjEv: item["Adj. EV"],
-        setNumber: parseFloat(item["SetNumber"], 10),
+        name: item.setName,
+        value: item.packValue,
+        ev: item.ev,
+        adjEv: item.adjustedEv,
+        setNumber: parseFloat(item.setNumber),
     }));
 
-    const lastUpdated = data[0]["Last Updated"];
-    document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated} UTC`;
+    // Get the most recent lastUpdated timestamp
+    if (data.length > 0 && data[0].lastUpdated) {
+        const timestamp = data[0].lastUpdated;
+        let lastUpdatedText;
+        
+        // Check if it's a Firebase Timestamp object
+        if (timestamp.toDate) {
+            lastUpdatedText = timestamp.toDate().toUTCString();
+        } else if (timestamp.seconds) {
+            // If it's a plain object with seconds
+            lastUpdatedText = new Date(timestamp.seconds * 1000).toUTCString();
+        } else {
+            lastUpdatedText = timestamp;
+        }
+        
+        document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdatedText}`;
+    } else {
+        document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
+    }
 
-    applyFilter(); // Apply the default filter (all packs)
+    applyFilter();
 }
 
 function handleError(error) {
@@ -48,10 +61,9 @@ function handleError(error) {
     document.getElementById("packs-list").innerHTML = "<li>Error loading packs</li>";
 }
 
-// Function to display the list of packs
 function displayPacks() {
     const ul = document.getElementById("packs-list");
-    ul.innerHTML = ""; // Clear the existing list
+    ul.innerHTML = "";
 
     filteredPacks.forEach((pack) => {
         const li = document.createElement("li");
@@ -62,7 +74,6 @@ function displayPacks() {
     });
 }
 
-// Function to handle sorting based on selected criteria
 function sortPacks(criteria) {
     const sorters = {
         nameAsc: (a, b) => a.name.localeCompare(b.name),
@@ -78,15 +89,14 @@ function sortPacks(criteria) {
     };
 
     if (sorters[criteria]) {
-        lastSortCriteria = criteria; // Update the sorting criteria
-        filteredPacks.sort(sorters[criteria]); // Sort the currently filtered packs
-        displayPacks(); // Refresh the list
+        lastSortCriteria = criteria;
+        filteredPacks.sort(sorters[criteria]);
+        displayPacks();
     } else {
         console.error("Invalid sort criteria:", criteria);
     }
 }
 
-// Function to filter packs based on the selected criteria
 function applyFilter() {
     const filterers = {
         all: () => packs,
@@ -99,35 +109,29 @@ function applyFilter() {
         gen7: () => packs.filter((pack) => pack.setNumber >= 900 && pack.setNumber <= 911),
         gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1104),
         gen9: () => packs.filter((pack) => pack.setNumber >= 1200 && pack.setNumber <= 1215),
-        special: () => packs.filter((pack) => pack.setNumber % 1 !== 0 )
+        special: () => packs.filter((pack) => pack.setNumber % 1 !== 0)
     };
 
     if (filterers[activeFilter]) {
-        filteredPacks = filterers[activeFilter](); // Apply the selected filter
-        sortPacks(lastSortCriteria); // Reapply the last sorting
+        filteredPacks = filterers[activeFilter]();
+        sortPacks(lastSortCriteria);
     } else {
         console.error("Invalid filter criteria:", activeFilter);
     }
 }
 
-// Event listener for sorting dropdown
 document.getElementById("sortDropdown").addEventListener("change", (event) => {
     const sortCriteria = event.target.value;
-    sortPacks(sortCriteria); // Sort the filtered list
+    sortPacks(sortCriteria);
 });
 
-// Event listener for filtering dropdown
 document.getElementById("filterDropdown").addEventListener("change", (event) => {
-    activeFilter = event.target.value; // Update the active filter
-    applyFilter(); // Apply the new filter
+    activeFilter = event.target.value;
+    applyFilter();
 });
 
 // Fetch and initialize packs on page load
 fetchPacks();
-
-
-
-// Add your calculation buttons here (kept unchanged)
 
 // Sealed Product Value Calculation
 document.getElementById("productValueButton").addEventListener("click", function () {
@@ -226,7 +230,7 @@ document.getElementById("singlePackEvButton").addEventListener("click", function
     const pack = findExactPack(packName);
 
     if (pack) {
-        const totalEv = parseFloat(pack.ev); // EV for a single pack
+        const totalEv = parseFloat(pack.ev);
         alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
     } else {
         alert(`Pack '${packName}' not found.`);
