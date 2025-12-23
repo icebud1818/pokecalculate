@@ -1,101 +1,110 @@
 let boxes = [];
 let packs = [];
-let filteredBoxes = []; // To hold the currently filtered packs
-let filteredPacks = []; // To hold the currently filtered packs
-let activeFilter = "all"; // To track the active filter
-let lastSortCriteria = "nameAsc"; // To track the last sorting criteria
-const boxesDataUrl = "boxData.json";
-const packsDataUrl = "full_output_with_all_columns.json";
+let filteredBoxes = [];
+let filteredPacks = [];
+let activeFilter = "all";
+let lastSortCriteria = "nameAsc";
 
+// Fetch boxes data from Firebase Firestore
+async function fetchBoxes() {
+    try {
+        // Wait for Firebase to be initialized
+        while (!window.db || !window.collection || !window.getDocs) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
 
-// Fetch packs data and populate the initial list
-function fetchBoxes() {
-    if (window.fetch) {
-        fetch(boxesDataUrl)
-            .then((response) => response.json())
-            .then((data) => initializeBoxes(data))
-            .catch(handleError);
-    } else {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", boxesDataUrl, true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                initializeBoxes(data);
-            } else {
-                handleError(xhr.statusText);
-            }
-        };
-        xhr.onerror = () => handleError("Network Error");
-        xhr.send();
+        const querySnapshot = await window.getDocs(window.collection(window.db, "boosterBoxes"));
+        const data = [];
+        
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+
+        initializeBoxes(data);
+    } catch (error) {
+        handleError(error);
     }
 }
 
-function fetchPacks() {
-    if (window.fetch) {
-        fetch(packsDataUrl)
-            .then((response) => response.json())
-            .then((data) => initializePacks(data))
-            .catch(handleError);
-    } else {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", packsDataUrl, true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                initializePacks(data);
-            } else {
-                handleError(xhr.statusText);
-            }
-        };
-        xhr.onerror = () => handleError("Network Error");
-        xhr.send();
+// Fetch packs data from Firebase Firestore
+async function fetchPacks() {
+    try {
+        // Wait for Firebase to be initialized
+        while (!window.db || !window.collection || !window.getDocs) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+        const data = [];
+        
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+
+        initializePacks(data);
+    } catch (error) {
+        handleError(error);
     }
 }
 
 function initializePacks(data) {
     packs = data.map((item) => ({
-        name: item["Set Name"],
-        value: item["Pack Value"],
-        ev: item["EV"],
-        adjEv: item["Adj. EV"],
-        setNumber: parseInt(item["SetNumber"], 10),
+        name: item.setName,
+        value: item.packValue,
+        ev: item.ev,
+        adjEv: item.adjustedEv,
+        setNumber: parseInt(item.setNumber, 10),
     }));
 
-    const lastUpdated = data[0]["Last Updated"];
-    document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated} UTC`;
-
-    applyFilter(); // Apply the default filter (all packs)
+    // Apply the default filter
+    applyFilter();
+    
+    // After packs are loaded, fetch boxes
+    fetchBoxes();
 }
 
 function initializeBoxes(data) {
     boxes = data.map((item) => {
-        const matchingPack = filteredPacks.find((pack) => pack.setNumber === parseInt(item["Set Number"], 10));
+        const matchingPack = packs.find((pack) => pack.setNumber === parseInt(item.setNumber, 10));
         const ev = matchingPack ? matchingPack.ev * 36 : null; // EV for the entire box
-        const value = item["Box Price"];
-        const pricePer = item["Price Per"];
+        const value = item.boxPrice;
+        const pricePer = item.pricePer;
         const loosePrice = matchingPack ? matchingPack.value : null; // Get loose price from the matching pack
         const percentReturn = ev && value ? (ev / value) * 100 : null; // Calculate percent return if ev and value are valid
         const boxPremium = loosePrice && pricePer ? ((pricePer / loosePrice) - 1) * 100 : null; // Calculate box premium if both loosePrice and pricePer are valid
     
         return {
-            name: item["Set Name"],
+            name: item.setName,
             value: value,
             pricePer: pricePer,
-            setNumber: parseInt(item["Set Number"], 10),
+            setNumber: parseInt(item.setNumber, 10),
             ev: ev,
             percentReturn: percentReturn,
             boxPremium: boxPremium,
         };
     });
-    
-    
-    
 
-    const lastUpdated = data[0]["Last Updated"];
-    document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdated} UTC`;
+    // Get the most recent lastUpdated timestamp
+    if (data.length > 0 && data[0].lastUpdated) {
+        const timestamp = data[0].lastUpdated;
+        let lastUpdatedText;
+        
+        // Check if it's a Firebase Timestamp object
+        if (timestamp.toDate) {
+            lastUpdatedText = timestamp.toDate().toUTCString();
+        } else if (timestamp.seconds) {
+            // If it's a plain object with seconds
+            lastUpdatedText = new Date(timestamp.seconds * 1000).toUTCString();
+        } else {
+            lastUpdatedText = timestamp;
+        }
+        
+        document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdatedText}`;
+    } else {
+        document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
+    }
 
-    applyBoxFilter(); // Apply the default filter (all packs)
+    applyBoxFilter(); // Apply the default filter
 }
 
 function handleError(error) {
@@ -103,7 +112,7 @@ function handleError(error) {
     document.getElementById("packs-list").innerHTML = "<li>Error loading packs</li>";
 }
 
-// Function to display the list of packs
+// Function to display the list of boxes
 function displayPacks() {
     const ul = document.getElementById("packs-list");
     ul.innerHTML = ""; // Clear the existing list
@@ -122,10 +131,10 @@ function sortPacks(criteria) {
     const sorters = {
         nameAsc: (a, b) => a.name.localeCompare(b.name),
         nameDesc: (a, b) => b.name.localeCompare(a.name),
-        valueAsc: (a, b) => a.value - b.value,
-        valueDesc: (a, b) => b.value - a.value,
-        priceAsc: (a, b) => a.pricePer - b.pricePer,
-        priceDesc: (a, b) => b.pricePer - a.pricePer,
+        valueAsc: (a, b) => a.pricePer - b.pricePer,
+        valueDesc: (a, b) => b.pricePer - a.pricePer,
+        priceAsc: (a, b) => a.value - b.value,
+        priceDesc: (a, b) => b.value - a.value,
         setNumberAsc: (a, b) => a.setNumber - b.setNumber,
         setNumberDesc: (a, b) => b.setNumber - a.setNumber,
         evAsc: (a, b) => a.ev - b.ev,
@@ -138,14 +147,14 @@ function sortPacks(criteria) {
 
     if (sorters[criteria]) {
         lastSortCriteria = criteria; // Update the sorting criteria
-        filteredBoxes.sort(sorters[criteria]); // Sort the currently filtered packs
+        filteredBoxes.sort(sorters[criteria]); // Sort the currently filtered boxes
         displayPacks(); // Refresh the list
     } else {
         console.error("Invalid sort criteria:", criteria);
     }
 }
 
-// Function to filter packs based on the selected criteria
+// Function to filter boxes based on the selected criteria
 function applyBoxFilter() {
     const filterers = {
         all: () => boxes,
@@ -164,7 +173,6 @@ function applyBoxFilter() {
     }
 }
 
-
 function applyFilter() {
     const filterers = {
         all: () => packs,
@@ -181,7 +189,6 @@ function applyFilter() {
 
     if (filterers[activeFilter]) {
         filteredPacks = filterers[activeFilter](); // Apply the selected filter
-        sortPacks(lastSortCriteria); // Reapply the last sorting
     } else {
         console.error("Invalid filter criteria:", activeFilter);
     }
@@ -200,15 +207,8 @@ document.getElementById("filterDropdown").addEventListener("change", (event) => 
     applyBoxFilter(); // Apply the new filter
 });
 
-
-// Fetch and initialize packs on page load
+// Fetch and initialize packs on page load (packs must load first, then boxes)
 fetchPacks();
-fetchBoxes();
-applyFilter();
-
-
-
-// Add your calculation buttons here (kept unchanged)
 
 function findExactPack(packName) {
     return boxes.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
