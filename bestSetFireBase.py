@@ -2,6 +2,8 @@
 import requests
 import json
 import os
+import re
+
 
 # ------------------------------------------------------------------------------------------------------------------
 
@@ -447,6 +449,17 @@ def getBoxPrices(boxSet):
 
     return price, round(pricePer, 2), boxSet.name, boxSet.setNumber
 
+def clean_card_name(name):
+    # Remove everything from the first " - " onward (like " - #H28/H32 - $615.95")
+    name = re.sub(r'\s*-.*$', '', name)
+    # Remove card numbers/codes in parentheses (like "(114 Full Art)" or "(H28)")
+    name = re.sub(r'\s*\([^)]+\)\s*$', '', name)
+    # Remove (Secret) and similar parentheticals at the end
+    name = re.sub(r'\s*\(Secret\)\s*$', '', name, flags=re.IGNORECASE)
+    # Remove any trailing whitespace
+    name = name.strip()
+    return name
+
 def gen1Calculate(set):
     #need some variables for a couple special sets still
     totalCards = 0
@@ -470,7 +483,8 @@ def gen1Calculate(set):
     
     for item in data.get("result", []):
         # Get card identifier (using productName as unique identifier)
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_price = item.get('marketPrice', 0)
         card_number = item.get('number', 'N/A')
         
@@ -578,7 +592,8 @@ def earlyReverseSets(set):
         marketPrice = item.get("marketPrice") or 0
         
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
         
         # Only keep the highest price version of each card
@@ -737,7 +752,8 @@ def earlyExSets(set):
         marketPrice = item.get("marketPrice") or 0
         
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
         
         # Only keep the highest price version of each card
@@ -917,7 +933,8 @@ def goldStarSets(set):
         number = item.get("number")
         
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
         
         # Only keep the highest price version of each card
@@ -1116,7 +1133,8 @@ def dpSets(set):
         number = item.get("number")
 
          # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
         
         # Only keep the highest price version of each card
@@ -1346,7 +1364,8 @@ def hgssSets(set):
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -1572,7 +1591,8 @@ def bwSets(set):
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -1796,7 +1816,8 @@ def legendaryTreasures():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -1936,7 +1957,8 @@ def legendaryTreasures():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -2152,7 +2174,8 @@ def xySets(set):
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -2394,7 +2417,8 @@ def smSets(set):
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -2623,7 +2647,8 @@ def swshSets(set):
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3004,7 +3029,8 @@ def lateSwshSets(set):
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3209,7 +3235,8 @@ def svsets(set):
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3419,7 +3446,8 @@ def dragonVault():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3572,7 +3600,8 @@ def doubleCrisis():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3766,7 +3795,8 @@ def shiningLegends():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -3980,7 +4010,8 @@ def dragonMajesty():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -4186,7 +4217,8 @@ def championsPath():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -4398,7 +4430,8 @@ def pokemonGo():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -4621,7 +4654,8 @@ def pokemon151():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -4833,7 +4867,8 @@ def shroudedFable():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -5053,7 +5088,8 @@ def paldeanFates():
         setName = item.get("set")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -5280,7 +5316,8 @@ def hiddenFates():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -5419,7 +5456,8 @@ def hiddenFates():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -5649,7 +5687,8 @@ def shiningFates():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -5794,7 +5833,8 @@ def shiningFates():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6016,7 +6056,8 @@ def generations():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6149,7 +6190,8 @@ def generations():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6373,7 +6415,8 @@ def crownZenith():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6521,7 +6564,8 @@ def crownZenith():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6854,7 +6898,8 @@ def celebrations():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -6868,7 +6913,8 @@ def celebrations():
         }
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -7147,7 +7193,8 @@ def prismaticEvolutions():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -7385,7 +7432,8 @@ def blackBolt():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
@@ -7624,7 +7672,8 @@ def whiteFlare():
         number = item.get("number")
 
         # Track for top 5 cards
-        card_name = item.get('productName', 'Unknown')
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = clean_card_name(card_name_raw)        
         card_number = item.get('number', 'N/A')
 
         # Only keep the highest price version of each card
