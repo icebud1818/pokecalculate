@@ -4,142 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pack EV Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0px;
-            background-color: #68ffc2;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .feature {
-            margin-bottom: 20px;
-        }
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        button {
-            width: 50%;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .orange-button {
-            background-color: orange;
-        }
-        .orange-button:hover {
-            background-color: darkorange;
-        }
-        button:not(.orange-button) {
-            background-color: #007BFF;
-        }
-        button:not(.orange-button):hover {
-            background-color: #0056b3;
-        }
-        ul {
-            padding: 0;
-            list-style: none;
-        }
-        li {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .packs-list {
-            margin-top: 30px;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .link {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        .link a {
-            color: #007BFF;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .link a:hover {
-            text-decoration: underline;
-        }
-        #lastUpdated {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-        }
-        .dropdowns-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .dropdown-container {
-            flex: 1;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        select {
-            width: 100%;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding-top: 10px;
-            padding-bottom: 30px;
-            text-align: center;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            margin: 0;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
-        .footer-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        footer p {
-            font-size: 25px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
 
@@ -154,10 +19,11 @@
 
         <div class="button-container">
             <button class="orange-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
-            <button id="productValueButton">Calculate Sealed Product Value</button>
-            <button id="sealedProductEvButton">Calculate EV for Sealed Product</button>
-            <button id="singlePackEvButton">Calculate EV for Single Pack</button>
-            <button id="multiplePacksEvButton">Calculate EV for Multiple Packs</button>
+            <button class="green-button" onclick="location.href='sealedProduct.html'">Sealed Product Guide</button>
+            <button class="productValueButton">Calculate Sealed Product Value</button>
+            <button class="sealedProductEvButton">Calculate EV for Sealed Product</button>
+            <button class="singlePackEvButton">Calculate EV for Single Pack</button>
+            <button class="multiplePacksEvButton">Calculate EV for Multiple Packs</button>
         </div>
 
         <div class="dropdowns-container">
@@ -235,7 +101,7 @@
         window.getDocs = getDocs;
     </script>
 
-    <script src="script.js"></script>
-
+    <script type="module" src="javascript/script.js"></script>
+    <script src="javascript/darkmode.js"></script>
 </body>
 </html>

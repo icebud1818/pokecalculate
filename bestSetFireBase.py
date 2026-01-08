@@ -448,7 +448,6 @@ def getBoxPrices(boxSet):
     return price, round(pricePer, 2), boxSet.name, boxSet.setNumber
 
 def gen1Calculate(set):
-
     #need some variables for a couple special sets still
     totalCards = 0
     totalCommonValue = 0
@@ -456,18 +455,35 @@ def gen1Calculate(set):
     totalRareValue = 0
     totalHoloValue = 0
     totalSecretValue = 0
-
     commonCount = 0
     uncommonCount = 0
     rareCount = 0
     holoCount = 0
     secretCount = 0
-
+    
+    # Dictionary to store the highest price for each unique card
+    unique_cards = {}
+    
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
-
-    for item in data.get("result", []):  
+    
+    for item in data.get("result", []):
+        # Get card identifier (using productName as unique identifier)
+        card_name = item.get('productName', 'Unknown')
+        card_price = item.get('marketPrice', 0)
+        card_number = item.get('number', 'N/A')
+        
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or card_price > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': card_price,
+                'rarity': item.get('rarity', 'Unknown'),
+                'condition': item.get('condition', 'Unknown'),
+                'number': card_number
+            }
+        
         if item.get("condition") in ("Near Mint", "Near Mint Unlimited") and item.get("rarity") == "Common":
             commonCount += 1
             totalCommonValue += item.get("marketPrice")
@@ -488,17 +504,20 @@ def gen1Calculate(set):
             secretCount += 1
             totalSecretValue += item.get("marketPrice")
             totalCards += 1
-
+    
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+    
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
-    
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.setNumber)
-
+    
     expValue = 0
     if(set.secretOdds > 0):
         expValue += (totalSecretValue / max(secretCount, 1) * set.secretOdds)
     expValue += ((totalCommonValue / commonCount * set.commonsPer) + (totalUncommonValue / uncommonCount * 3) + (totalRareValue / rareCount * .66) + (totalHoloValue / holoCount * set.holoOdds)) 
-
+    
     print("\n")
     print(set.name)
     print("Total Cards: " + str(totalCards))
@@ -510,12 +529,16 @@ def gen1Calculate(set):
     print("Expected Value: $" + f"{expValue:.2f}")
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
-
-    return (expValue / (packPrice)), packPrice, expValue
+    
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def earlyReverseSets(set):
     
-    #need some variables for a couple special sets still
     totalCards = 0
     totalCommonValue = 0
     totalUncommonValue = 0
@@ -531,11 +554,14 @@ def earlyReverseSets(set):
     secretCount = 0
     reverseCount = 0
 
+    # Dictionary to track unique cards for top 5
+    unique_cards = {}
+
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
 
-        # Define condition priority lists (best to worst)
+    # Define condition priority lists (best to worst)
     condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
     reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
     holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
@@ -548,23 +574,34 @@ def earlyReverseSets(set):
         product_id = item.get("productID")
         condition = item.get("condition")
         rarity = item.get("rarity")
-        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
-        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        printing = item.get("printing")
+        marketPrice = item.get("marketPrice") or 0
+        
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+        
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': marketPrice,
+                'rarity': rarity,
+                'condition': condition,
+                'number': card_number
+            }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
-        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_holofoil = condition in holo_condition_priority
         is_normal = printing == "Normal" and condition in condition_priority
 
-        # If this card doesn't match any category, skip it
         if not (is_reverse or is_holofoil or is_normal):
             continue
 
-        # Create storage for this productID if it doesn't exist
         if product_id not in best_cards:
             best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
 
-        # Check if this is the best condition Reverse Holo for this productID
         if is_reverse:
             if (best_cards[product_id]["reverse"] is None or
                     reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
@@ -574,7 +611,6 @@ def earlyReverseSets(set):
                     "marketPrice": marketPrice
                 }
 
-        # Check if this is the best condition Holofoil for this productID
         elif is_holofoil:
             if (best_cards[product_id]["holofoil"] is None or
                     holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
@@ -584,7 +620,6 @@ def earlyReverseSets(set):
                     "marketPrice": marketPrice
                 }
 
-        # Check if this is the best condition Normal for this productID
         elif is_normal:
             if (best_cards[product_id]["normal"] is None or
                     condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
@@ -594,9 +629,8 @@ def earlyReverseSets(set):
                     "marketPrice": marketPrice
                 }
 
-    # Now, process the best available cards
+    # Process the best available cards
     for product in best_cards.values():
-        # Process Normal if it exists
         if product["normal"]:
             rarity = product["normal"]["rarity"]
             marketPrice = product["normal"]["marketPrice"]
@@ -611,7 +645,6 @@ def earlyReverseSets(set):
                 rareCount += 1
                 totalRareValue += marketPrice
 
-        # Process Holofoil if it exists
         if product["holofoil"]:
             rarity = product["holofoil"]["rarity"]
             marketPrice = product["holofoil"]["marketPrice"]
@@ -623,17 +656,18 @@ def earlyReverseSets(set):
                 secretCount += 1
                 totalSecretValue += marketPrice
 
-        # Process Reverse Holo if it exists
         if product["reverse"]:
             reverseCount += 1
             totalReverseValue += product["reverse"]["marketPrice"]
-       
+
+    # Convert to top 5 list
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.setNumber)
-
 
     expValue = 0
     if(secretCount > 0):
@@ -653,11 +687,15 @@ def earlyReverseSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
+
 
 def earlyExSets(set):
 
-    #need some variables for a couple special sets still
     totalCards = 0
     totalCommonValue = 0
     totalUncommonValue = 0
@@ -675,11 +713,14 @@ def earlyExSets(set):
     reverseCount = 0
     ultraRareCount = 0
 
+    # Dictionary to track unique cards for top 5
+    unique_cards = {}
+
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
 
-        # Define condition priority lists (best to worst)
+    # Define condition priority lists (best to worst)
     condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
     reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
     holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
@@ -692,23 +733,34 @@ def earlyExSets(set):
         product_id = item.get("productID")
         condition = item.get("condition")
         rarity = item.get("rarity")
-        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
-        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        printing = item.get("printing")
+        marketPrice = item.get("marketPrice") or 0
+        
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+        
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': marketPrice,
+                'rarity': rarity,
+                'condition': condition,
+                'number': card_number
+            }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
-        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_holofoil = condition in holo_condition_priority
         is_normal = printing == "Normal" and condition in condition_priority
 
-        # If this card doesn't match any category, skip it
         if not (is_reverse or is_holofoil or is_normal):
             continue
 
-        # Create storage for this productID if it doesn't exist
         if product_id not in best_cards:
             best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
 
-        # Check if this is the best condition Reverse Holo for this productID
         if is_reverse:
             if (best_cards[product_id]["reverse"] is None or
                     reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
@@ -718,7 +770,6 @@ def earlyExSets(set):
                     "marketPrice": marketPrice
                 }
 
-        # Check if this is the best condition Holofoil for this productID
         elif is_holofoil:
             if (best_cards[product_id]["holofoil"] is None or
                     holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
@@ -728,7 +779,6 @@ def earlyExSets(set):
                     "marketPrice": marketPrice
                 }
 
-        # Check if this is the best condition Normal for this productID
         elif is_normal:
             if (best_cards[product_id]["normal"] is None or
                     condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
@@ -738,9 +788,8 @@ def earlyExSets(set):
                     "marketPrice": marketPrice
                 }
 
-    # Now, process the best available cards
+    # Process the best available cards
     for product in best_cards.values():
-        # Process Normal if it exists
         if product["normal"]:
             rarity = product["normal"]["rarity"]
             marketPrice = product["normal"]["marketPrice"]
@@ -757,7 +806,6 @@ def earlyExSets(set):
             if(rarity != "Code Card" and rarity != "Promo"):
                 totalCards += 1
 
-        # Process Holofoil if it exists
         if product["holofoil"]:
             rarity = product["holofoil"]["rarity"]
             marketPrice = product["holofoil"]["marketPrice"]
@@ -774,10 +822,13 @@ def earlyExSets(set):
             if(rarity != "Code Card" and rarity != "Promo"):
                 totalCards += 1
 
-        # Process Reverse Holo if it exists
         if product["reverse"]:
             reverseCount += 1
             totalReverseValue += product["reverse"]["marketPrice"]
+
+    # Convert to top 5 list
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     commonQuantity = 5
     uncommonQuantity = 2
@@ -812,7 +863,12 @@ def earlyExSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
+
 
 def goldStarSets(set):
 
@@ -835,12 +891,14 @@ def goldStarSets(set):
     ultraRareCount = 0
     goldStarCount = 0
 
+    # Dictionary to track unique cards for top 5
+    unique_cards = {}
 
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
 
-        # Define condition priority lists (best to worst)
+    # Define condition priority lists (best to worst)
     condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
     reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
     holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
@@ -853,25 +911,36 @@ def goldStarSets(set):
         product_id = item.get("productID")
         condition = item.get("condition")
         rarity = item.get("rarity")
-        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
-        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        printing = item.get("printing")
+        marketPrice = item.get("marketPrice") or 0
         productName = item.get("productName")
         number = item.get("number")
+        
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+        
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': marketPrice,
+                'rarity': rarity,
+                'condition': condition,
+                'number': card_number
+            }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
-        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_holofoil = condition in holo_condition_priority
         is_normal = printing == "Normal" and condition in condition_priority
 
-        # If this card doesn't match any category, skip it
         if not (is_reverse or is_holofoil or is_normal):
             continue
 
-        # Create storage for this productID if it doesn't exist
         if product_id not in best_cards:
             best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
 
-        # Check if this is the best condition Reverse Holo for this productID
         if is_reverse:
             if (best_cards[product_id]["reverse"] is None or
                     reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
@@ -883,7 +952,6 @@ def goldStarSets(set):
                     "number": number
                 }
 
-        # Check if this is the best condition Holofoil for this productID
         elif is_holofoil:
             if (best_cards[product_id]["holofoil"] is None or
                     holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
@@ -895,7 +963,6 @@ def goldStarSets(set):
                     "number": number
                 }
 
-        # Check if this is the best condition Normal for this productID
         elif is_normal:
             if (best_cards[product_id]["normal"] is None or
                     condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
@@ -907,9 +974,8 @@ def goldStarSets(set):
                     "number": number
                 }
 
-    # Now, process the best available cards
+    # Process the best available cards
     for product in best_cards.values():
-        # Process Normal if it exists
         if product["normal"]:
             rarity = product["normal"]["rarity"]
             marketPrice = product["normal"]["marketPrice"]
@@ -927,7 +993,6 @@ def goldStarSets(set):
             if(rarity != "Code Card" and rarity != "Promo"):
                 totalCards += 1
 
-        # Process Holofoil if it exists
         if product["holofoil"]:
             rarity = product["holofoil"]["rarity"]
             marketPrice = product["holofoil"]["marketPrice"]
@@ -951,10 +1016,13 @@ def goldStarSets(set):
             if(rarity != "Code Card" and rarity != "Promo"):
                 totalCards += 1
 
-        # Process Reverse Holo if it exists
         if product["reverse"]:
             reverseCount += 1
             totalReverseValue += product["reverse"]["marketPrice"]
+
+    # Convert to top 5 list
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     commonQuantity = 5
     uncommonQuantity = 2
@@ -963,7 +1031,6 @@ def goldStarSets(set):
     packData = packResponse.json() 
     
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(set.setNumber)
-
 
     expValue = 0
     if(set.secretOdds > 0):
@@ -992,7 +1059,11 @@ def goldStarSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def dpSets(set):
 
@@ -1019,6 +1090,9 @@ def dpSets(set):
     rotomCount = 0
     arceusCount = 0
 
+    # Dictionary to store the highest price for each unique card
+    unique_cards = {}
+
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
@@ -1040,6 +1114,20 @@ def dpSets(set):
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+         # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+        
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': marketPrice,
+                'rarity': rarity,
+                'condition': condition,
+                'number': card_number
+            }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -1155,6 +1243,10 @@ def dpSets(set):
                 reverseCount += 1
                 totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -1199,7 +1291,12 @@ def dpSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def hgssSets(set):
 
@@ -1224,6 +1321,8 @@ def hgssSets(set):
     shinyCount = 0
     legendCount = 0
 
+    unique_cards = {}
+
     # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
@@ -1245,6 +1344,20 @@ def hgssSets(set):
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -1359,6 +1472,10 @@ def hgssSets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -1400,7 +1517,12 @@ def hgssSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def bwSets(set):
 
@@ -1425,6 +1547,8 @@ def bwSets(set):
     faCount = 0
     aceCount = 0
 
+    unique_cards = {}
+
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
@@ -1446,6 +1570,20 @@ def bwSets(set):
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -1555,6 +1693,10 @@ def bwSets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -1596,7 +1738,12 @@ def bwSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def legendaryTreasures():
     
@@ -1624,6 +1771,8 @@ def legendaryTreasures():
     rcUncommonCount = 0
     rcCommonCount = 0
 
+    unique_cards = {}
+
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/1409/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
@@ -1645,6 +1794,20 @@ def legendaryTreasures():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -1772,6 +1935,20 @@ def legendaryTreasures():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -1870,6 +2047,10 @@ def legendaryTreasures():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/98581/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -1914,7 +2095,12 @@ def legendaryTreasures():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def xySets(set):
 
@@ -1940,6 +2126,8 @@ def xySets(set):
     breakCount = 0
     codeCardCount = 0
 
+    unique_cards = {}
+
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
     data = response.json() 
@@ -1962,6 +2150,20 @@ def xySets(set):
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -2084,7 +2286,9 @@ def xySets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
-
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -2130,7 +2334,12 @@ def xySets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def smSets(set):
 
@@ -2158,6 +2367,8 @@ def smSets(set):
     prismCount = 0
     galleryCount = 0
 
+    unique_cards = {}
+
 
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
@@ -2181,6 +2392,20 @@ def smSets(set):
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -2291,6 +2516,9 @@ def smSets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -2333,7 +2561,12 @@ def smSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice)), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def swshSets(set):
 
@@ -2363,6 +2596,8 @@ def swshSets(set):
     arCount = 0
     altCount = 0
 
+    unique_cards = {}
+
 
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
@@ -2386,6 +2621,20 @@ def swshSets(set):
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -2499,6 +2748,9 @@ def swshSets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -2546,7 +2798,12 @@ def swshSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def lateSwshSets(set):
 
@@ -2580,6 +2837,7 @@ def lateSwshSets(set):
     radiantCount = 0
     tgCount = 0
 
+    unique_cards = {}
 
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId1}/cards/?rows=5000&productTypeID=1")    
@@ -2745,6 +3003,20 @@ def lateSwshSets(set):
         number = item.get("number")
         setName = item.get("set")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -2826,6 +3098,9 @@ def lateSwshSets(set):
             tgCount += 1
             totalTgValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -2875,7 +3150,12 @@ def lateSwshSets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def svsets(set):
 
@@ -2903,6 +3183,7 @@ def svsets(set):
     sirCount = 0
     aceCount = 0
 
+    unique_cards = {}
 
    # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/{set.tcgId}/cards/?rows=5000&productTypeID=1")    
@@ -2926,6 +3207,20 @@ def svsets(set):
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3036,6 +3331,9 @@ def svsets(set):
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -3079,7 +3377,12 @@ def svsets(set):
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def dragonVault():
 
@@ -3089,6 +3392,8 @@ def dragonVault():
 
     holoCount = 0
     secretRareCount = 0
+
+    unique_cards = {}
 
    # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/1426/cards/?rows=5000&productTypeID=1")    
@@ -3112,6 +3417,20 @@ def dragonVault():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3180,6 +3499,9 @@ def dragonVault():
             if(rarity != "Code Card" and rarity != "Promo"):
                 totalCards += 1
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/98948/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -3202,7 +3524,12 @@ def dragonVault():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def doubleCrisis():
 
@@ -3219,6 +3546,7 @@ def doubleCrisis():
     ultraRareCount = 0
     reverseCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/1525/cards/?rows=5000&productTypeID=1")    
@@ -3242,6 +3570,20 @@ def doubleCrisis():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3340,6 +3682,9 @@ def doubleCrisis():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/229226/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -3364,7 +3709,12 @@ def doubleCrisis():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def shiningLegends():
 
@@ -3390,6 +3740,7 @@ def shiningLegends():
     secretCount = 0
     rainbowCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/2054/cards/?rows=5000&productTypeID=1")    
@@ -3413,6 +3764,20 @@ def shiningLegends():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3523,6 +3888,9 @@ def shiningLegends():
             reverseCount += 1
             totalReverseValue += marketPrice
     
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/155880/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -3555,7 +3923,12 @@ def shiningLegends():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def dragonMajesty():
 
@@ -3581,6 +3954,7 @@ def dragonMajesty():
     secretCount = 0
     rainbowCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/2295/cards/?rows=5000&productTypeID=1")    
@@ -3604,6 +3978,20 @@ def dragonMajesty():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3711,6 +4099,9 @@ def dragonMajesty():
             reverseCount += 1
             totalReverseValue += marketPrice
     
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/173392/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -3741,7 +4132,12 @@ def dragonMajesty():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def championsPath():
 
@@ -3764,6 +4160,7 @@ def championsPath():
     faCount = 0
     secretCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/2685/cards/?rows=5000&productTypeID=1")    
@@ -3787,6 +4184,20 @@ def championsPath():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -3894,7 +4305,10 @@ def championsPath():
             reverseCount += 1
             totalReverseValue += marketPrice
     
-    
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/218789/details?mpfev=3442")   
     packData = packResponse.json() 
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(1002.5)
@@ -3924,7 +4338,12 @@ def championsPath():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def pokemonGo():
 
@@ -3953,7 +4372,7 @@ def pokemonGo():
     radiantCount = 0
     vstarCount = 0
 
-
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/3064/cards/?rows=5000&productTypeID=1")    
@@ -3977,6 +4396,20 @@ def pokemonGo():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -4093,6 +4526,9 @@ def pokemonGo():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/274421/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -4129,7 +4565,12 @@ def pokemonGo():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def pokemon151():
 
@@ -4154,6 +4595,7 @@ def pokemon151():
     irCount = 0
     sirCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/23237/cards/?rows=5000&productTypeID=1")    
@@ -4177,6 +4619,20 @@ def pokemon151():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -4284,6 +4740,9 @@ def pokemon151():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/504467/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -4316,7 +4775,12 @@ def pokemon151():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def shroudedFable():
 
@@ -4343,6 +4807,7 @@ def shroudedFable():
     sirCount = 0
     aceSpecCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/23529/cards/?rows=5000&productTypeID=1")    
@@ -4366,6 +4831,20 @@ def shroudedFable():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -4476,7 +4955,10 @@ def shroudedFable():
             reverseCount += 1
             totalReverseValue += marketPrice
 
-    
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/552997/details?mpfev=3442")   
     packData = packResponse.json() 
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(1205.5)
@@ -4511,7 +4993,12 @@ def shroudedFable():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def paldeanFates():
 
@@ -4540,6 +5027,7 @@ def paldeanFates():
     shinyCount = 0
     shinyUltraCount = 0
 
+    unique_cards = {}
 
 # Make the GET request
     response = requests.get("https://infinite-api.tcgplayer.com/priceguide/set/23353/cards/?rows=5000&productTypeID=1")    
@@ -4563,6 +5051,20 @@ def paldeanFates():
         productName = item.get("productName")
         number = item.get("number")
         setName = item.get("set")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -4676,7 +5178,10 @@ def paldeanFates():
             reverseCount += 1
             totalReverseValue += marketPrice
 
-    
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get("https://mp-search-api.tcgplayer.com/v2/product/528038/details?mpfev=3442")   
     packData = packResponse.json() 
     packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or get_last_pack_value(1203.5)
@@ -4712,7 +5217,12 @@ def paldeanFates():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def hiddenFates():
 
@@ -4744,6 +5254,8 @@ def hiddenFates():
     faVaultCount = 0
     goldCount = 0
 
+    unique_cards = {}
+
 
        # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/2480/cards/?rows=5000&productTypeID=1")    
@@ -4766,6 +5278,20 @@ def hiddenFates():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -4892,6 +5418,20 @@ def hiddenFates():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -4993,6 +5533,9 @@ def hiddenFates():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/198634/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -5039,7 +5582,12 @@ def hiddenFates():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 
 def shiningFates():
@@ -5075,6 +5623,8 @@ def shiningFates():
     goldCount = 0
     amazingRareCount = 0
 
+    unique_cards = {}
+
 
        # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/2754/cards/?rows=5000&productTypeID=1")    
@@ -5097,6 +5647,20 @@ def shiningFates():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -5229,6 +5793,20 @@ def shiningFates():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -5330,6 +5908,10 @@ def shiningFates():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/232636/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -5379,7 +5961,12 @@ def shiningFates():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def generations():
 
@@ -5404,6 +5991,7 @@ def generations():
     rareCount = 0
     rcUltraCount = 0
 
+    unique_cards = {}
 
        # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/1728/cards/?rows=5000&productTypeID=1")    
@@ -5426,6 +6014,20 @@ def generations():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -5546,6 +6148,20 @@ def generations():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -5642,6 +6258,10 @@ def generations():
             totalReverseValue += marketPrice
 
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/187238/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -5687,7 +6307,12 @@ def generations():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def crownZenith():
 
@@ -5722,6 +6347,8 @@ def crownZenith():
     goldCount = 0
     secretCount = 0
 
+    unique_cards = {}
+
 
        # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/17688/cards/?rows=5000&productTypeID=1")    
@@ -5744,6 +6371,20 @@ def crownZenith():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -5879,6 +6520,20 @@ def crownZenith():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -5977,6 +6632,9 @@ def crownZenith():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/453466/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -6028,7 +6686,12 @@ def crownZenith():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def celebrations():
 
@@ -6041,6 +6704,8 @@ def celebrations():
     holoCount = 0
     ultraCount = 0
     secretCount = 0
+
+    unique_cards = {}
 
 
        # Make the GET request
@@ -6188,6 +6853,34 @@ def celebrations():
         productName = item.get("productName")
         number = item.get("number")
 
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
@@ -6329,6 +7022,10 @@ def celebrations():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/248577/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -6390,7 +7087,12 @@ def celebrations():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def prismaticEvolutions():
 
@@ -6420,7 +7122,7 @@ def prismaticEvolutions():
     masterballCount = 0
     sirCount = 0
 
-
+    unique_cards = {}
 
       # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/23821/cards/?rows=5000&productTypeID=1")    
@@ -6443,6 +7145,20 @@ def prismaticEvolutions():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -6557,7 +7273,10 @@ def prismaticEvolutions():
             reverseCount += 1
             totalReverseValue += marketPrice
 
-    
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/593294/details?mpfev=3442")   
     packData = packResponse.json() 
     
@@ -6606,7 +7325,12 @@ def prismaticEvolutions():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def blackBolt():
 
@@ -6636,7 +7360,7 @@ def blackBolt():
     sirCount = 0
     irCount = 0
 
-
+    unique_cards = {}
 
       # Make the GET request
     response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/24325/cards/?rows=5000&productTypeID=1")    
@@ -6659,6 +7383,20 @@ def blackBolt():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -6773,6 +7511,9 @@ def blackBolt():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/642597/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -6822,7 +7563,12 @@ def blackBolt():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 def whiteFlare():
 
@@ -6852,6 +7598,7 @@ def whiteFlare():
     sirCount = 0
     irCount = 0
 
+    unique_cards = {}
 
 
       # Make the GET request
@@ -6875,6 +7622,20 @@ def whiteFlare():
         marketPrice = item.get("marketPrice") or 0  # Avoid None errors
         productName = item.get("productName")
         number = item.get("number")
+
+        # Track for top 5 cards
+        card_name = item.get('productName', 'Unknown')
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
 
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
@@ -6989,6 +7750,9 @@ def whiteFlare():
             reverseCount += 1
             totalReverseValue += marketPrice
 
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
     packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/630699/details?mpfev=3442")   
     packData = packResponse.json() 
@@ -7038,7 +7802,12 @@ def whiteFlare():
     print("Pack Price: $" + f"{packPrice:.2f}")
     print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
 
-    return (expValue / (packPrice )), packPrice, expValue
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards
 
 expectedValueList = []
 setNameList = []
@@ -7051,6 +7820,8 @@ boxSetNumberList = []
 boxPriceList = []
 boxPricePerList = []
 boxSetNumberList = []
+top5CardsList = []
+
 
 def getSetName(set):
     return set.name
@@ -7058,261 +7829,292 @@ def getSetName(set):
 num = 0
 
 for set in vintageSetList:
-    adjev, price, ev = gen1Calculate(set)
+    adjev, price, ev, top_5_cards = gen1Calculate(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(100 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 
 for set in earlyReverseSetList:
-    adjev, price, ev = earlyReverseSets(set)
+    adjev, price, ev, top_5_cards = earlyReverseSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(200 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in earlyExSetList:
-    adjev, price, ev = earlyExSets(set)
+    adjev, price, ev, top_5_cards = earlyExSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(300 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in goldStarSetList:
-    adjev, price, ev = goldStarSets(set)
+    adjev, price, ev, top_5_cards = goldStarSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(400 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in levelXSetList:
-    adjev, price, ev = dpSets(set)
+    adjev, price, ev, top_5_cards = dpSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(500 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in hgssSetList:
-    adjev, price, ev = hgssSets(set)
+    adjev, price, ev, top_5_cards = hgssSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(600 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in bwSetList:
-    adjev, price, ev = bwSets(set)
+    adjev, price, ev, top_5_cards = bwSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(700 + num)
+    top5CardsList.append(top_5_cards)
     num += 1   
 
-adjev, price, ev = legendaryTreasures()
+adjev, price, ev, top_5_cards = legendaryTreasures()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Legendary Treasures")
 actualEvList.append(ev)
 setNumberList.append(710)
+top5CardsList.append(top_5_cards)
 
 num = 0
 
 for set in xySetList:
-    adjev, price, ev = xySets(set)
+    adjev, price, ev, top_5_cards = xySets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(800 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in smSetList:
-    adjev, price, ev = smSets(set)
+    adjev, price, ev, top_5_cards = smSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(900 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in swshSetList:
-    adjev, price, ev = swshSets(set)
+    adjev, price, ev, top_5_cards = swshSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(1000 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in lateSwshSetList:
-    adjev, price, ev = lateSwshSets(set)
+    adjev, price, ev, top_5_cards = lateSwshSets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(1100 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
 
 num = 0
 
 for set in svSetList:
-    adjev, price, ev = svsets(set)
+    adjev, price, ev, top_5_cards = svsets(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
     setNumberList.append(1200 + num)
+    top5CardsList.append(top_5_cards)
     num += 1
+    
 
-adjev, price, ev = dragonVault()
+adjev, price, ev, top_5_cards = dragonVault()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Dragon Vault")
 actualEvList.append(ev)
 setNumberList.append(705.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = doubleCrisis()
+adjev, price, ev, top_5_cards = doubleCrisis()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Double Crisis")
 actualEvList.append(ev)
 setNumberList.append(804.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = shiningLegends()
+adjev, price, ev, top_5_cards = shiningLegends()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Shining Legends")
 actualEvList.append(ev)
 setNumberList.append(902.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = dragonMajesty()
+adjev, price, ev, top_5_cards = dragonMajesty()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Dragon Majesty")
 actualEvList.append(ev)
 setNumberList.append(906.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = championsPath()
+adjev, price, ev, top_5_cards = championsPath()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Champions Path")
 actualEvList.append(ev)
 setNumberList.append(1002.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = pokemonGo()
+adjev, price, ev, top_5_cards = pokemonGo()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Pokemon Go")
 actualEvList.append(ev)
 setNumberList.append(1101.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = pokemon151()
+adjev, price, ev, top_5_cards = pokemon151()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Pokemon 151")
 actualEvList.append(ev)
-setNumberList.append(1202.5) 
+setNumberList.append(1202.5)
+top5CardsList.append(top_5_cards) 
 
-adjev, price, ev = paldeanFates()
+adjev, price, ev, top_5_cards = paldeanFates()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Paldean Fates")
 actualEvList.append(ev)
-setNumberList.append(1203.5) 
+setNumberList.append(1203.5)
+top5CardsList.append(top_5_cards) 
 
-adjev, price, ev = shroudedFable()
+adjev, price, ev, top_5_cards = shroudedFable()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Shrouded Fable")
 actualEvList.append(ev)
-setNumberList.append(1205.5) 
+setNumberList.append(1205.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = hiddenFates()
+adjev, price, ev, top_5_cards = hiddenFates()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Hidden Fates")
 actualEvList.append(ev)
-setNumberList.append(910.5) 
+setNumberList.append(910.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = shiningFates()
+adjev, price, ev, top_5_cards = shiningFates()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Shining Fates")
 actualEvList.append(ev)
-setNumberList.append(1003.5) 
+setNumberList.append(1003.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = generations()
+adjev, price, ev, top_5_cards = generations()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Generations")
 actualEvList.append(ev)
 setNumberList.append(808.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = crownZenith()
+adjev, price, ev, top_5_cards = crownZenith()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Crown Zenith")
 actualEvList.append(ev)
 setNumberList.append(1103.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = celebrations()
+adjev, price, ev, top_5_cards = celebrations()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Celebrations")
 actualEvList.append(ev)
-setNumberList.append(1006.5) 
+setNumberList.append(1006.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = prismaticEvolutions()
+adjev, price, ev, top_5_cards = prismaticEvolutions()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Prismatic Evolutions")
 actualEvList.append(ev)
-setNumberList.append(1207.5) 
+setNumberList.append(1207.5)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = blackBolt()
+adjev, price, ev, top_5_cards = blackBolt()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Black Bolt")
 actualEvList.append(ev)
-setNumberList.append(1209.51) 
+setNumberList.append(1209.51)
+top5CardsList.append(top_5_cards)
 
-adjev, price, ev = whiteFlare()
+adjev, price, ev, top_5_cards = whiteFlare()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("White Flare")
 actualEvList.append(ev)
 setNumberList.append(1209.52)
+top5CardsList.append(top_5_cards)
 
 for bb in boosterBoxList:
     boxPrice, boxPricePer, setName, setNumber = getBoxPrices(bb)
@@ -7328,16 +8130,15 @@ last_updated_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Prepare the data to be written into JSON format
 output_data = []
-
 for i in range(len(setNameList)):
     output_data.append({
         "setName": setNameList[i],
         "adjustedEv": expectedValueList[i],
         "packValue": packValueList[i],
         "ev": actualEvList[i],
-        # Convert your string timestamp to datetime for Firestore
         "lastUpdated": datetime.strptime(last_updated_timestamp, "%Y-%m-%d %H:%M:%S"),
-        "setNumber": setNumberList[i]
+        "setNumber": setNumberList[i],
+        "top5Cards": top5CardsList[i]  # Add the top 5 cards array
     })
 
 for record in output_data:

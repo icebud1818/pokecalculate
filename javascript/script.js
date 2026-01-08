@@ -31,6 +31,7 @@ function initializePacks(data) {
         ev: item.ev,
         adjEv: item.adjustedEv,
         setNumber: parseFloat(item.setNumber),
+        top5Cards: item.top5Cards || []
     }));
 
     // Get the most recent lastUpdated timestamp
@@ -64,14 +65,121 @@ function handleError(error) {
 function displayPacks() {
     const ul = document.getElementById("packs-list");
     ul.innerHTML = "";
+    
+    console.log("Displaying packs, count:", filteredPacks.length);
 
-    filteredPacks.forEach((pack) => {
+    filteredPacks.forEach((pack, packIndex) => {
         const li = document.createElement("li");
-        li.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(
-            2
-        )} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
+        li.className = "pack-item";
+        
+        // Create main pack info (clickable)
+        const packHeader = document.createElement("div");
+        packHeader.className = "pack-header";
+        packHeader.setAttribute("data-pack-index", packIndex);
+        packHeader.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(2)} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
+        
+        // Create expandable details section
+        const detailsSection = document.createElement("div");
+        detailsSection.className = "pack-details";
+        detailsSection.setAttribute("data-pack-index", packIndex);
+        detailsSection.style.display = "none";
+        
+        // Buy indicator
+        const percentReturn = pack.adjEv * 100;
+        let buyIndicator = "";
+        let buyClass = "";
+        
+        if (percentReturn >= 80) {
+            buyIndicator = "Strong Buy";
+            buyClass = "strong-buy";
+        } else if (percentReturn >= 60) {
+            buyIndicator = "Moderate Buy";
+            buyClass = "moderate-buy";
+        } else if (percentReturn >= 40) {
+            buyIndicator = "OK Buy";
+            buyClass = "ok-buy";
+        } else if (percentReturn >= 20) {
+            buyIndicator = "Weak Buy";
+            buyClass = "weak-buy";
+        } else {
+            buyIndicator = "Terrible Buy";
+            buyClass = "terrible-buy";
+        }
+        
+        const buyIndicatorDiv = document.createElement("div");
+        buyIndicatorDiv.className = `buy-indicator ${buyClass}`;
+        buyIndicatorDiv.textContent = `Buy Indicator: ${buyIndicator}`;
+        detailsSection.appendChild(buyIndicatorDiv);
+        
+        // Top 5 cards
+        if (pack.top5Cards && pack.top5Cards.length > 0) {
+            const top5Title = document.createElement("h4");
+            top5Title.textContent = "Top 5 Most Expensive Cards:";
+            top5Title.style.marginTop = "15px";
+            top5Title.style.marginBottom = "10px";
+            detailsSection.appendChild(top5Title);
+            
+            const cardsList = document.createElement("ul");
+            cardsList.className = "top5-cards-list";
+            
+            pack.top5Cards.forEach((card, index) => {
+                const cardItem = document.createElement("li");
+                cardItem.textContent = `${card.name} - #${card.number} - $${card.price.toFixed(2)}`;
+                cardsList.appendChild(cardItem);
+            });
+            
+            detailsSection.appendChild(cardsList);
+        }
+        
+        // Close button
+        const closeButton = document.createElement("button");
+        closeButton.textContent = "Close";
+        closeButton.className = "close-details-btn";
+        closeButton.setAttribute("data-pack-index", packIndex);
+        closeButton.type = "button";
+        
+        detailsSection.appendChild(closeButton);
+        
+        li.appendChild(packHeader);
+        li.appendChild(detailsSection);
         ul.appendChild(li);
     });
+    
+    // Use event delegation - attach click handlers to the parent ul
+    // This is more reliable across all browsers
+    ul.addEventListener("click", handlePackListClick);
+    
+    console.log("Finished displaying packs");
+}
+
+// Event delegation handler for Safari compatibility
+function handlePackListClick(event) {
+    const target = event.target;
+    
+    // Handle pack header clicks
+    if (target.classList.contains("pack-header")) {
+        const packIndex = parseInt(target.getAttribute("data-pack-index"));
+        const detailsSection = target.nextElementSibling;
+        
+        console.log("Pack header clicked:", filteredPacks[packIndex].name);
+        
+        const isExpanded = detailsSection.style.display === "block";
+        detailsSection.style.display = isExpanded ? "none" : "block";
+        target.classList.toggle("expanded", !isExpanded);
+    }
+    
+    // Handle close button clicks
+    if (target.classList.contains("close-details-btn")) {
+        event.stopPropagation();
+        const packIndex = parseInt(target.getAttribute("data-pack-index"));
+        const detailsSection = target.parentElement;
+        const packHeader = detailsSection.previousElementSibling;
+        
+        console.log("Close button clicked");
+        
+        detailsSection.style.display = "none";
+        packHeader.classList.remove("expanded");
+    }
 }
 
 function sortPacks(criteria) {
@@ -91,6 +199,11 @@ function sortPacks(criteria) {
     if (sorters[criteria]) {
         lastSortCriteria = criteria;
         filteredPacks.sort(sorters[criteria]);
+        
+        // Remove old event listener before re-rendering
+        const ul = document.getElementById("packs-list");
+        ul.removeEventListener("click", handlePackListClick);
+        
         displayPacks();
     } else {
         console.error("Invalid sort criteria:", criteria);
@@ -120,6 +233,10 @@ function applyFilter() {
     }
 }
 
+function findExactPack(packName) {
+    return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
+}
+
 document.getElementById("sortDropdown").addEventListener("change", (event) => {
     const sortCriteria = event.target.value;
     sortPacks(sortCriteria);
@@ -130,11 +247,8 @@ document.getElementById("filterDropdown").addEventListener("change", (event) => 
     applyFilter();
 });
 
-// Fetch and initialize packs on page load
-fetchPacks();
-
 // Sealed Product Value Calculation
-document.getElementById("productValueButton").addEventListener("click", function () {
+document.querySelector(".productValueButton").addEventListener("click", function () {
     const productPrice = parseFloat(prompt("Enter the price of the product:"));
     if (isNaN(productPrice)) {
         alert("Invalid price entered. Please enter a numeric value.");
@@ -170,7 +284,7 @@ document.getElementById("productValueButton").addEventListener("click", function
 });
 
 // Calculate EV for a Sealed Product
-document.getElementById("sealedProductEvButton").addEventListener("click", function () {
+document.querySelector(".sealedProductEvButton").addEventListener("click", function () {
     const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
     if (isNaN(productPrice)) {
         alert("Invalid price entered. Please enter a numeric value.");
@@ -204,7 +318,7 @@ document.getElementById("sealedProductEvButton").addEventListener("click", funct
 });
 
 // Calculate EV for Multiple Packs
-document.getElementById("multiplePacksEvButton").addEventListener("click", function () {
+document.querySelector(".multiplePacksEvButton").addEventListener("click", function () {
     let totalEv = 0;
 
     while (true) {
@@ -225,7 +339,7 @@ document.getElementById("multiplePacksEvButton").addEventListener("click", funct
 });
 
 // Calculate EV for a Single Pack
-document.getElementById("singlePackEvButton").addEventListener("click", function () {
+document.querySelector(".singlePackEvButton").addEventListener("click", function () {
     const packName = prompt("Enter the name of the pack:").trim();
     const pack = findExactPack(packName);
 
@@ -237,6 +351,5 @@ document.getElementById("singlePackEvButton").addEventListener("click", function
     }
 });
 
-function findExactPack(packName) {
-    return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
-}
+// Fetch and initialize packs on page load
+fetchPacks();
