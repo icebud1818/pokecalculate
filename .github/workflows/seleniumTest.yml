@@ -43,7 +43,7 @@ jobs:
       env:
         FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: |
-        python bestSetFireBase.py  # Execute the seleniumTest.py script
+        python -m calculators.bestSetFireBase
 
     # Step 6: Upload debug artifacts if the Selenium test fails
     - name: Upload debug artifacts on failure
