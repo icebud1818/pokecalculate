@@ -1,7 +1,9 @@
 
 import requests
-import gen1, earlyReverse, specialSets, earlyEx, goldStar, dp, hgss, bw, xy, sm, swsh, sv
-import myUtils
+from calculators import (
+    gen1, earlyReverse, specialSets, earlyEx, goldStar,
+    dp, hgss, bw, xy, sm, swsh, sv, myUtils
+)
 
 # ------------------------------------------------------------------------------------------------------------------
 from datetime import datetime

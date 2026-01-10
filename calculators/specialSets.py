@@ -1,6 +1,5 @@
 import requests
-import myUtils
-
+from calculators import myUtils
 def dragonVault():
 
     totalCards = 0
