@@ -393,7 +393,7 @@ svSetList = [
     svSet("SV09: Journey Together", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv09-journey-together", .0072, .2, .0667, .0833, .0116, 0, 610935, 24073, 1208),
     svSet("SV10: Destined Rivals", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/sv10-destined-rivals", .0067, .2, .0625, .0833, .0106, 0, 624683, 24269, 1209),
     svSet("ME01: Mega Evolution", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me01-mega-evolution", .0008, .2, .0833, .1111, .0099, 0, 644352, 24380, 1210),
-    svSet("ME02: Phantasmal Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me02-phantasmal-flames", .0008, .2, .0833, .1111, .0099, 0, 654144, 24448, 1211)
+    svSet("ME02: Phantasmal Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me02-phantasmal-flames", .0008, .2, .0833, .1111, .0125, 0, 654144, 24448, 1211)
 
 ]
 
