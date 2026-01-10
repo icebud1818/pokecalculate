@@ -27,16 +27,18 @@ def calculate(set):
         card_name = myUtils.clean_card_name(card_name_raw)        
         card_price = item.get('marketPrice', 0)
         card_number = item.get('number', 'N/A')
+        card_printing = item.get('printing', 'Unknown')
         
         # Only keep the highest price version of each card
-        if card_name not in unique_cards or card_price > unique_cards[card_name]['price']:
-            unique_cards[card_name] = {
-                'name': card_name,
-                'price': card_price,
-                'rarity': item.get('rarity', 'Unknown'),
-                'condition': item.get('condition', 'Unknown'),
-                'number': card_number
-            }
+        if card_printing == "Unlimited":
+            if card_name not in unique_cards or card_price > unique_cards[card_name]['price']:
+                unique_cards[card_name] = {
+                    'name': card_name,
+                    'price': card_price,
+                    'rarity': item.get('rarity', 'Unknown'),
+                    'condition': item.get('condition', 'Unknown'),
+                    'number': card_number
+                }
         
         if item.get("condition") in ("Near Mint", "Near Mint Unlimited") and item.get("rarity") == "Common":
             commonCount += 1
