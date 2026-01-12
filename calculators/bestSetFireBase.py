@@ -2,8 +2,9 @@
 import requests
 from calculators import (
     gen1, earlyReverse, specialSets, earlyEx, goldStar,
-    dp, hgss, bw, xy, sm, swsh, sv, myUtils
+    dp, hgss, bw, xy, sm, swsh, sv, myUtils, sealedProduct
 )
+
 
 # ------------------------------------------------------------------------------------------------------------------
 from datetime import datetime
@@ -27,6 +28,13 @@ class BoosterBox:
         self.name = name
         self.setNumber = setNumber
         self.productId = productId
+
+class SealedProduct:
+    def __init__(self, name, productId, packs, promos):
+        self.name = name
+        self.productId = productId
+        self.packs = packs
+        self.promos = promos
 
 class VintageSet:
     def __init__(self, name, url, secretOdds, commonsPer, productId, tcgId, setNumber):
@@ -252,6 +260,10 @@ boosterBoxList = [
     BoosterBox("Phantasmal Flames", 1211, 654137)
 ]
 
+sealedProductList = [
+    SealedProduct("Hidden Fates Tin (Raichu)", 193438, [910.5, 910.5, 910.5, 910.5], [197876])
+]
+
 vintageSetList = [
     VintageSet("Base Set", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/base-set", 0, 5, 138130, 604, 100),
     VintageSet("Jungle", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/jungle", 0, 7, 138129, 635, 101),
@@ -442,6 +454,10 @@ boxPricePerList = []
 boxSetNumberList = []
 top5CardsList = []
 
+sealedProductNameList = []
+sealedProductPriceList = []
+sealedProductPromoList = []
+sealedProductPackList = []
 
 def getSetName(set):
     return set.name
@@ -743,6 +759,14 @@ for bb in boosterBoxList:
     boxSetNameList.append(setName)
     boxSetNumberList.append(setNumber)
 
+for product in sealedProductList:
+    productPrice, promoPrice, packTotal = sealedProduct.calculate(product)
+    sealedProductPriceList.append(productPrice)
+    sealedProductNameList.append(product.name)
+    sealedProductPromoList.append(promoPrice)
+    sealedProductPackList.append(packTotal)
+    
+
 last_updated_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 #excel sheet stuff below
@@ -785,3 +809,19 @@ for box in box_output_data:
     doc_id = str(box["setNumber"])
 
     myUtils.db.collection("boosterBoxes").document(doc_id).set(box)
+
+# Sealed Products
+sealed_output_data = []
+for product in sealedProductList:
+    productPrice, promoPrice, packTotal = sealedProduct.calculate(product)
+    sealed_output_data.append({
+        "name": product.name,
+        "productId": product.productId,
+        "price": productPrice,
+        "promoPrice": promoPrice,
+        "packTotal": packTotal,
+    })
+
+for product in sealed_output_data:
+    doc_id = str(product["productId"])
+    myUtils.db.collection("sealedProducts").document(doc_id).set(product)
