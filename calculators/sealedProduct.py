@@ -24,7 +24,7 @@ def get_collectr_price(product_id):
         driver.get(f"https://app.getcollectr.com/explore/product/{product_id}")
         
         # Wait for the price element to load
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 30)
         
         # Find the price element using the specific classes
         # Find any span that contains a dollar sign
@@ -51,6 +51,7 @@ def calculate(product):
     
     # Fallback to TCGPlayer if Collectr fails
     if productPrice is None:
+        print("failed to get price")
         productResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{product.productId}/details?mpfev=3442")   
         productData = productResponse.json() 
         productPrice = productData.get("marketPrice") or productData.get("medianPrice") or productData.get("lowestPrice")
