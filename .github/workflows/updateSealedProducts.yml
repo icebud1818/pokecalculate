@@ -1,8 +1,8 @@
-name: Update TCG Data
+name: Update Sealed Product Data
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs at midnight (00:00 UTC) every day
+    - cron: "0 12 * * *" # Runs at noon (12:00 UTC) every day
   workflow_dispatch:
 
 permissions:
@@ -38,19 +38,19 @@ jobs:
         python -m pip install --upgrade pip  # Upgrade pip to the latest version
         pip install -r requirements.txt  # Install Python dependencies listed in requirements.txt
 
-    # Step 5: Run the Selenium tests
-    - name: Run Selenium tests
+    # Step 5: Run the sealed product script
+    - name: Run sealed product update
       env:
         FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: |
-        python -m calculators.bestSetFireBase
+        python -m calculators.runSealedProducts
 
-    # Step 6: Upload debug artifacts if the Selenium test fails
+    # Step 6: Upload debug artifacts if the script fails
     - name: Upload debug artifacts on failure
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: selenium-debug-artifacts
+        name: sealed-product-debug-artifacts
         path: |
           error_screenshot.png
           page_source.html

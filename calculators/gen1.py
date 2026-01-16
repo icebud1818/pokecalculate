@@ -1,5 +1,7 @@
 import requests
 from calculators import myUtils
+# import myUtils
+
 def calculate(set):
     #need some variables for a couple special sets still
     totalCards = 0
