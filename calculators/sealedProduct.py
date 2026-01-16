@@ -27,8 +27,9 @@ def get_collectr_price(product_id):
         wait = WebDriverWait(driver, 10)
         
         # Find the price element using the specific classes
+        # Find any span that contains a dollar sign
         price_element = wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "span.font-bold.text-2xl.text-white"))
+            EC.presence_of_element_located((By.XPATH, "//span[contains(@class, 'font-bold') and contains(@class, 'text-white') and contains(text(), '$')]"))
         )
         
         price_text = price_element.text
