@@ -26,6 +26,14 @@ def get_last_pack_value(set_number):
         return doc.to_dict().get("packValue")
     return None  # if document doesn't exist
 
+# Function to get the set name by Set Number
+def get_set_name(set_number):
+    doc_ref = db.collection("sets").document(str(set_number))
+    doc = doc_ref.get()
+    if doc.exists:
+        return doc.to_dict().get("setName")
+    return None  # if document doesn't exist
+
 def clean_card_name(name):
     # Remove everything from the first " - " onward (like " - #H28/H32 - $615.95")
     name = re.sub(r'\s*-.*$', '', name)

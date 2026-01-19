@@ -169,7 +169,47 @@ button:active {
     background: linear-gradient(135deg, #4a9527 0%, #94c653 100%);
 }
 
-.productValueButton,
+.blue-button {
+    background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+}
+
+.blue-button:hover {
+    background: linear-gradient(135deg, #1976d2 0%, #1bb5d8 100%);
+}
+
+.red-button {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+}
+
+.red-button:hover {
+    background: linear-gradient(135deg, #e63a5f 0%, #e64426 100%);
+}
+
+.purple-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.purple-button:hover {
+    background: linear-gradient(135deg, #5a6fd4 0%, #68438f 100%);
+}
+
+.teal-button {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.teal-button:hover {
+    background: linear-gradient(135deg, #0f877c 0%, #32d66f 100%);
+}
+
+.yellow-button {
+    background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+}
+
+.yellow-button:hover {
+    background: linear-gradient(135deg, #d98841 0%, #d9b343 100%);
+}
+
+/* .productValueButton,
 .sealedProductEvButton,
 .singlePackEvButton,
 .multiplePacksEvButton {
@@ -181,7 +221,7 @@ button:active {
 .singlePackEvButton:hover,
 .multiplePacksEvButton:hover {
     background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-}
+} */
 
 .dropdowns-container {
     display: grid;
@@ -435,5 +475,82 @@ footer p {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Product item styles - remove most styling since it's just a container */
+.product-item {
+    background: var(--card-bg);
+    padding: 0;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--accent-blue);
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    box-shadow: 0 2px 4px var(--list-shadow);
+    overflow: hidden;
+}
+
+.product-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px var(--list-shadow);
+    background: var(--card-bg-hover);
+}
+
+/* Product header - clickable part - this gets the padding */
+.product-header {
+    cursor: pointer;
+    padding: 16px 20px;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.product-header:hover {
+    color: var(--accent-blue);
+}
+
+.product-header.expanded {
+    font-weight: 700;
+    color: var(--accent-blue);
+}
+
+/* Product details - expandable section */
+.product-details {
+    margin: 0 15px 15px 15px;
+    padding: 15px;
+    background-color: var(--container-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* Value breakdown styling */
+.value-breakdown {
+    padding: 10px;
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    /* Remove display: flex and other layout properties */
+}
+
+.value-breakdown div {
+    padding: 5px 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.button-container-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .button-container-2x2 {
+        grid-template-columns: 1fr;
     }
 }

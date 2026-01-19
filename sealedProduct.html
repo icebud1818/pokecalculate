@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pack EV Calculator</title>
-    <link rel="stylesheet" href="styles/styles.css">
-</head>
+    <link rel="stylesheet" href="styles/styles.css?v=4"></head>
 <body>
 
     <div class="container">
@@ -19,6 +18,15 @@
 
         <div class="button-container">
             <button class="orange-button" onclick="location.href='index.html'">Booster Pack Calculator</button>
+            <button class="green-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
+            <button class="blue-button" onclick="location.href='sealedProduct.html'">Sealed Product Guide</button>
+        </div>
+
+        <div class="button-container-2x2">
+            <button class="purple-button productValueButton">Calculate Sealed Product Value</button>
+            <button class="purple-button sealedProductEvButton">Calculate EV for Sealed Product</button>
+            <button class="purple-button singlePackEvButton">Calculate EV for Single Pack</button>
+            <button class="purple-button multiplePacksEvButton">Calculate EV for Multiple Packs</button>
         </div>
 
         <div class="dropdowns-container">
@@ -27,12 +35,14 @@
                 <select id="sortDropdown">
                     <option value="nameAsc" selected>Alphabetically (A-Z)</option>
                     <option value="nameDesc">Alphabetically (Z-A)</option>
-                    <option value="priceDesc">Price (Highest to Lowest)</option>
-                    <option value="priceAsc">Price (Lowest to Highest)</option>
+                    <option value="priceDesc">Product Price (Highest to Lowest)</option>
+                    <option value="priceAsc">Product Price (Lowest to Highest)</option>
                     <option value="valueDesc">Contained Value (Highest to Lowest)</option>
                     <option value="valueAsc">Contained Value (Lowest to Highest)</option>
                     <option value="profitDesc">Profit % (Highest to Lowest)</option>
                     <option value="profitAsc">Profit % (Lowest to Highest)</option>
+                    <option value="releaseDesc">Release Date (Earliest to Latest)</option>
+                    <option value="releaseAsc">Release Date (Latest to Earliest)</option>
                 </select>
             </div>
 

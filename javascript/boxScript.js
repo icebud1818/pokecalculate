@@ -5,6 +5,27 @@ let filteredPacks = [];
 let activeFilter = "all";
 let lastSortCriteria = "nameAsc";
 
+// Fetch packs data from Firebase Firestore
+async function fetchPacks() {
+    try {
+        // Wait for Firebase to be initialized
+        while (!window.db || !window.collection || !window.getDocs) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+        const data = [];
+        
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+
+        await initializePacks(data);
+    } catch (error) {
+        handleError(error);
+    }
+}
+
 // Fetch boxes data from Firebase Firestore
 async function fetchBoxes() {
     try {
@@ -26,28 +47,7 @@ async function fetchBoxes() {
     }
 }
 
-// Fetch packs data from Firebase Firestore
-async function fetchPacks() {
-    try {
-        // Wait for Firebase to be initialized
-        while (!window.db || !window.collection || !window.getDocs) {
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-
-        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
-        const data = [];
-        
-        querySnapshot.forEach((doc) => {
-            data.push(doc.data());
-        });
-
-        initializePacks(data);
-    } catch (error) {
-        handleError(error);
-    }
-}
-
-function initializePacks(data) {
+async function initializePacks(data) {
     packs = data.map((item) => ({
         name: item.setName,
         value: item.packValue,
@@ -56,11 +56,13 @@ function initializePacks(data) {
         setNumber: parseInt(item.setNumber, 10),
     }));
 
+    console.log("Packs loaded:", packs.length);
+
     // Apply the default filter
     applyFilter();
     
     // After packs are loaded, fetch boxes
-    fetchBoxes();
+    await fetchBoxes();
 }
 
 function initializeBoxes(data) {
@@ -84,20 +86,37 @@ function initializeBoxes(data) {
         };
     });
 
+    console.log("Boxes loaded:", boxes.length);
+
     // Get the most recent lastUpdated timestamp
     if (data.length > 0 && data[0].lastUpdated) {
         const timestamp = data[0].lastUpdated;
-        let lastUpdatedText;
+        let date;
         
         // Check if it's a Firebase Timestamp object
         if (timestamp.toDate) {
-            lastUpdatedText = timestamp.toDate().toUTCString();
+            date = timestamp.toDate();
         } else if (timestamp.seconds) {
             // If it's a plain object with seconds
-            lastUpdatedText = new Date(timestamp.seconds * 1000).toUTCString();
+            date = new Date(timestamp.seconds * 1000);
         } else {
-            lastUpdatedText = timestamp;
+            date = new Date(timestamp);
         }
+        
+        // Convert to EST (UTC-5)
+        const estOptions = {
+            timeZone: 'America/New_York',
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short'
+        };
+        
+        const lastUpdatedText = date.toLocaleString('en-US', estOptions);
         
         document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdatedText}`;
     } else {
@@ -108,14 +127,24 @@ function initializeBoxes(data) {
 }
 
 function handleError(error) {
-    console.error("Error fetching pack data:", error);
-    document.getElementById("packs-list").innerHTML = "<li>Error loading packs</li>";
+    console.error("Error fetching data:", error);
+    const packsList = document.getElementById("packs-list");
+    if (packsList) {
+        packsList.innerHTML = "<li>Error loading data</li>";
+    }
 }
 
 // Function to display the list of boxes
 function displayPacks() {
     const ul = document.getElementById("packs-list");
     ul.innerHTML = ""; // Clear the existing list
+
+    console.log("Displaying boxes, count:", filteredBoxes.length);
+
+    if (filteredBoxes.length === 0) {
+        ul.innerHTML = "<li>No boxes found</li>";
+        return;
+    }
 
     filteredBoxes.forEach((box) => {
         const li = document.createElement("li");
@@ -207,9 +236,150 @@ document.getElementById("filterDropdown").addEventListener("change", (event) => 
     applyBoxFilter(); // Apply the new filter
 });
 
+// Calculate Sealed Product Value
+const productValueButton = document.querySelector(".productValueButton");
+if (productValueButton) {
+    productValueButton.addEventListener("click", async function () {
+        // Use existing packs data
+        if (packs.length === 0) {
+            alert("Packs data not loaded yet. Please wait and try again.");
+            return;
+        }
+
+        const productPrice = parseFloat(prompt("Enter the price of the product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
+        }
+        const negativeProductPrice = -Math.abs(productPrice);
+
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
+
+        let packTotal = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = packs.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                packTotal += parseFloat(pack.value);
+                alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const totalProfit = packTotal + negativeProductPrice;
+        const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+
+        alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
+              `Total Profit: $${totalProfit.toFixed(2)}\n` + 
+              `Percent Profit: ${percentProfit.toFixed(2)}%`);
+    });
+}
+
+// Calculate EV for a Sealed Product
+const sealedProductEvButton = document.querySelector(".sealedProductEvButton");
+if (sealedProductEvButton) {
+    sealedProductEvButton.addEventListener("click", async function () {
+        // Use existing packs data
+        if (packs.length === 0) {
+            alert("Packs data not loaded yet. Please wait and try again.");
+            return;
+        }
+
+        const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
+        }
+        const negativeProductPrice = -Math.abs(productPrice);
+
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
+
+        let packTotalEv = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = packs.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                packTotalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const sealedProductEv = packTotalEv + negativeProductPrice;
+
+        alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
+              `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
+    });
+}
+
+// Calculate EV for Multiple Packs
+const multiplePacksEvButton = document.querySelector(".multiplePacksEvButton");
+if (multiplePacksEvButton) {
+    multiplePacksEvButton.addEventListener("click", async function () {
+        // Use existing packs data
+        if (packs.length === 0) {
+            alert("Packs data not loaded yet. Please wait and try again.");
+            return;
+        }
+
+        let totalEv = 0;
+
+        while (true) {
+            const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
+            if (packName.toLowerCase() === "done") break;
+
+            const pack = packs.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                totalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Please try again.`);
+            }
+        }
+
+        alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
+    });
+}
+
+// Calculate EV for a Single Pack
+const singlePackEvButton = document.querySelector(".singlePackEvButton");
+if (singlePackEvButton) {
+    singlePackEvButton.addEventListener("click", async function () {
+        // Use existing packs data
+        if (packs.length === 0) {
+            alert("Packs data not loaded yet. Please wait and try again.");
+            return;
+        }
+
+        const packName = prompt("Enter the name of the pack:").trim();
+        const pack = packs.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+        if (pack) {
+            const totalEv = parseFloat(pack.ev);
+            alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
+        } else {
+            alert(`Pack '${packName}' not found.`);
+        }
+    });
+}
+
 // Fetch and initialize packs on page load (packs must load first, then boxes)
 fetchPacks();
 
 function findExactPack(packName) {
     return boxes.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
 }
+

@@ -37,17 +37,32 @@ function initializePacks(data) {
     // Get the most recent lastUpdated timestamp
     if (data.length > 0 && data[0].lastUpdated) {
         const timestamp = data[0].lastUpdated;
-        let lastUpdatedText;
+        let date;
         
         // Check if it's a Firebase Timestamp object
         if (timestamp.toDate) {
-            lastUpdatedText = timestamp.toDate().toUTCString();
+            date = timestamp.toDate();
         } else if (timestamp.seconds) {
             // If it's a plain object with seconds
-            lastUpdatedText = new Date(timestamp.seconds * 1000).toUTCString();
+            date = new Date(timestamp.seconds * 1000);
         } else {
-            lastUpdatedText = timestamp;
+            date = new Date(timestamp);
         }
+        
+        // Convert to EST (UTC-5)
+        const estOptions = {
+            timeZone: 'America/New_York',
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short'
+        };
+        
+        const lastUpdatedText = date.toLocaleString('en-US', estOptions);
         
         document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdatedText}`;
     } else {
