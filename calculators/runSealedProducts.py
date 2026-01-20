@@ -58,22 +58,34 @@ sealedProductList = [
 # Get current timestamp
 current_timestamp = firestore.SERVER_TIMESTAMP
 
-# Sealed Products
+# Sealed Products - Use reusable browser for better performance
 sealed_output_data = []
-for product in sealedProductList:
-    productPrice, promoPrice, packTotal, pack_list, promo_list = sealedProduct.calculate(product)
-    sealed_output_data.append({
-        "name": product.name,
-        "productId": product.productId,
-        "price": productPrice,
-        "promoPrice": promoPrice,
-        "packTotal": packTotal,
-        "releaseDate": product.releaseDate,
-        "packList": pack_list,
-        "promoList": promo_list,
-        "lastUpdated": current_timestamp  # Add timestamp to each product
-    })
 
+print(f"Processing {len(sealedProductList)} sealed products...")
+
+# Create a single browser instance for all products
+with sealedProduct.CollectrScraper() as scraper:
+    for i, product in enumerate(sealedProductList, 1):
+        print(f"\nProcessing {i}/{len(sealedProductList)}: {product.name}")
+        
+        productPrice, promoPrice, packTotal, pack_list, promo_list = sealedProduct.calculate(product, scraper)
+        sealed_output_data.append({
+            "name": product.name,
+            "productId": product.productId,
+            "price": productPrice,
+            "promoPrice": promoPrice,
+            "packTotal": packTotal,
+            "releaseDate": product.releaseDate,
+            "packList": pack_list,
+            "promoList": promo_list,
+            "lastUpdated": current_timestamp  # Add timestamp to each product
+        })
+
+print("\nUploading to Firebase...")
+
+# Upload to Firebase
 for product in sealed_output_data:
     doc_id = str(product["productId"])
     myUtils.db.collection("sealedProducts").document(doc_id).set(product)
+
+print("Done!")

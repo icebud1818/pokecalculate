@@ -11,44 +11,145 @@ except ImportError:
     import myUtils
 
 
+class CollectrScraper:
+    """
+    Reusable browser instance for scraping Collectr prices
+    """
+    def __init__(self, max_requests=50):
+        self.max_requests = max_requests
+        self.request_count = 0
+        self.driver = None
+        self._init_driver()
+    
+    def _init_driver(self):
+        """Initialize or restart the Chrome driver"""
+        chrome_options = Options()
+        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+        
+        # Close existing driver if it exists
+        if self.driver:
+            try:
+                self.driver.quit()
+            except:
+                pass
+        
+        self.driver = webdriver.Chrome(options=chrome_options)
+        self.request_count = 0
+    
+    def get_price(self, product_id):
+        """
+        Scrape the market price from Collectr using Selenium
+        """
+        # Restart browser after max_requests to prevent memory issues
+        if self.request_count >= self.max_requests:
+            print(f"Restarting browser after {self.request_count} requests")
+            self._init_driver()
+        
+        try:
+            self.driver.get(f"https://app.getcollectr.com/explore/product/{product_id}")
+            
+            wait = WebDriverWait(self.driver, 30)
+            
+            # First, wait for the page structure to load (wait for image or main content)
+            # This ensures the JavaScript has started running
+            try:
+                wait.until(EC.presence_of_element_located((By.TAG_NAME, "img")))
+                print("Page structure loaded (image found)")
+            except:
+                print("Warning: No image found, continuing anyway")
+            
+            # Give JavaScript extra time to fetch and populate data
+            time.sleep(2)
+            
+            # Now wait for price element with non-zero value
+            def price_is_valid(driver):
+                try:
+                    element = driver.find_element(By.XPATH, 
+                        "//span[contains(@class, 'font-bold') and contains(@class, 'text-white') and contains(text(), '$')]"
+                    )
+                    price_text = element.text.replace('$', '').replace(',', '').strip()
+                    if price_text:
+                        price = float(price_text)
+                        if price > 0:
+                            print(f"Found valid price: ${price}")
+                            return True
+                        else:
+                            print(f"Price is still $0, waiting...")
+                except Exception as e:
+                    print(f"Price element not ready: {e}")
+                return False
+            
+            # Wait up to 30 seconds for valid price
+            wait.until(price_is_valid)
+            
+            # Get the final price
+            price_element = self.driver.find_element(By.XPATH, 
+                "//span[contains(@class, 'font-bold') and contains(@class, 'text-white') and contains(text(), '$')]"
+            )
+            price_text = price_element.text
+            price = float(price_text.replace('$', '').replace(',', ''))
+            
+            self.request_count += 1
+            return price
+            
+        except Exception as e:
+            print(f"Error scraping Collectr price for product {product_id}: {e}")
+            # Try restarting the browser on error
+            try:
+                self._init_driver()
+            except:
+                pass
+            return None
+    
+    def close(self):
+        """Close the browser"""
+        if self.driver:
+            try:
+                self.driver.quit()
+            except:
+                pass
+            self.driver = None
+    
+    def __enter__(self):
+        """Context manager support"""
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Context manager support"""
+        self.close()
 
-def get_collectr_price(product_id):
+
+# Global scraper instance (optional - for convenience)
+_global_scraper = None
+
+def get_collectr_price(product_id, scraper=None):
     """
     Scrape the market price from Collectr using Selenium
+    If scraper is provided, use it. Otherwise use global scraper.
     """
-    # Set up Chrome options for headless browsing (optional)
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')  # Remove this line if you want to see the browser
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
+    global _global_scraper
     
-    driver = None
-    try:
-        driver = webdriver.Chrome(options=chrome_options)
-        driver.get(f"https://app.getcollectr.com/explore/product/{product_id}")
-        time.sleep(1)
-        
-        # Wait for the price element to load
-        wait = WebDriverWait(driver, 30)
-        
-        # Find the price element using the specific classes
-        # Find any span that contains a dollar sign
-        price_element = wait.until(
-            EC.presence_of_element_located((By.XPATH, "//span[contains(@class, 'font-bold') and contains(@class, 'text-white') and contains(text(), '$')]"))
-        )
-        
-        price_text = price_element.text
-        # Extract numeric value from price text (remove $ and commas)
-        price = float(price_text.replace('$', '').replace(',', ''))
-        
-        return price
-        
-    except Exception as e:
-        print(f"Error scraping Collectr price: {e}")
-        return None
-    finally:
-        if driver:
-            driver.quit()
+    # Use provided scraper, or global scraper, or create new one
+    if scraper is not None:
+        return scraper.get_price(product_id)
+    
+    # Initialize global scraper if needed
+    if _global_scraper is None:
+        _global_scraper = CollectrScraper()
+    
+    return _global_scraper.get_price(product_id)
+
+
+def cleanup_scraper():
+    """Clean up the global scraper (call this when you're done)"""
+    global _global_scraper
+    if _global_scraper is not None:
+        _global_scraper.close()
+        _global_scraper = None
+
 
 def get_pack_list_with_names(pack_ids):
     """
@@ -72,6 +173,7 @@ def get_pack_list_with_names(pack_ids):
             })
     
     return pack_list
+
 
 def get_promo_list_with_details(promo_ids):
     """
@@ -101,9 +203,17 @@ def get_promo_list_with_details(promo_ids):
     
     return promo_list
 
-def calculate(product):
+
+def calculate(product, scraper=None):
+    """
+    Calculate product value
+    
+    Args:
+        product: Product object with productId, promos, packs, and name
+        scraper: Optional CollectrScraper instance for reusing browser
+    """
     # Try to get price from Collectr first
-    productPrice = get_collectr_price(product.productId)
+    productPrice = get_collectr_price(product.productId, scraper)
     
     # Fallback to TCGPlayer if Collectr fails
     if productPrice is None:
