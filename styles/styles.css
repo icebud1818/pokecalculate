@@ -334,6 +334,11 @@ li:hover {
     margin-bottom: 10px;
 }
 
+.extreme-buy {
+    background-color: #ed0eaa;
+    color: white;
+}
+
 .strong-buy {
     background-color: #22c55e;
     color: white;

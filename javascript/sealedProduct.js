@@ -149,22 +149,26 @@ function displayProducts() {
         let buyIndicator = "";
         let buyClass = "";
         
-        if (percentReturn >= 80) {
+        if (percentReturn >= 200) {
+            buyIndicator = "Extreme Buy Or Likely Error";
+            buyClass = "extreme-buy";
+        } else if (percentReturn >= 120) {
             buyIndicator = "Strong Buy";
             buyClass = "strong-buy";
-        } else if (percentReturn >= 60) {
+        } else if (percentReturn >= 100) {
             buyIndicator = "Moderate Buy";
             buyClass = "moderate-buy";
-        } else if (percentReturn >= 40) {
-            buyIndicator = "OK Buy";
+        } else if (percentReturn >= 80) {
+            buyIndicator = "Ok Buy";
             buyClass = "ok-buy";
-        } else if (percentReturn >= 20) {
+        } else if (percentReturn >= 60){
             buyIndicator = "Weak Buy";
             buyClass = "weak-buy";
         } else {
             buyIndicator = "Terrible Buy";
             buyClass = "terrible-buy";
         }
+        
         
         const buyIndicatorDiv = document.createElement("div");
         buyIndicatorDiv.className = `buy-indicator ${buyClass}`;
