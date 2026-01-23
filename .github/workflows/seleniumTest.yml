@@ -2,7 +2,7 @@ name: Update TCG Data
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs at midnight (00:00 UTC) every day
+    - cron: "0 5 * * *" # Runs at midnight (00:00 EST) every day
   workflow_dispatch:
 
 permissions:

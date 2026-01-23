@@ -2,7 +2,7 @@ name: Update Sealed Product Data
 
 on:
   schedule:
-    - cron: "0 12 * * *" # Runs at noon (12:00 UTC) every day
+    - cron: "0 17 * * *" # Runs at noon (12:00 EST) every day
   workflow_dispatch:
 
 permissions:
