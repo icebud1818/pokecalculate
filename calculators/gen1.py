@@ -32,7 +32,7 @@ def calculate(set):
         card_printing = item.get('printing', 'Unknown')
         
         # Only keep the highest price version of each card
-        if card_printing == "Unlimited":
+        if card_printing == "Unlimited" or card_printing == "Unlimited Holofoil" or card_printing == "Normal" or card_printing == "Holofoil":
             if card_name not in unique_cards or card_price > unique_cards[card_name]['price']:
                 unique_cards[card_name] = {
                     'name': card_name,
