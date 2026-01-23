@@ -21,16 +21,16 @@
 }
 
 body.dark-mode {
-    --bg-gradient-start: #151529;
-    --bg-gradient-end: #151529;
-    --container-bg: #0f3460;
+    --bg-gradient-start: #1a1a57;
+    --bg-gradient-end: #0b0b23;
+    --container-bg: #272232;
     --text-primary: #e2e8f0;
     --text-secondary: #a0aec0;
     --link-color: #4facfe;
     --link-hover: #00f2fe;
     --border-color: #2d3748;
-    --card-bg: #1a365d;
-    --card-bg-hover: #2c5282;
+    --card-bg: #272232;
+    --card-bg-hover: #363140;
     --accent-blue: #4facfe;
     --shadow-color: rgba(0, 0, 0, 0.6);
     --list-shadow: rgba(0, 0, 0, 0.3);
