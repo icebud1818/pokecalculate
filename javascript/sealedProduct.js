@@ -149,7 +149,7 @@ function displayProducts() {
         let buyIndicator = "";
         let buyClass = "";
         
-        if (percentReturn >= 200) {
+        if (percentReturn >= 150) {
             buyIndicator = "Extreme Buy Or Likely Error";
             buyClass = "extreme-buy";
         } else if (percentReturn >= 120) {
@@ -187,15 +187,15 @@ function displayProducts() {
         totalsContainer.style.gap = "40px";
         totalsContainer.style.marginBottom = "20px";
 
-        const packValueDiv = document.createElement("div");
-        packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> $${product.packTotal.toFixed(2)}`;
-        packValueDiv.style.fontSize = "1.1rem";  // Add this line
-        totalsContainer.appendChild(packValueDiv);
-
         const promoValueDiv = document.createElement("div");
         promoValueDiv.innerHTML = `<strong>Total Promo Value:</strong> $${product.promoPrice.toFixed(2)}`;
         promoValueDiv.style.fontSize = "1.1rem";  // Add this line
         totalsContainer.appendChild(promoValueDiv);
+
+        const packValueDiv = document.createElement("div");
+        packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> $${product.packTotal.toFixed(2)}`;
+        packValueDiv.style.fontSize = "1.1rem";  // Add this line
+        totalsContainer.appendChild(packValueDiv);
 
         valueBreakdown.appendChild(totalsContainer);
 
