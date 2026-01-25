@@ -53,7 +53,7 @@ async function initializePacks(data) {
         value: item.packValue,
         ev: item.ev,
         adjEv: item.adjustedEv,
-        setNumber: parseInt(item.setNumber, 10),
+        setNumber: parseFloat(item.setNumber),
     }));
 
     console.log("Packs loaded:", packs.length);
@@ -67,7 +67,7 @@ async function initializePacks(data) {
 
 function initializeBoxes(data) {
     boxes = data.map((item) => {
-        const matchingPack = packs.find((pack) => pack.setNumber === parseInt(item.setNumber, 10));
+        const matchingPack = packs.find((pack) => pack.setNumber === parseFloat(item.setNumber));
         const ev = matchingPack ? matchingPack.ev * 36 : null; // EV for the entire box
         const value = item.boxPrice;
         const pricePer = item.pricePer;
@@ -79,7 +79,7 @@ function initializeBoxes(data) {
             name: item.setName,
             value: value,
             pricePer: pricePer,
-            setNumber: parseInt(item.setNumber, 10),
+            setNumber: parseFloat(item.setNumber),
             ev: ev,
             percentReturn: percentReturn,
             boxPremium: boxPremium,
@@ -148,9 +148,33 @@ function displayPacks() {
 
     filteredBoxes.forEach((box) => {
         const li = document.createElement("li");
-        li.textContent = `${box.name} - Box Price: $${box.value.toFixed(2)}, EV: $${box.ev.toFixed(2)}, Percent Return: ${box.percentReturn.toFixed(2)}%, Price Per Pack: $${box.pricePer.toFixed(
-            2
-        )}, Box Premium: ${box.boxPremium.toFixed(2)}%`;
+        li.className = "pack-item";
+        
+        // Create the box header with text and logo
+        const boxHeader = document.createElement("div");
+        boxHeader.className = "pack-header";
+        
+        // Create text content
+        const textContent = document.createElement("span");
+        textContent.textContent = `${box.name} - Box Price: $${box.value.toFixed(2)}, EV: $${box.ev.toFixed(2)}, Percent Return: ${box.percentReturn.toFixed(2)}%, Price Per Pack: $${box.pricePer.toFixed(2)}, Box Premium: ${box.boxPremium.toFixed(2)}%`;
+        
+        // Create logo image
+        const logoImg = document.createElement("img");
+        const setId = box.setNumber.toString().replace('.', '_');
+        logoImg.src = `logos/${setId}.png`;
+        logoImg.alt = `${box.name} logo`;
+        logoImg.className = "pack-logo";
+        
+        // Fallback: hide image if logo doesn't exist
+        logoImg.onerror = () => {
+            logoImg.style.display = 'none';
+        };
+        
+        // Append text and logo to header
+        boxHeader.appendChild(textContent);
+        boxHeader.appendChild(logoImg);
+        
+        li.appendChild(boxHeader);
         ul.appendChild(li);
     });
 }
@@ -382,4 +406,3 @@ fetchPacks();
 function findExactPack(packName) {
     return boxes.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
 }
-

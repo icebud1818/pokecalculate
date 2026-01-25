@@ -91,7 +91,26 @@ function displayPacks() {
         const packHeader = document.createElement("div");
         packHeader.className = "pack-header";
         packHeader.setAttribute("data-pack-index", packIndex);
-        packHeader.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(2)} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
+        
+        // Create text content container
+        const textContent = document.createElement("span");
+        textContent.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(2)} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
+        
+        // Create logo image
+        const logoImg = document.createElement("img");
+        const logoFileName = pack.setNumber.toString().replace('.', '_') + '.png';
+        logoImg.src = `logos/${logoFileName}`;
+        logoImg.alt = `${pack.name} logo`;
+        logoImg.className = "pack-logo";
+        
+        // Fallback: hide image if logo doesn't exist
+        logoImg.onerror = () => {
+            logoImg.style.display = 'none';
+        };
+        
+        // Append text and logo to header
+        packHeader.appendChild(textContent);
+        packHeader.appendChild(logoImg);
         
         // Create expandable details section
         const detailsSection = document.createElement("div");
@@ -171,16 +190,17 @@ function displayPacks() {
 function handlePackListClick(event) {
     const target = event.target;
     
-    // Handle pack header clicks
-    if (target.classList.contains("pack-header")) {
-        const packIndex = parseInt(target.getAttribute("data-pack-index"));
-        const detailsSection = target.nextElementSibling;
+    // Handle pack header clicks (but not if clicking on the logo)
+    if (target.classList.contains("pack-header") || target.parentElement.classList.contains("pack-header")) {
+        const packHeader = target.classList.contains("pack-header") ? target : target.parentElement;
+        const packIndex = parseInt(packHeader.getAttribute("data-pack-index"));
+        const detailsSection = packHeader.nextElementSibling;
         
         console.log("Pack header clicked:", filteredPacks[packIndex].name);
         
         const isExpanded = detailsSection.style.display === "block";
         detailsSection.style.display = isExpanded ? "none" : "block";
-        target.classList.toggle("expanded", !isExpanded);
+        packHeader.classList.toggle("expanded", !isExpanded);
     }
     
     // Handle close button clicks
