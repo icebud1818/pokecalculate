@@ -4448,3 +4448,294 @@ def whiteFlare():
         print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
     
     return (expValue / (packPrice)), packPrice, expValue, top_5_cards
+
+def ascendedHeroes():
+
+    totalCards = 0
+    totalCommonValue = 0
+    totalUncommonValue = 0
+    totalRareValue = 0
+    totalDoubleValue = 0
+    totalReverseEnergyValue = 0
+    totalReverseBallValue = 0
+    totalReverseTrainerValue = 0  # NEW: For regular trainer reverses
+    totalUltraValue = 0
+    totalHyperValue = 0 
+    totalSirValue = 0
+    totalIrValue = 0
+    totalMaValue = 0
+
+    commonCount = 0
+    uncommonCount = 0
+    reverseEnergyCount = 0
+    doubleCount = 0
+    ultraCount = 0
+    hyperCount = 0 
+    rareCount = 0
+    reverseBallCount = 0
+    reverseTrainerCount = 0  # NEW
+    sirCount = 0
+    irCount = 0
+    maCount = 0
+
+    unique_cards = {}
+    processed_reverse_base_names = set()  # CHANGED: Track base names instead of full names
+
+    # Helper function to extract base name (without pattern suffix)
+    def get_base_name(name):
+        """Extract base card name without pattern suffix"""
+        # Remove pattern suffixes
+        if "(Energy Symbol Pattern)" in name:
+            return name.replace(" (Energy Symbol Pattern)", "").strip()
+        elif "Ball)" in name or "(Team Rocket)" in name:
+            # Handle different ball patterns
+            patterns = ["(Quick Ball)", "(Dusk Ball)", "(Love Ball)", "(Poke Ball)", "(Team Rocket)", "(Friend Ball)"]
+            for pattern in patterns:
+                if pattern in name:
+                    return name.replace(" " + pattern, "").strip()
+        return name
+
+    # Make the GET request
+    response = requests.get(f"https://infinite-api.tcgplayer.com/priceguide/set/24541/cards/?rows=5000&productTypeID=1")    
+    data = response.json() 
+
+    # Define condition priority lists (best to worst)
+    condition_priority = ["Near Mint", "Lightly Played", "Moderately Played", "Heavily Played", "Damaged"]
+    reverse_condition_priority = ["Near Mint Reverse Holofoil", "Lightly Played Reverse Holofoil", "Moderately Played Reverse Holofoil", "Heavily Played Reverse Holofoil", "Damaged Reverse Holofoil"]
+    holo_condition_priority = ["Near Mint Holofoil", "Lightly Played Holofoil", "Moderately Played Holofoil", "Heavily Played Holofoil", "Damaged Holofoil"]
+
+    # Dictionary to store the best available card per productID
+    best_cards = {}
+
+    # First pass: Find the best condition for each card type (Normal, Holofoil, Reverse Holo)
+    for item in data.get("result", []):
+        product_id = item.get("productID")
+        condition = item.get("condition")
+        rarity = item.get("rarity")
+        printing = item.get("printing")  # Can be "Normal" or "Holofoil"
+        marketPrice = item.get("marketPrice") or 0  # Avoid None errors
+        productName = item.get("productName")
+        number = item.get("number")
+
+        # Track for top 5 cards
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = myUtils.clean_card_name(card_name_raw)        
+        card_number = item.get('number', 'N/A')
+
+        # Only keep the highest price version of each card
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+            'name': card_name,
+            'price': marketPrice,
+            'rarity': rarity,
+            'condition': condition,
+            'number': card_number
+        }
+
+        # Identify if this is a Reverse Holo, Holofoil, or Normal card
+        is_reverse = condition in reverse_condition_priority
+        is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
+        is_normal = printing == "Normal" and condition in condition_priority
+
+        # If this card doesn't match any category, skip it
+        if not (is_reverse or is_holofoil or is_normal):
+            continue
+
+        # Create storage for this productID if it doesn't exist
+        if product_id not in best_cards:
+            best_cards[product_id] = {"normal": None, "holofoil": None, "reverse": None}
+
+        # Check if this is the best condition Reverse Holo for this productID
+        if is_reverse:
+            if (best_cards[product_id]["reverse"] is None or
+                    reverse_condition_priority.index(condition) < reverse_condition_priority.index(best_cards[product_id]["reverse"]["condition"])):
+                best_cards[product_id]["reverse"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Holofoil for this productID
+        elif is_holofoil:
+            if (best_cards[product_id]["holofoil"] is None or
+                    holo_condition_priority.index(condition) < holo_condition_priority.index(best_cards[product_id]["holofoil"]["condition"])):
+                best_cards[product_id]["holofoil"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+        # Check if this is the best condition Normal for this productID
+        elif is_normal:
+            if (best_cards[product_id]["normal"] is None or
+                    condition_priority.index(condition) < condition_priority.index(best_cards[product_id]["normal"]["condition"])):
+                best_cards[product_id]["normal"] = {
+                    "condition": condition,
+                    "rarity": rarity,
+                    "marketPrice": marketPrice,
+                    "productName": productName,
+                    "number": number
+                }
+
+    # FIRST PASS: Process Normal and Holofoil cards, and Ball/Energy reverses
+    for product in best_cards.values():
+        # Process Normal if it exists
+        if product["normal"]:
+            rarity = product["normal"]["rarity"]
+            marketPrice = product["normal"]["marketPrice"]
+            number = product["normal"]["number"]
+
+            if rarity == "Common":
+                commonCount += 1
+                totalCommonValue += marketPrice
+            elif rarity == "Uncommon":
+                uncommonCount += 1
+                totalUncommonValue += marketPrice
+            elif rarity == "Rare":
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # Process Holofoil if it exists
+        if product["holofoil"]:
+            rarity = product["holofoil"]["rarity"]
+            marketPrice = product["holofoil"]["marketPrice"]
+            name = product["holofoil"]["productName"]
+            number = product["holofoil"]["number"]
+
+            if(rarity == "Mega Hyper Rare"):
+                hyperCount += 1
+                totalHyperValue += marketPrice
+            elif(rarity == "Mega Attack Rare"):
+                maCount += 1
+                totalMaValue += marketPrice
+            elif(rarity == "Ultra Rare"):
+                ultraCount += 1
+                totalUltraValue += marketPrice
+            elif(rarity == "Double Rare"):
+                doubleCount += 1
+                totalDoubleValue += marketPrice
+            elif(rarity == "Special Illustration Rare"):
+                sirCount += 1
+                totalSirValue += marketPrice
+            elif(rarity == "Illustration Rare"):
+                irCount += 1
+                totalIrValue += marketPrice
+            elif(rarity == "Rare"):
+                rareCount += 1
+                totalRareValue += marketPrice
+            if(rarity != "Code Card" and rarity != "Promo"):
+                totalCards += 1
+
+        # FIRST PASS: Process only Ball and Energy Reverse Holos
+        if product["reverse"]:
+            rarity = product["reverse"]["rarity"]
+            marketPrice = product["reverse"]["marketPrice"]
+            name = product["reverse"]["productName"]
+            number = product["reverse"]["number"]
+            
+            # Check for Ball pattern reverses
+            if("Ball)" in name or "(Team Rocket)" in name):
+                reverseBallCount += 1
+                totalReverseBallValue += marketPrice
+                base_name = get_base_name(name)  # CHANGED: Get base name
+                processed_reverse_base_names.add(base_name)  # CHANGED: Track base name
+            # Check for Energy pattern reverses
+            elif("(Energy Symbol Pattern)" in name):
+                reverseEnergyCount += 1
+                totalReverseEnergyValue += marketPrice
+                base_name = get_base_name(name)  # CHANGED: Get base name
+                processed_reverse_base_names.add(base_name)  # CHANGED: Track base name
+
+    # SECOND PASS: Process remaining reverse holos (trainers)
+    for product in best_cards.values():
+        if product["reverse"]:
+            name = product["reverse"]["productName"]
+            marketPrice = product["reverse"]["marketPrice"]
+            base_name = get_base_name(name)  # CHANGED: Get base name
+            
+            # CHANGED: Check base name instead of full name
+            if base_name not in processed_reverse_base_names:
+                print(name)
+                reverseTrainerCount += 1
+                totalReverseTrainerValue += marketPrice
+
+    # Convert dictionary to list and sort by price to get top 5 unique cards
+    all_unique_cards = list(unique_cards.values())
+    top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
+    
+    packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/672434/details?mpfev=3442")   
+    packData = packResponse.json() 
+    
+    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1209.52)
+
+    rareSlot = 0
+    reverseSlot1 = 0
+    reverseSlot2 = 0
+
+    rareSlot += (totalRareValue / rareCount * (1 - (1/5) - (1/12) - (1/27)))
+    rareSlot += (totalDoubleValue / doubleCount * (1/5) )
+    rareSlot += (totalUltraValue / ultraCount * (1/12) )
+    rareSlot += (totalMaValue / maCount * (1/27) ) 
+
+    # First, figure out the ratio of energy reverses to trainer reverses
+    total_slot1_reverses = reverseEnergyCount + reverseTrainerCount
+    energy_reverse_ratio = reverseEnergyCount / total_slot1_reverses
+    trainer_reverse_ratio_slot1 = reverseTrainerCount / total_slot1_reverses
+
+    # Then split the base probability between them
+    reverseSlot1 += (totalReverseEnergyValue / reverseEnergyCount * energy_reverse_ratio * (1 - (1/16) - (1/130) - (1/1250)) )
+    reverseSlot1 += (totalReverseTrainerValue / reverseTrainerCount * trainer_reverse_ratio_slot1 * (1 - (1/16) - (1/130) - (1/1250)) )
+    reverseSlot1 += (totalIrValue / irCount * (1/16) )
+    reverseSlot1 += (totalSirValue / sirCount * (1/130) )
+    reverseSlot1 += (totalHyperValue / hyperCount * (1/1250) )
+    
+    # First, figure out the ratio of ball reverses to trainer reverses
+    total_slot2_reverses = reverseBallCount + reverseTrainerCount
+    ball_reverse_ratio = reverseBallCount / total_slot2_reverses
+    trainer_reverse_ratio = reverseTrainerCount / total_slot2_reverses
+
+    # Then split the base probability between them
+    reverseSlot2 += (totalReverseBallValue / reverseBallCount * ball_reverse_ratio * (1 - (1/130) - (1/16)) )
+    reverseSlot2 += (totalReverseTrainerValue / reverseTrainerCount * trainer_reverse_ratio * (1 - (1/130) - (1/16)) )
+    reverseSlot2 += (totalSirValue / sirCount * (1/130) )
+    reverseSlot2 += (totalIrValue / irCount * (1/16))
+
+    expValue = 0
+    expValue += (totalCommonValue / commonCount * 4)
+    expValue += (totalUncommonValue / uncommonCount * 3)
+    expValue += rareSlot
+    expValue += reverseSlot1
+    expValue += reverseSlot2
+
+
+    print("\n")
+    print("Ascended Heroes")
+    print("Total Cards: " + str(totalCards))
+    print("Rares: " + str(rareCount) + ", Value: $" + f"{totalRareValue:.2f}")
+    print("Double Rares: " + str(doubleCount) + ", Value: $" + f"{totalDoubleValue:.2f}")
+    print("Ultra Rares: " + str(ultraCount) + ", Value: $" + f"{totalUltraValue:.2f}")
+    print("Mega Attack Rares: " + str(maCount) + ", Value: $" + f"{totalMaValue:.2f}")
+    print("SIRs: " + str(sirCount) + ", Value: $" + f"{totalSirValue:.2f}")
+    print("IRs: " + str(irCount) + ", Value: $" + f"{totalIrValue:.2f}")
+    print("Poke Ball Patterns: " + str(reverseBallCount) + ", Value: $" + f"{totalReverseBallValue:.2f}")
+    print("Reverse Energy Patterns: " + str(reverseEnergyCount) + ", Value: $" + f"{totalReverseEnergyValue:.2f}")
+    print("Reverse Trainers: " + str(reverseTrainerCount) + ", Value: $" + f"{totalReverseTrainerValue:.2f}")  # NEW
+    print("Hyper Rares: " + str(hyperCount) + ", Value: $" + f"{totalHyperValue:.2f}")
+    print("Commons: " + str(commonCount) + ", Value: $" + f"{totalCommonValue:.2f}")
+    print("Uncommons: " + str(uncommonCount) + ", Value: $" + f"{totalUncommonValue:.2f}")
+    print("Expected Value: $" + f"{expValue:.2f}")
+    print("Pack Price: $" + f"{packPrice:.2f}")
+    print("Adj. Expected Value: $" + f"{expValue / (packPrice ):.2f}")
+
+    # Print top 5 most expensive cards
+    print("\nTop 5 Most Expensive Cards:")
+    for i, card in enumerate(top_5_cards, 1):
+        print(f"{i}. {card['name']} - #{card['number']} ({card['rarity']}, {card['condition']}) - ${card['price']:.2f}")
+    
+    return (expValue / (packPrice)), packPrice, expValue, top_5_cards

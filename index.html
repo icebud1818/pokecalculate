@@ -7,28 +7,49 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <!-- Hamburger Menu Button -->
+    <button class="hamburger-menu" id="hamburgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+            <button class="close-sidebar" id="closeSidebar">&times;</button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4>Navigation</h4>
+                <button class="sidebar-button orange-button" onclick="location.href='index.html'">Booster Pack Calculator</button>
+                <button class="sidebar-button green-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
+                <button class="sidebar-button blue-button" onclick="location.href='sealedProduct.html'">Sealed Product Guide</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Calculators</h4>
+                <button class="sidebar-button purple-button productValueButton">Calculate Sealed Product Value</button>
+                <button class="sidebar-button purple-button sealedProductEvButton">Calculate EV for Sealed Product</button>
+                <button class="sidebar-button purple-button singlePackEvButton">Calculate EV for Single Pack</button>
+                <button class="sidebar-button purple-button multiplePacksEvButton">Calculate EV for Multiple Packs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for closing sidebar when clicking outside -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-        <h1>Pokémon Pack Expected Value Calculator</h1>
+        <h1>Booster Pack Guide</h1>
 
         <div class="link">
             <a href="faq.html">FAQ</a>
         </div>
 
         <p id="lastUpdated">Last Updated: Loading...</p>
-
-        <div class="button-container">
-            <button class="orange-button" onclick="location.href='index.html'">Booster Pack Calculator</button>
-            <button class="green-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
-            <button class="blue-button" onclick="location.href='sealedProduct.html'">Sealed Product Guide</button>
-        </div>
-
-        <div class="button-container-2x2">
-            <button class="purple-button productValueButton">Calculate Sealed Product Value</button>
-            <button class="purple-button sealedProductEvButton">Calculate EV for Sealed Product</button>
-            <button class="purple-button singlePackEvButton">Calculate EV for Single Pack</button>
-            <button class="purple-button multiplePacksEvButton">Calculate EV for Multiple Packs</button>
-        </div>
 
         <div class="dropdowns-container">
             <div class="dropdown-container">
@@ -107,5 +128,6 @@
 
     <script type="module" src="javascript/script.js"></script>
     <script src="javascript/darkmode.js"></script>
+    <script src="javascript/sidebar.js"></script>
 </body>
 </html>

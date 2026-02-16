@@ -7,15 +7,15 @@ from calculators import (
 # import gen1
 # import earlyReverse
 # import specialSets
-# import earlyEx
-# import goldStar
-# import dp
-# import hgss
-# import bw
-# import xy
-# import sm
-# import swsh
-# import sv
+# # import earlyEx
+# # import goldStar
+# # import dp
+# # import hgss
+# # import bw
+# # import xy
+# # import sm
+# # import swsh
+# # import sv
 # import myUtils
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -407,9 +407,7 @@ svSetList = [
     svSet("ME01: Mega Evolution", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me01-mega-evolution", .0008, .2, .0833, .1111, .0099, 0, 644352, 24380, 1210),
     svSet("ME02: Phantasmal Flames", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me02-phantasmal-flames", .0008, .2, .0833, .1111, .0125, 0, 654144, 24448, 1211)
 
-]
-
-# Function to get the last Box Value by Set Number
+]# Function to get the last Box Value by Set Number
 def get_last_box_value(set_number):
     doc_ref = myUtils.db.collection("boosterBoxes").document(str(set_number))
     doc = doc_ref.get()
@@ -745,6 +743,14 @@ packValueList.append(price)
 setNameList.append("White Flare")
 actualEvList.append(ev)
 setNumberList.append(1209.52)
+top5CardsList.append(top_5_cards)
+
+adjev, price, ev, top_5_cards = specialSets.ascendedHeroes()
+expectedValueList.append(adjev)
+packValueList.append(price)
+setNameList.append("Ascended Heroes")
+actualEvList.append(ev)
+setNumberList.append(1211.5)
 top5CardsList.append(top_5_cards)
 
 for bb in boosterBoxList:

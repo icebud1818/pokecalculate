@@ -18,6 +18,8 @@
     --accent-blue: #2196f3;
     --shadow-color: rgba(0, 0, 0, 0.3);
     --list-shadow: rgba(0, 0, 0, 0.05);
+    --sidebar-bg: #ffffff;
+    --sidebar-width: 320px;
 }
 
 body.dark-mode {
@@ -34,6 +36,7 @@ body.dark-mode {
     --accent-blue: #4facfe;
     --shadow-color: rgba(0, 0, 0, 0.6);
     --list-shadow: rgba(0, 0, 0, 0.3);
+    --sidebar-bg: #272232;
 }
 
 body {
@@ -42,6 +45,141 @@ body {
     min-height: 100vh;
     padding: 20px;
     transition: background 0.3s ease;
+}
+
+/* Hamburger Menu Button */
+.hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hamburger-menu:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--sidebar-bg);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 1002;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid var(--border-color);
+    background: var(--card-bg);
+}
+
+.sidebar-header h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    padding: 0;
+    box-shadow: none;
+}
+
+.close-sidebar:hover {
+    background: var(--card-bg-hover);
+    transform: none;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.sidebar-section h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.sidebar-button {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 h1 {
@@ -125,13 +263,6 @@ h2 {
     transition: color 0.3s ease;
 }
 
-.button-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
 button {
     padding: 14px 24px;
     font-size: 1rem;
@@ -208,20 +339,6 @@ button:active {
 .yellow-button:hover {
     background: linear-gradient(135deg, #d98841 0%, #d9b343 100%);
 }
-
-/* .productValueButton,
-.sealedProductEvButton,
-.singlePackEvButton,
-.multiplePacksEvButton {
-    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-}
-
-.productValueButton:hover,
-.sealedProductEvButton:hover,
-.singlePackEvButton:hover,
-.multiplePacksEvButton:hover {
-    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-} */
 
 .dropdowns-container {
     display: grid;
@@ -304,6 +421,9 @@ li:hover {
     padding: 4px 0;
     user-select: none;
     transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pack-header:hover {
@@ -435,55 +555,21 @@ footer p {
     text-decoration: underline;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.25rem;
-    }
-
-    .button-container {
-        grid-template-columns: 1fr;
-    }
-
-    .dropdowns-container {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 15px;
-    }
+.pack-logo {
+    width: 200px;
+    height: 50px;
+    margin-left: 15px;
+    object-fit: contain;
+    padding: 5px;
+    border-radius: 4px;
 }
 
-/* Loading state */
-#packs-list:empty::after {
-    content: "Loading packs...";
-    display: block;
-    text-align: center;
-    padding: 20px;
-    color: var(--text-secondary);
-    font-style: italic;
+.pack-logo:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
 }
 
-/* Dark mode toggle animation */
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Product item styles - remove most styling since it's just a container */
+/* Product item styles */
 .product-item {
     background: var(--card-bg);
     padding: 0;
@@ -503,7 +589,6 @@ footer p {
     background: var(--card-bg-hover);
 }
 
-/* Product header - clickable part - this gets the padding */
 .product-header {
     cursor: pointer;
     padding: 16px 20px;
@@ -520,7 +605,6 @@ footer p {
     color: var(--accent-blue);
 }
 
-/* Product details - expandable section */
 .product-details {
     margin: 0 15px 15px 15px;
     padding: 15px;
@@ -530,12 +614,10 @@ footer p {
     transition: all 0.3s ease;
 }
 
-/* Value breakdown styling */
 .value-breakdown {
     padding: 10px;
     background-color: var(--card-bg);
     border-radius: 6px;
-    /* Remove display: flex and other layout properties */
 }
 
 .value-breakdown div {
@@ -544,41 +626,46 @@ footer p {
     color: var(--text-primary);
 }
 
-.button-container-2x2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.pack-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.pack-logo {
-    width: 200px;
-    height: 50px;
-    margin-left: 15px;
-    object-fit: contain;
-    padding: 5px;
-    border-radius: 4px; /* Optional: slight rounding */
-}
-
-/* Optional: Add hover effect on logo */
-.pack-logo:hover {
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-    .button-container-2x2 {
+    .sidebar {
+        width: 85%;
+        max-width: 320px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .dropdowns-container {
         grid-template-columns: 1fr;
     }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .pack-logo {
+        width: 150px;
+        height: 40px;
+    }
+}
+
+/* Loading state */
+#packs-list:empty::after {
+    content: "Loading packs...";
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-style: italic;
 }
