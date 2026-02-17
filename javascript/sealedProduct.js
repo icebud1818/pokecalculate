@@ -2,6 +2,7 @@ let products = [];
 let filteredProducts = [];
 let activeFilter = "all";
 let lastSortCriteria = "nameAsc";
+let eventListenerAttached = false; // Flag to track if event listener is attached
 
 // Fetch sealed products data from Firebase Firestore
 async function fetchProducts() {
@@ -100,6 +101,9 @@ function initializeProducts(data) {
         document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
     }
 
+    // Attach event listener once
+    attachEventListener();
+    
     // Apply the default filter
     applyFilter();
 }
@@ -107,6 +111,16 @@ function initializeProducts(data) {
 function handleError(error) {
     console.error("Error fetching data:", error);
     document.getElementById("products-list").innerHTML = "<li>Error loading products</li>";
+}
+
+// Attach event listener to the parent ul element once
+function attachEventListener() {
+    if (!eventListenerAttached) {
+        const ul = document.getElementById("products-list");
+        ul.addEventListener("click", handleProductListClick);
+        eventListenerAttached = true;
+        console.log("Event listener attached to products-list");
+    }
 }
 
 // Function to display the list of products
@@ -189,12 +203,12 @@ function displayProducts() {
 
         const promoValueDiv = document.createElement("div");
         promoValueDiv.innerHTML = `<strong>Total Promo Value:</strong> $${product.promoPrice.toFixed(2)}`;
-        promoValueDiv.style.fontSize = "1.1rem";  // Add this line
+        promoValueDiv.style.fontSize = "1.1rem";
         totalsContainer.appendChild(promoValueDiv);
 
         const packValueDiv = document.createElement("div");
         packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> $${product.packTotal.toFixed(2)}`;
-        packValueDiv.style.fontSize = "1.1rem";  // Add this line
+        packValueDiv.style.fontSize = "1.1rem";
         totalsContainer.appendChild(packValueDiv);
 
         valueBreakdown.appendChild(totalsContainer);
@@ -246,9 +260,6 @@ function displayProducts() {
         li.appendChild(detailsSection);
         ul.appendChild(li);
     });
-    
-    // Use event delegation
-    ul.addEventListener("click", handleProductListClick);
     
     console.log("Finished displaying products");
 }
@@ -309,11 +320,6 @@ function sortProducts(criteria) {
     if (sorters[criteria]) {
         lastSortCriteria = criteria;
         filteredProducts.sort(sorters[criteria]);
-        
-        // Remove old event listener before re-rendering
-        const ul = document.getElementById("products-list");
-        ul.removeEventListener("click", handleProductListClick);
-        
         displayProducts();
     } else {
         console.error("Invalid sort criteria:", criteria);
@@ -356,168 +362,180 @@ if (filterDropdown) {
 }
 
 // Calculate Sealed Product Value
-document.querySelector(".productValueButton").addEventListener("click", async function () {
-    // Fetch packs data if not already loaded
-    if (!window.packsData) {
-        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
-        window.packsData = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            window.packsData.push({
-                name: data.setName,
-                value: data.packValue,
-                ev: data.ev,
-                adjustedEv: data.adjustedEv
+const productValueButton = document.querySelector(".productValueButton");
+if (productValueButton) {
+    productValueButton.addEventListener("click", async function () {
+        // Fetch packs data if not already loaded
+        if (!window.packsData) {
+            const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+            window.packsData = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                window.packsData.push({
+                    name: data.setName,
+                    value: data.packValue,
+                    ev: data.ev,
+                    adjustedEv: data.adjustedEv
+                });
             });
-        });
-    }
-
-    const productPrice = parseFloat(prompt("Enter the price of the product:"));
-    if (isNaN(productPrice)) {
-        alert("Invalid price entered. Please enter a numeric value.");
-        return;
-    }
-    const negativeProductPrice = -Math.abs(productPrice);
-
-    const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
-    if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-        alert("Please enter a valid number of packs!");
-        return;
-    }
-
-    let packTotal = 0;
-    for (let i = 0; i < numberOfPacks; i++) {
-        const packName = prompt(`Enter the name of pack ${i + 1}:`);
-        const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
-
-        if (pack) {
-            packTotal += parseFloat(pack.value);
-            alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
-        } else {
-            alert(`Pack '${packName}' not found. Skipping.`);
         }
-    }
 
-    const totalProfit = packTotal + negativeProductPrice;
-    const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+        const productPrice = parseFloat(prompt("Enter the price of the product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
+        }
+        const negativeProductPrice = -Math.abs(productPrice);
 
-    alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
-          `Total Profit: $${totalProfit.toFixed(2)}\n` + 
-          `Percent Profit: ${percentProfit.toFixed(2)}%`);
-});
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
+
+        let packTotal = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                packTotal += parseFloat(pack.value);
+                alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const totalProfit = packTotal + negativeProductPrice;
+        const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+
+        alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
+              `Total Profit: $${totalProfit.toFixed(2)}\n` + 
+              `Percent Profit: ${percentProfit.toFixed(2)}%`);
+    });
+}
 
 // Calculate EV for a Sealed Product
-document.querySelector(".sealedProductEvButton").addEventListener("click", async function () {
-    // Fetch packs data if not already loaded
-    if (!window.packsData) {
-        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
-        window.packsData = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            window.packsData.push({
-                name: data.setName,
-                value: data.packValue,
-                ev: data.ev,
-                adjustedEv: data.adjustedEv
+const sealedProductEvButton = document.querySelector(".sealedProductEvButton");
+if (sealedProductEvButton) {
+    sealedProductEvButton.addEventListener("click", async function () {
+        // Fetch packs data if not already loaded
+        if (!window.packsData) {
+            const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+            window.packsData = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                window.packsData.push({
+                    name: data.setName,
+                    value: data.packValue,
+                    ev: data.ev,
+                    adjustedEv: data.adjustedEv
+                });
             });
-        });
-    }
-
-    const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
-    if (isNaN(productPrice)) {
-        alert("Invalid price entered. Please enter a numeric value.");
-        return;
-    }
-    const negativeProductPrice = -Math.abs(productPrice);
-
-    const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
-    if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-        alert("Please enter a valid number of packs!");
-        return;
-    }
-
-    let packTotalEv = 0;
-    for (let i = 0; i < numberOfPacks; i++) {
-        const packName = prompt(`Enter the name of pack ${i + 1}:`);
-        const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
-
-        if (pack) {
-            packTotalEv += parseFloat(pack.ev);
-            alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
-        } else {
-            alert(`Pack '${packName}' not found. Skipping.`);
         }
-    }
 
-    const sealedProductEv = packTotalEv + negativeProductPrice;
+        const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
+        }
+        const negativeProductPrice = -Math.abs(productPrice);
 
-    alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
-          `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
-});
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
+
+        let packTotalEv = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                packTotalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const sealedProductEv = packTotalEv + negativeProductPrice;
+
+        alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
+              `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
+    });
+}
 
 // Calculate EV for Multiple Packs
-document.querySelector(".multiplePacksEvButton").addEventListener("click", async function () {
-    // Fetch packs data if not already loaded
-    if (!window.packsData) {
-        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
-        window.packsData = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            window.packsData.push({
-                name: data.setName,
-                value: data.packValue,
-                ev: data.ev,
-                adjustedEv: data.adjustedEv
+const multiplePacksEvButton = document.querySelector(".multiplePacksEvButton");
+if (multiplePacksEvButton) {
+    multiplePacksEvButton.addEventListener("click", async function () {
+        // Fetch packs data if not already loaded
+        if (!window.packsData) {
+            const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+            window.packsData = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                window.packsData.push({
+                    name: data.setName,
+                    value: data.packValue,
+                    ev: data.ev,
+                    adjustedEv: data.adjustedEv
+                });
             });
-        });
-    }
+        }
 
-    let totalEv = 0;
+        let totalEv = 0;
 
-    while (true) {
-        const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
-        if (packName.toLowerCase() === "done") break;
+        while (true) {
+            const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
+            if (packName.toLowerCase() === "done") break;
 
+            const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
+
+            if (pack) {
+                totalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Please try again.`);
+            }
+        }
+
+        alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
+    });
+}
+
+// Calculate EV for a Single Pack
+const singlePackEvButton = document.querySelector(".singlePackEvButton");
+if (singlePackEvButton) {
+    singlePackEvButton.addEventListener("click", async function () {
+        // Fetch packs data if not already loaded
+        if (!window.packsData) {
+            const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
+            window.packsData = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                window.packsData.push({
+                    name: data.setName,
+                    value: data.packValue,
+                    ev: data.ev,
+                    adjustedEv: data.adjustedEv
+                });
+            });
+        }
+
+        const packName = prompt("Enter the name of the pack:").trim();
         const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
 
         if (pack) {
-            totalEv += parseFloat(pack.ev);
-            alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
+            const totalEv = parseFloat(pack.ev);
+            alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjustedEv * 100).toFixed(2)}%`);
         } else {
-            alert(`Pack '${packName}' not found. Please try again.`);
+            alert(`Pack '${packName}' not found.`);
         }
-    }
-
-    alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
-});
-
-// Calculate EV for a Single Pack
-document.querySelector(".singlePackEvButton").addEventListener("click", async function () {
-    // Fetch packs data if not already loaded
-    if (!window.packsData) {
-        const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
-        window.packsData = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            window.packsData.push({
-                name: data.setName,
-                value: data.packValue,
-                ev: data.ev,
-                adjustedEv: data.adjustedEv
-            });
-        });
-    }
-
-    const packName = prompt("Enter the name of the pack:").trim();
-    const pack = window.packsData.find((p) => p.name.toLowerCase() === packName.toLowerCase());
-
-    if (pack) {
-        const totalEv = parseFloat(pack.ev);
-        alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjustedEv * 100).toFixed(2)}%`);
-    } else {
-        alert(`Pack '${packName}' not found.`);
-    }
-});
+    });
+}
 
 // Fetch sealed products
 fetchProducts();

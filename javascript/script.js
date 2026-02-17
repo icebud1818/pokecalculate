@@ -2,6 +2,7 @@ let packs = [];
 let filteredPacks = [];
 let activeFilter = "all";
 let lastSortCriteria = "nameAsc";
+let eventListenerAttached = false; // Flag to track if event listener is attached
 
 // Fetch packs data from Firebase Firestore
 async function fetchPacks() {
@@ -69,12 +70,25 @@ function initializePacks(data) {
         document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
     }
 
+    // Attach event listener once
+    attachEventListener();
+    
     applyFilter();
 }
 
 function handleError(error) {
     console.error("Error fetching pack data:", error);
     document.getElementById("packs-list").innerHTML = "<li>Error loading packs</li>";
+}
+
+// Attach event listener to the parent ul element once
+function attachEventListener() {
+    if (!eventListenerAttached) {
+        const ul = document.getElementById("packs-list");
+        ul.addEventListener("click", handlePackListClick);
+        eventListenerAttached = true;
+        console.log("Event listener attached to packs-list");
+    }
 }
 
 function displayPacks() {
@@ -179,10 +193,6 @@ function displayPacks() {
         ul.appendChild(li);
     });
     
-    // Use event delegation - attach click handlers to the parent ul
-    // This is more reliable across all browsers
-    ul.addEventListener("click", handlePackListClick);
-    
     console.log("Finished displaying packs");
 }
 
@@ -234,11 +244,6 @@ function sortPacks(criteria) {
     if (sorters[criteria]) {
         lastSortCriteria = criteria;
         filteredPacks.sort(sorters[criteria]);
-        
-        // Remove old event listener before re-rendering
-        const ul = document.getElementById("packs-list");
-        ul.removeEventListener("click", handlePackListClick);
-        
         displayPacks();
     } else {
         console.error("Invalid sort criteria:", criteria);
@@ -283,108 +288,120 @@ document.getElementById("filterDropdown").addEventListener("change", (event) => 
 });
 
 // Sealed Product Value Calculation
-document.querySelector(".productValueButton").addEventListener("click", function () {
-    const productPrice = parseFloat(prompt("Enter the price of the product:"));
-    if (isNaN(productPrice)) {
-        alert("Invalid price entered. Please enter a numeric value.");
-        return;
-    }
-    const negativeProductPrice = -Math.abs(productPrice);
-
-    const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
-    if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-        alert("Please enter a valid number of packs!");
-        return;
-    }
-
-    let packTotal = 0;
-    for (let i = 0; i < numberOfPacks; i++) {
-        const packName = prompt(`Enter the name of pack ${i + 1}:`);
-        const pack = findExactPack(packName);
-
-        if (pack) {
-            packTotal += parseFloat(pack.value);
-            alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
-        } else {
-            alert(`Pack '${packName}' not found. Skipping.`);
+const productValueButton = document.querySelector(".productValueButton");
+if (productValueButton) {
+    productValueButton.addEventListener("click", function () {
+        const productPrice = parseFloat(prompt("Enter the price of the product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
         }
-    }
+        const negativeProductPrice = -Math.abs(productPrice);
 
-    const totalProfit = packTotal + negativeProductPrice;
-    const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
 
-    alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
-          `Total Profit: $${totalProfit.toFixed(2)}\n` + 
-          `Percent Profit: ${percentProfit.toFixed(2)}%`);
-});
+        let packTotal = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = findExactPack(packName);
+
+            if (pack) {
+                packTotal += parseFloat(pack.value);
+                alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const totalProfit = packTotal + negativeProductPrice;
+        const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+
+        alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
+              `Total Profit: $${totalProfit.toFixed(2)}\n` + 
+              `Percent Profit: ${percentProfit.toFixed(2)}%`);
+    });
+}
 
 // Calculate EV for a Sealed Product
-document.querySelector(".sealedProductEvButton").addEventListener("click", function () {
-    const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
-    if (isNaN(productPrice)) {
-        alert("Invalid price entered. Please enter a numeric value.");
-        return;
-    }
-    const negativeProductPrice = -Math.abs(productPrice);
-
-    const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
-    if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-        alert("Please enter a valid number of packs!");
-        return;
-    }
-
-    let packTotalEv = 0;
-    for (let i = 0; i < numberOfPacks; i++) {
-        const packName = prompt(`Enter the name of pack ${i + 1}:`);
-        const pack = findExactPack(packName);
-
-        if (pack) {
-            packTotalEv += parseFloat(pack.ev);
-            alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
-        } else {
-            alert(`Pack '${packName}' not found. Skipping.`);
+const sealedProductEvButton = document.querySelector(".sealedProductEvButton");
+if (sealedProductEvButton) {
+    sealedProductEvButton.addEventListener("click", function () {
+        const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
+        if (isNaN(productPrice)) {
+            alert("Invalid price entered. Please enter a numeric value.");
+            return;
         }
-    }
+        const negativeProductPrice = -Math.abs(productPrice);
 
-    const sealedProductEv = packTotalEv + negativeProductPrice;
+        const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
+            alert("Please enter a valid number of packs!");
+            return;
+        }
 
-    alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
-          `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
-});
+        let packTotalEv = 0;
+        for (let i = 0; i < numberOfPacks; i++) {
+            const packName = prompt(`Enter the name of pack ${i + 1}:`);
+            const pack = findExactPack(packName);
+
+            if (pack) {
+                packTotalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Skipping.`);
+            }
+        }
+
+        const sealedProductEv = packTotalEv + negativeProductPrice;
+
+        alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
+              `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
+    });
+}
 
 // Calculate EV for Multiple Packs
-document.querySelector(".multiplePacksEvButton").addEventListener("click", function () {
-    let totalEv = 0;
+const multiplePacksEvButton = document.querySelector(".multiplePacksEvButton");
+if (multiplePacksEvButton) {
+    multiplePacksEvButton.addEventListener("click", function () {
+        let totalEv = 0;
 
-    while (true) {
-        const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
-        if (packName.toLowerCase() === "done") break;
+        while (true) {
+            const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
+            if (packName.toLowerCase() === "done") break;
 
+            const pack = findExactPack(packName);
+
+            if (pack) {
+                totalEv += parseFloat(pack.ev);
+                alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
+            } else {
+                alert(`Pack '${packName}' not found. Please try again.`);
+            }
+        }
+
+        alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
+    });
+}
+
+// Calculate EV for a Single Pack
+const singlePackEvButton = document.querySelector(".singlePackEvButton");
+if (singlePackEvButton) {
+    singlePackEvButton.addEventListener("click", function () {
+        const packName = prompt("Enter the name of the pack:").trim();
         const pack = findExactPack(packName);
 
         if (pack) {
-            totalEv += parseFloat(pack.ev);
-            alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
+            const totalEv = parseFloat(pack.ev);
+            alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
         } else {
-            alert(`Pack '${packName}' not found. Please try again.`);
+            alert(`Pack '${packName}' not found.`);
         }
-    }
-
-    alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
-});
-
-// Calculate EV for a Single Pack
-document.querySelector(".singlePackEvButton").addEventListener("click", function () {
-    const packName = prompt("Enter the name of the pack:").trim();
-    const pack = findExactPack(packName);
-
-    if (pack) {
-        const totalEv = parseFloat(pack.ev);
-        alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
-    } else {
-        alert(`Pack '${packName}' not found.`);
-    }
-});
+    });
+}
 
 // Fetch and initialize packs on page load
 fetchPacks();

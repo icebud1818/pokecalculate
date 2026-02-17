@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pack EV Calculator</title>
-    <link rel="stylesheet" href="styles/styles.css?v=4">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <!-- Hamburger Menu Button -->
@@ -41,7 +41,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-        <h1>Sealed Product Guide</h1>
+        <h1>Booster Pack Guide</h1>
 
         <div class="link">
             <a href="index.html">Home</a>
@@ -55,14 +55,14 @@
                 <select id="sortDropdown">
                     <option value="nameAsc" selected>Alphabetically (A-Z)</option>
                     <option value="nameDesc">Alphabetically (Z-A)</option>
-                    <option value="priceDesc">Product Price (Highest to Lowest)</option>
-                    <option value="priceAsc">Product Price (Lowest to Highest)</option>
-                    <option value="valueDesc">Contained Value (Highest to Lowest)</option>
-                    <option value="valueAsc">Contained Value (Lowest to Highest)</option>
-                    <option value="profitDesc">Profit % (Highest to Lowest)</option>
-                    <option value="profitAsc">Profit % (Lowest to Highest)</option>
-                    <option value="releaseDesc">Release Date (Earliest to Latest)</option>
-                    <option value="releaseAsc">Release Date (Latest to Earliest)</option>
+                    <option value="evDesc">EV (Highest to Lowest)</option>
+                    <option value="evAsc">EV (Lowest to Highest)</option>
+                    <option value="adjEvDesc">Percent Return (Highest to Lowest)</option>
+                    <option value="adjEvAsc">Percent Return (Lowest to Highest)</option>
+                    <option value="valueDesc">Pack Price (Highest to Lowest)</option>
+                    <option value="valueAsc">Pack Price (Lowest to Highest)</option>
+                    <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
+                    <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
                 </select>
             </div>
 
@@ -70,31 +70,37 @@
                 <label for="filterDropdown">Filter By</label>
                 <select id="filterDropdown">
                     <option value="all" selected>All Packs</option>
+                    <option value="gen1">Generation 1</option>
+                    <option value="gen2">Generation 2</option>
+                    <option value="gen3">Generation 3</option>
+                    <option value="gen4">Generation 4</option>
+                    <option value="gen5">Generation 5</option>
                     <option value="gen6">Generation 6</option>
                     <option value="gen7">Generation 7</option>
                     <option value="gen8">Generation 8</option>
                     <option value="gen9">Generation 9</option>
+                    <option value="special">Special Sets</option>
                 </select>
             </div>
         </div>
 
-        <div class="products-list">
-            <h2>Sealed Products</h2>
-            <ul id="products-list">
+        <div class="packs-list">
+            <h2>Booster Packs</h2>
+            <ul id="packs-list">
                 <!-- List of packs will be populated here -->
             </ul>
         </div>
     </div>
 
     <footer>
-        <p>Developed By ETS Pokemon Cards</p>
+        <p>Developed By Icebud18</p>
         <div class="footer-links">
             <a href="https://www.instagram.com/icebud18/">Instagram</a>
             <a href="https://discord.gg/kPT7gNKHYy">Discord</a>
             <a href="https://www.youtube.com/@etspokemoncards6724">YouTube</a>
         </div>
     </footer>
-
+    
     <!-- Firebase SDK -->
     <script type="module">
         // Import Firebase modules
@@ -118,9 +124,8 @@
         window.getDocs = getDocs;
     </script>
 
-    <script src="javascript/sealedProduct.js"></script>
+    <script type="module" src="javascript/script.js"></script>
     <script src="javascript/darkmode.js"></script>
     <script src="javascript/sidebar.js"></script>
-
 </body>
 </html>

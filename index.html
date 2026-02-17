@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pack EV Calculator</title>
+    <title>PokeCalculate - Pokémon TCG Analytics Platform</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/home.css">
 </head>
 <body>
     <!-- Hamburger Menu Button -->
@@ -24,17 +25,15 @@
         <div class="sidebar-content">
             <div class="sidebar-section">
                 <h4>Navigation</h4>
-                <button class="sidebar-button orange-button" onclick="location.href='index.html'">Booster Pack Calculator</button>
-                <button class="sidebar-button green-button" onclick="location.href='boosterBox.html'">Booster Box Calculator</button>
+                <button class="sidebar-button orange-button" onclick="location.href='boosterPack.html'">Booster Pack Guide</button>
+                <button class="sidebar-button green-button" onclick="location.href='boosterBox.html'">Booster Box Guide</button>
                 <button class="sidebar-button blue-button" onclick="location.href='sealedProduct.html'">Sealed Product Guide</button>
+                <button class="sidebar-button purple-button" onclick="location.href='calculators.html'">Calculators</button>
+                <button class="sidebar-button red-button" onclick="location.href='faq.html'">FAQ</button>
             </div>
-
             <div class="sidebar-section">
-                <h4>Calculators</h4>
-                <button class="sidebar-button purple-button productValueButton">Calculate Sealed Product Value</button>
-                <button class="sidebar-button purple-button sealedProductEvButton">Calculate EV for Sealed Product</button>
-                <button class="sidebar-button purple-button singlePackEvButton">Calculate EV for Single Pack</button>
-                <button class="sidebar-button purple-button multiplePacksEvButton">Calculate EV for Multiple Packs</button>
+                <h4>Site Settings</h4>
+                <button class="sidebar-button teal-button" id="sidebarDarkModeToggle">Invert Theme</button>
             </div>
         </div>
     </div>
@@ -42,56 +41,107 @@
     <!-- Overlay for closing sidebar when clicking outside -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <div class="container">
-        <h1>Booster Pack Guide</h1>
-
-        <div class="link">
-            <a href="faq.html">FAQ</a>
-        </div>
-
-        <p id="lastUpdated">Last Updated: Loading...</p>
-
-        <div class="dropdowns-container">
-            <div class="dropdown-container">
-                <label for="sortDropdown">Sort By</label>
-                <select id="sortDropdown">
-                    <option value="nameAsc" selected>Alphabetically (A-Z)</option>
-                    <option value="nameDesc">Alphabetically (Z-A)</option>
-                    <option value="evDesc">EV (Highest to Lowest)</option>
-                    <option value="evAsc">EV (Lowest to Highest)</option>
-                    <option value="adjEvDesc">Percent Return (Highest to Lowest)</option>
-                    <option value="adjEvAsc">Percent Return (Lowest to Highest)</option>
-                    <option value="valueDesc">Pack Price (Highest to Lowest)</option>
-                    <option value="valueAsc">Pack Price (Lowest to Highest)</option>
-                    <option value="setNumberAsc">Release Date (Earliest to Latest)</option>
-                    <option value="setNumberDesc">Release Date (Latest to Earliest)</option>
-                </select>
-            </div>
-
-            <div class="dropdown-container">
-                <label for="filterDropdown">Filter By</label>
-                <select id="filterDropdown">
-                    <option value="all" selected>All Packs</option>
-                    <option value="gen1">Generation 1</option>
-                    <option value="gen2">Generation 2</option>
-                    <option value="gen3">Generation 3</option>
-                    <option value="gen4">Generation 4</option>
-                    <option value="gen5">Generation 5</option>
-                    <option value="gen6">Generation 6</option>
-                    <option value="gen7">Generation 7</option>
-                    <option value="gen8">Generation 8</option>
-                    <option value="gen9">Generation 9</option>
-                    <option value="special">Special Sets</option>
-                </select>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">PokeCalculate</h1>
+            <p class="hero-subtitle">Your Ultimate Pokémon TCG Analytics Platform</p>
+            <p class="hero-description">Make informed decisions with real-time Expected Value calculations, market analysis, and investment insights</p>
+            <div class="hero-buttons">
+                <button class="cta-button primary" onclick="location.href='boosterPack.html'">Get Started</button>
+                <button class="cta-button secondary" onclick="location.href='faq.html'">Learn More</button>
             </div>
         </div>
+    </div>
 
-        <div class="packs-list">
-            <h2>Booster Packs</h2>
-            <ul id="packs-list">
-                <!-- List of packs will be populated here -->
-            </ul>
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="container">
+            <h2 class="section-title">Powerful Analytics Tools</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Expected Value Calculator</h3>
+                    <p>Calculate the average value you can expect from opening any booster pack, helping you make smarter purchase decisions.</p>
+                    <button class="feature-button" onclick="location.href='boosterPack.html'">Explore Packs</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Booster Box Analysis</h3>
+                    <p>Compare box premiums and percent returns across generations. Find the best value for your money when buying sealed products.</p>
+                    <button class="feature-button" onclick="location.href='boosterBox.html'">View Boxes</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3>Sealed Product Guide</h3>
+                    <p>Analyze Elite Trainer Boxes, Collection Boxes, and special sets. See exactly what value you're getting in bundled products.</p>
+                    <button class="feature-button" onclick="location.href='sealedProduct.html'">Browse Products</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Custom Calculators</h3>
+                    <p>Calculate EV for sealed products, multiple packs, or individual purchases. Perfect for planning your next haul.</p>
+                    <button class="feature-button" onclick="location.href='calculators.html'">Try Calculators</button>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <h2 class="section-title">By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Sets Tracked</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Daily</div>
+                <div class="stat-label">Price Updates</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Generations Covered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free to Use</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="how-it-works-section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Data Collection</h3>
+                <p>Real-time market prices and card values are collected daily from trusted marketplaces</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>EV Calculations</h3>
+                <p>Expected values are calculated using current prices and community-verified pull rates</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Smart Decisions</h3>
+                <p>Compare sets, track trends, and identify the best value packs before you buy</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Ready to Start?</h2>
+        <p>Join collectors and investors who use data to make smarter decisions</p>
+        <button class="cta-button-large" onclick="location.href='boosterPack.html'">Explore Now</button>
     </div>
 
     <footer>
@@ -102,31 +152,7 @@
             <a href="https://www.youtube.com/@etspokemoncards6724">YouTube</a>
         </div>
     </footer>
-    
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyApyB4FLYRVcWqPLN6WlWI_dN1Dr1YZYaA",
-            authDomain: "pokecalculate-96c76.firebaseapp.com",
-            projectId: "pokecalculate-96c76"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Make db available globally
-        window.db = db;
-        window.collection = collection;
-        window.getDocs = getDocs;
-    </script>
-
-    <script type="module" src="javascript/script.js"></script>
     <script src="javascript/darkmode.js"></script>
     <script src="javascript/sidebar.js"></script>
 </body>

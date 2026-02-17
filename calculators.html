@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pack EV Calculator</title>
-    <link rel="stylesheet" href="styles/styles.css?v=4">
+    <title>Calculators - Pack EV Calculator</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/calculators.css">
 </head>
 <body>
     <!-- Hamburger Menu Button -->
@@ -41,53 +42,63 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="container">
-        <h1>Sealed Product Guide</h1>
-
+        <h1>Custom Calculators</h1>
+        
         <div class="link">
             <a href="index.html">Home</a>
         </div>
 
-        <p id="lastUpdated">Last Updated: Loading...</p>
+        <p class="intro-text">Use these calculators to analyze sealed products and various pack values.</p>
 
-        <div class="dropdowns-container">
-            <div class="dropdown-container">
-                <label for="sortDropdown">Sort By</label>
-                <select id="sortDropdown">
-                    <option value="nameAsc" selected>Alphabetically (A-Z)</option>
-                    <option value="nameDesc">Alphabetically (Z-A)</option>
-                    <option value="priceDesc">Product Price (Highest to Lowest)</option>
-                    <option value="priceAsc">Product Price (Lowest to Highest)</option>
-                    <option value="valueDesc">Contained Value (Highest to Lowest)</option>
-                    <option value="valueAsc">Contained Value (Lowest to Highest)</option>
-                    <option value="profitDesc">Profit % (Highest to Lowest)</option>
-                    <option value="profitAsc">Profit % (Lowest to Highest)</option>
-                    <option value="releaseDesc">Release Date (Earliest to Latest)</option>
-                    <option value="releaseAsc">Release Date (Latest to Earliest)</option>
-                </select>
+        <!-- Calculator Grid -->
+        <div class="calculator-grid">
+
+            <!-- Multiple Packs EV Calculator -->
+            <div class="calculator-card">
+                <div class="calculator-header">
+                    <h2>Calculate Pack EV</h2>
+                    <p>Add up the EV of one or multiple packs</p>
+                </div>
+                <form id="multiplePacksForm" class="calculator-form">
+                    <div id="multiplePacksInputs">
+                        <div class="form-group pack-input-group">
+                            <label>Pack Name:</label>
+                            <input type="text" class="pack-name-input" placeholder="e.g., Evolving Skies" required>
+                            <button type="button" class="remove-pack-btn" style="display: none;">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addPackBtn" class="add-button">+ Add Another Pack</button>
+                    <button type="submit" class="calc-button">Calculate Total EV</button>
+                </form>
+                <div id="multiplePacksResult" class="result-box"></div>
             </div>
 
-            <div class="dropdown-container">
-                <label for="filterDropdown">Filter By</label>
-                <select id="filterDropdown">
-                    <option value="all" selected>All Packs</option>
-                    <option value="gen6">Generation 6</option>
-                    <option value="gen7">Generation 7</option>
-                    <option value="gen8">Generation 8</option>
-                    <option value="gen9">Generation 9</option>
-                </select>
+            <!-- Sealed Product Value Calculator -->
+            <div class="calculator-card">
+                <div class="calculator-header">
+                    <h2>Sealed Product Value</h2>
+                    <p>Calculate the total market value and expected value of packs in a product</p>
+                </div>
+                <form id="productValueForm" class="calculator-form">
+                    <div class="form-group">
+                        <label for="productPrice">Product Price ($):</label>
+                        <input type="number" id="productPrice" step="0.01" placeholder="150.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="numPacksValue">Number of Packs:</label>
+                        <input type="number" id="numPacksValue" min="1" placeholder="10" required>
+                    </div>
+                    <div id="productValuePackInputs"></div>
+                    <button type="submit" class="calc-button">Calculate Value</button>
+                </form>
+                <div id="productValueResult" class="result-box"></div>
             </div>
-        </div>
 
-        <div class="products-list">
-            <h2>Sealed Products</h2>
-            <ul id="products-list">
-                <!-- List of packs will be populated here -->
-            </ul>
         </div>
     </div>
 
     <footer>
-        <p>Developed By ETS Pokemon Cards</p>
+        <p>Developed By Icebud18</p>
         <div class="footer-links">
             <a href="https://www.instagram.com/icebud18/">Instagram</a>
             <a href="https://discord.gg/kPT7gNKHYy">Discord</a>
@@ -118,9 +129,8 @@
         window.getDocs = getDocs;
     </script>
 
-    <script src="javascript/sealedProduct.js"></script>
+    <script src="javascript/calculators.js"></script>
     <script src="javascript/darkmode.js"></script>
     <script src="javascript/sidebar.js"></script>
-
 </body>
 </html>

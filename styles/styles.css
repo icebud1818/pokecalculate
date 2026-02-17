@@ -6,7 +6,7 @@
 
 :root {
     --bg-gradient-start: #4facfe;
-    --bg-gradient-end: #00f2fe;
+    --bg-gradient-end: #003ffe;
     --container-bg: #ffffff;
     --text-primary: #2d3748;
     --text-secondary: #718096;
@@ -54,7 +54,7 @@ body {
     left: 20px;
     width: 50px;
     height: 50px;
-    background: var(--accent-blue);
+    background: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%);
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -210,30 +210,6 @@ h2 {
     box-shadow: 0 20px 60px var(--shadow-color);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-}
-
-.dark-mode-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-blue);
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-}
-
-.dark-mode-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .link {
@@ -668,4 +644,102 @@ footer p {
     padding: 20px;
     color: var(--text-secondary);
     font-style: italic;
+}
+
+/* Calculator Results Styling - Fixed Version */
+
+/* Add spacing between form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.pack-details-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.pack-details-section h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.value-section,
+.ev-section {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-blue);
+}
+
+.value-section h4,
+.ev-section h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.pack-result-item {
+    padding: 10px 15px 10px 25px !important; /* Increased left padding from 15px to 20px */
+    margin: 8px 0;
+    margin-left: 0;
+    background-color: var(--container-bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-blue);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.result-row:last-child {
+    border-bottom: none;
+}
+
+.result-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.result-value {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.result-value.positive {
+    color: #22c55e;
+}
+
+.result-value.negative {
+    color: #ef4444;
+}
+
+.result-warning {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    color: #92400e;
+    font-weight: 600;
+}
+
+body.dark-mode .result-warning {
+    background-color: #78350f;
+    color: #fef3c7;
 }

@@ -275,7 +275,6 @@ if (productValueButton) {
             alert("Invalid price entered. Please enter a numeric value.");
             return;
         }
-        const negativeProductPrice = -Math.abs(productPrice);
 
         const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
         if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
@@ -296,8 +295,8 @@ if (productValueButton) {
             }
         }
 
-        const totalProfit = packTotal + negativeProductPrice;
-        const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
+        const totalProfit = packTotal - productPrice;
+        const percentProfit = ((packTotal / productPrice) - 1) * 100;
 
         alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
               `Total Profit: $${totalProfit.toFixed(2)}\n` + 
@@ -320,7 +319,6 @@ if (sealedProductEvButton) {
             alert("Invalid price entered. Please enter a numeric value.");
             return;
         }
-        const negativeProductPrice = -Math.abs(productPrice);
 
         const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
         if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
@@ -341,7 +339,7 @@ if (sealedProductEvButton) {
             }
         }
 
-        const sealedProductEv = packTotalEv + negativeProductPrice;
+        const sealedProductEv = packTotalEv - productPrice;
 
         alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
               `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
@@ -404,5 +402,5 @@ if (singlePackEvButton) {
 fetchPacks();
 
 function findExactPack(packName) {
-    return boxes.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
+    return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
 }
