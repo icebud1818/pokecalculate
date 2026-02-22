@@ -28,8 +28,75 @@ async function fetchPacks() {
     }
 }
 
+// Improved pack finding function with fuzzy matching
 function findExactPack(packName) {
-    return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
+    if (!packName || !packName.trim()) {
+        return null;
+    }
+    
+    // Normalize the input
+    const normalizeString = (str) => {
+        return str
+            .toLowerCase()
+            .replace(/\s+/g, '') // Remove all spaces
+            .replace(/&/g, 'and'); // Replace & with "and"
+    };
+    
+    const normalizedInput = normalizeString(packName);
+    
+    // Special case mappings
+    const specialCases = {
+        'sunandmoon': 'SM Base Set',
+        'sunmoon': 'SM Base Set',
+        'sm': 'SM Base Set',
+        'xy': 'XY Base Set'
+    };
+    
+    // Check for special cases first
+    if (specialCases[normalizedInput]) {
+        const specialCaseName = specialCases[normalizedInput];
+        const found = packs.find((pack) => 
+            normalizeString(pack.name) === normalizeString(specialCaseName)
+        );
+        if (found) return found;
+    }
+    
+    // First try: Exact match (after normalization)
+    let found = packs.find((pack) => 
+        normalizeString(pack.name) === normalizedInput
+    );
+    if (found) return found;
+    
+    // Second try: Input is contained in pack name
+    const containsMatches = packs.filter((pack) => 
+        normalizeString(pack.name).includes(normalizedInput)
+    );
+    
+    // If we found matches, handle special cases
+    if (containsMatches.length > 0) {
+        // Special handling for "Base Set" - prioritize "Base Set" over "Base Set 2"
+        if (normalizedInput === 'baseset') {
+            const baseSet = containsMatches.find((pack) => 
+                normalizeString(pack.name) === 'baseset' || 
+                pack.name === 'Base Set'
+            );
+            if (baseSet) return baseSet;
+        }
+        
+        // Return the shortest match (most specific)
+        // This helps prefer "Evolving Skies" over "SWSH07: Evolving Skies"
+        containsMatches.sort((a, b) => a.name.length - b.name.length);
+        return containsMatches[0];
+    }
+    
+    // Third try: Pack name contains the input
+    found = packs.find((pack) => 
+        normalizeString(pack.name).includes(normalizedInput)
+    );
+    if (found) return found;
+    
+    // No match found
+    return null;
 }
 
 // Multiple Packs EV Calculator
