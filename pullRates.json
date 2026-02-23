@@ -1,0 +1,1295 @@
+[
+  {
+    "setNumber": 100,
+    "name": "Base Set",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 101,
+    "name": "Jungle",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 102,
+    "name": "Fossil",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 103,
+    "name": "Base Set 2",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 104,
+    "name": "Team Rocket",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 81 packs" }
+    ]
+  },
+  {
+    "setNumber": 105,
+    "name": "Gym Heroes",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 106,
+    "name": "Gym Challenge",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 107,
+    "name": "Neo Genesis",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 108,
+    "name": "Neo Discovery",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 109,
+    "name": "Neo Revelation",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Shining Pokemon", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 110,
+    "name": "Neo Destiny",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Shining Pokemon", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 200,
+    "name": "Legendary Collection",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 201,
+    "name": "Expedition",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 202,
+    "name": "Aquapolis",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Crystal Pokemon", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 203,
+    "name": "Skyridge",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Crystal Pokemon", "odds": "1 in 15 packs" }
+    ]
+  },
+  {
+    "setNumber": 300,
+    "name": "Ruby And Sapphire",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" }
+    ]
+  },
+  {
+    "setNumber": 301,
+    "name": "Sandstorm",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" }
+    ]
+  },
+  {
+    "setNumber": 302,
+    "name": "Dragon",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 303,
+    "name": "Team Magma vs Team Aqua",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 304,
+    "name": "Hidden Legends",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" }
+    ]
+  },
+  {
+    "setNumber": 305,
+    "name": "FireRed LeafGreen",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 306,
+    "name": "Emerald",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" }
+    ]
+  },
+  {
+    "setNumber": 400,
+    "name": "Team Rocket Returns",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 401,
+    "name": "Deoxys",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 402,
+    "name": "Unseen Forces",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 403,
+    "name": "Delta Species",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 404,
+    "name": "Legend Maker",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 405,
+    "name": "Holon Phantoms",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 36 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 406,
+    "name": "Crystal Guardians",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 407,
+    "name": "Dragon Frontiers",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 15 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 408,
+    "name": "Power Keepers",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "ex", "odds": "1 in 10 packs" },
+      { "rarity": "Gold Star", "odds": "1 in 54 packs" }
+    ]
+  },
+  {
+    "setNumber": 500,
+    "name": "Diamond and Pearl",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 501,
+    "name": "Mysterious Treasures",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 502,
+    "name": "Secret Wonders",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 503,
+    "name": "Great Encounters",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 504,
+    "name": "Majestic Dawn",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 505,
+    "name": "Legends Awakened",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 506,
+    "name": "Stormfront",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Shiny", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 507,
+    "name": "Platinum",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Shiny", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 508,
+    "name": "Rising Rivals",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Rotom Card", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 509,
+    "name": "Supreme Victors",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 36 packs" },
+      { "rarity": "Shiny", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 510,
+    "name": "Arceus",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Lv. X", "odds": "1 in 12 packs" },
+      { "rarity": "Arceus Card", "odds": "1 in 4 packs" },
+      { "rarity": "Shiny", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 600,
+    "name": "HeartGold SoulSilver",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Prime", "odds": "1 in 6 packs" },
+      { "rarity": "Legend", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Red Gyarados", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 601,
+    "name": "Unleashed",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Prime", "odds": "1 in 7 packs" },
+      { "rarity": "Legend", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" }
+    ]
+  },
+  {
+    "setNumber": 602,
+    "name": "Undaunted",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Prime", "odds": "1 in 7 packs" },
+      { "rarity": "Legend", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" }
+    ]
+  },
+  {
+    "setNumber": 603,
+    "name": "Triumphant",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Prime", "odds": "1 in 7 packs" },
+      { "rarity": "Legend", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" }
+    ]
+  },
+  {
+    "setNumber": 604,
+    "name": "Call Of Legends",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Shiny", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 700,
+    "name": "Black And White",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 701,
+    "name": "Emerging Powers",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 702,
+    "name": "Noble Victories",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 703,
+    "name": "Next Destinies",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 704,
+    "name": "Dark Explorers",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 705,
+    "name": "Dragons Exalted",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 705.5,
+    "name": "Dragon Vault",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 1 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 25 packs" }
+    ]
+  },
+  {
+    "setNumber": 706,
+    "name": "Boundaries Crossed",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 707,
+    "name": "Plasma Storm",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 708,
+    "name": "Plasma Freeze",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 709,
+    "name": "Plasma Blast",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 710,
+    "name": "Legendary Treasures",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 2 packs" },
+      { "rarity": "EX", "odds": "1 in 9 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "Radiant Collection Ultra Rare", "odds": "1 in 4 packs" }
+    ]
+  },
+  {
+    "setNumber": 800,
+    "name": "XY Base Set",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 801,
+    "name": "Flashfire",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 12 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 802,
+    "name": "Furious Fists",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 12 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 803,
+    "name": "Phantom Forces",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 804,
+    "name": "Primal Clash",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 804.5,
+    "name": "Double Crisis",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 1 packs" },
+      { "rarity": "EX", "odds": "5 in 36 packs" }
+    ]
+  },
+  {
+    "setNumber": 805,
+    "name": "Roaring Skies",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 18 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 806,
+    "name": "Ancient Origins",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 807,
+    "name": "BREAKThrough",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "BREAK", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 808,
+    "name": "BREAKPoint",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "BREAK", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 808.5,
+    "name": "Generations",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "13 in 100 packs" },
+      { "rarity": "EX", "odds": "27 in 125 packs" },
+      { "rarity": "Radiant Collection Ultra Rare", "odds": "67 in 250 packs" }
+    ]
+  },
+  {
+    "setNumber": 809,
+    "name": "Fates Collide",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "BREAK", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 810,
+    "name": "Steam Siege",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "BREAK", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 811,
+    "name": "Evolutions",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 6 packs" },
+      { "rarity": "EX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 11 packs" },
+      { "rarity": "BREAK", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 900,
+    "name": "Sun and Moon Base Set",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 24 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 123 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 68 packs" }
+    ]
+  },
+  {
+    "setNumber": 901,
+    "name": "Guardians Rising",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 28 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 123 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 77 packs" }
+    ]
+  },
+  {
+    "setNumber": 902,
+    "name": "Burning Shadows",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 25 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 64 packs" }
+    ]
+  },
+  {
+    "setNumber": 902.5,
+    "name": "Shining Legends",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 25 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 64 packs" },
+      { "rarity": "Shining Pokemon", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 903,
+    "name": "Crimson Invasion",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 12 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 90 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 90 packs" }
+    ]
+  },
+  {
+    "setNumber": 904,
+    "name": "Ultra Prism",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 12 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 126 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 67 packs" },
+      { "rarity": "Prism", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 905,
+    "name": "Forbidden Light",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 12 packs" },
+      { "rarity": "Full Art", "odds": "1 in 28 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 140 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 74 packs" },
+      { "rarity": "Prism", "odds": "1 in 12 packs" }
+    ]
+  },
+  {
+    "setNumber": 906,
+    "name": "Celestial Storm",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 28 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 114 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 82 packs" },
+      { "rarity": "Prism", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 906.5,
+    "name": "Dragon Majesty",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 14 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 130 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 43 packs" },
+      { "rarity": "Prism", "odds": "1 in 9 packs" }
+    ]
+  },
+  {
+    "setNumber": 907,
+    "name": "Lost Thunder",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 10 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 98 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 74 packs" },
+      { "rarity": "Prism", "odds": "1 in 9 packs" }
+    ]
+  },
+  {
+    "setNumber": 908,
+    "name": "Team Up",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 10 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 145 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 96 packs" },
+      { "rarity": "Prism", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 909,
+    "name": "Unbroken Bonds",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 10 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 111 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 910,
+    "name": "Unified Minds",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 8 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 111 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 72 packs" }
+    ]
+  },
+  {
+    "setNumber": 910.5,
+    "name": "Hidden Fates",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 7 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 58 packs" },
+      { "rarity": "Shiny Holo", "odds": "1 in 4 packs" },
+      { "rarity": "Shiny GX", "odds": "1 in 9 packs" },
+      { "rarity": "Other Shiny Vault Full Art", "odds": "1 in 73 packs" },
+      { "rarity": "Gold Card", "odds": "1 in 57 packs" }
+    ]
+  },
+  {
+    "setNumber": 911,
+    "name": "Cosmic Eclipse",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "GX", "odds": "1 in 9 packs" },
+      { "rarity": "Full Art", "odds": "1 in 27 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 67 packs" },
+      { "rarity": "Trainer Gallery", "odds": "1 in 9 packs" }
+    ]
+  },
+  {
+    "setNumber": 1000,
+    "name": "Sword and Shield",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 7 packs" },
+      { "rarity": "VMAX", "odds": "1 in 45 packs" },
+      { "rarity": "Full Art", "odds": "1 in 27 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 81 packs" }
+    ]
+  },
+  {
+    "setNumber": 1001,
+    "name": "Rebel Clash",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 30 packs" },
+      { "rarity": "Full Art", "odds": "1 in 27 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 67 packs" }
+    ]
+  },
+  {
+    "setNumber": 1002,
+    "name": "Darkness Ablaze",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 26 packs" },
+      { "rarity": "Full Art", "odds": "1 in 27 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 84 packs" }
+    ]
+  },
+  {
+    "setNumber": 1002.5,
+    "name": "Champions Path",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 1 packs" },
+      { "rarity": "V", "odds": "1 in 6 packs" },
+      { "rarity": "VMAX", "odds": "1 in 30 packs" },
+      { "rarity": "Full Art", "odds": "1 in 19 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 72 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 64 packs" }
+    ]
+  },
+  {
+    "setNumber": 1003,
+    "name": "Vivid Voltage",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 24 packs" },
+      { "rarity": "Full Art", "odds": "1 in 24 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 95 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 31 packs" },
+      { "rarity": "Amazing Rare", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1003.5,
+    "name": "Shining Fates",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 5 packs" },
+      { "rarity": "V", "odds": "1 in 9 packs" },
+      { "rarity": "VMAX", "odds": "1 in 19 packs" },
+      { "rarity": "Full Art", "odds": "2 in 25 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 33 packs" },
+      { "rarity": "Shiny Holo", "odds": "1 in 4 packs" },
+      { "rarity": "Shiny V", "odds": "1 in 14 packs" },
+      { "rarity": "Shiny VMAX", "odds": "1 in 39 packs" },
+      { "rarity": "Gold Card", "odds": "1 in 155 packs" },
+      { "rarity": "Amazing Rare", "odds": "1 in 19 packs" }
+    ]
+  },
+  {
+    "setNumber": 1004,
+    "name": "Battle Styles",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 24 packs" },
+      { "rarity": "Full Art", "odds": "1 in 32 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 117 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 108 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 156 packs" }
+    ]
+  },
+  {
+    "setNumber": 1005,
+    "name": "Chilling Reign",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 24 packs" },
+      { "rarity": "Full Art", "odds": "1 in 20 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 100 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 122 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 111 packs" }
+    ]
+  },
+  {
+    "setNumber": 1006,
+    "name": "Evolving Skies",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 18 packs" },
+      { "rarity": "Full Art", "odds": "1 in 44 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 99 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 82 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 64 packs" }
+    ]
+  },
+  {
+    "setNumber": 1006.5,
+    "name": "Celebrations",
+    "rates": [
+      { "rarity": "Ultra Rare", "odds": "1 in 2 packs" },
+      { "rarity": "Classic Collection", "odds": "1 in 3 packs" }
+    ]
+  },
+  {
+    "setNumber": 1007,
+    "name": "Fusion Strike",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 30 packs" },
+      { "rarity": "Full Art", "odds": "1 in 30 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 120 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 127 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 117 packs" }
+    ]
+  },
+  {
+    "setNumber": 1100,
+    "name": "Brilliant Stars",
+    "rates": [
+      { "rarity": "Holo Rare", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 7 packs" },
+      { "rarity": "VMAX", "odds": "1 in 96 packs" },
+      { "rarity": "VSTAR", "odds": "1 in 43 packs" },
+      { "rarity": "Full Art", "odds": "1 in 30 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 117 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 68 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 127 packs" },
+      { "rarity": "Trainer Gallery Regular", "odds": "1 in 8 packs" },
+      { "rarity": "Trainer Gallery Ultra Rare", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 1101,
+    "name": "Astral Radiance",
+    "rates": [
+      { "rarity": "Holo", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 7 packs" },
+      { "rarity": "VMAX", "odds": "1 in 123 packs" },
+      { "rarity": "VSTAR", "odds": "1 in 38 packs" },
+      { "rarity": "Full Art", "odds": "1 in 19 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 130 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 78 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 135 packs" },
+      { "rarity": "Trainer Gallery", "odds": "1 in 24 packs" },
+      { "rarity": "Trainer Gallery Ultra Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Radiant", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1101.5,
+    "name": "Pokemon Go",
+    "rates": [
+      { "rarity": "Holo", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 6 packs" },
+      { "rarity": "Full Art", "odds": "1 in 21 packs" },
+      { "rarity": "VMAX", "odds": "1 in 46 packs" },
+      { "rarity": "VSTAR", "odds": "1 in 27 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 31 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 185 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 167 packs" },
+      { "rarity": "Radiant", "odds": "1 in 19 packs" }
+    ]
+  },
+  {
+    "setNumber": 1102,
+    "name": "Lost Origin",
+    "rates": [
+      { "rarity": "Holo", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 60 packs" },
+      { "rarity": "VSTAR", "odds": "1 in 24 packs" },
+      { "rarity": "Full Art", "odds": "1 in 22 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 60 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 65 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 158 packs" },
+      { "rarity": "Trainer Gallery Ultra Rare", "odds": "1 in 32 packs" },
+      { "rarity": "Trainer Gallery", "odds": "1 in 12 packs" },
+      { "rarity": "Radiant", "odds": "1 in 25 packs" }
+    ]
+  },
+  {
+    "setNumber": 1103,
+    "name": "Silver Tempest",
+    "rates": [
+      { "rarity": "Holo", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "VMAX", "odds": "1 in 60 packs" },
+      { "rarity": "VSTAR", "odds": "1 in 36 packs" },
+      { "rarity": "Full Art", "odds": "1 in 17 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 60 packs" },
+      { "rarity": "Rainbow Rare", "odds": "1 in 80 packs" },
+      { "rarity": "Alternate Art", "odds": "1 in 168 packs" },
+      { "rarity": "Trainer Gallery Ultra Rare", "odds": "1 in 32 packs" },
+      { "rarity": "Trainer Gallery", "odds": "1 in 12 packs" },
+      { "rarity": "Radiant", "odds": "1 in 18 packs" }
+    ]
+  },
+  {
+    "setNumber": 1103.5,
+    "name": "Crown Zenith",
+    "rates": [
+      { "rarity": "Holo", "odds": "1 in 3 packs" },
+      { "rarity": "V", "odds": "1 in 8 packs" },
+      { "rarity": "Full Art", "odds": "1 in 105 packs" },
+      { "rarity": "VMAX or VSTAR", "odds": "1 in 19 packs" },
+      { "rarity": "Energy Ultra Rare", "odds": "1 in 53 packs" },
+      { "rarity": "Secret Rare", "odds": "1 in 133 packs" },
+      { "rarity": "Radiant", "odds": "1 in 22 packs" },
+      { "rarity": "Galarian Gallery Regular", "odds": "1 in 4 packs" },
+      { "rarity": "Galarian Gallery Ultra Rare", "odds": "1 in 8 packs" },
+      { "rarity": "Galarian Gallery Gold Card", "odds": "1 in 125 packs" }
+    ]
+  },
+  {
+    "setNumber": 1200,
+    "name": "Scarlet and Violet",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 7 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 54 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 32 packs" }
+    ]
+  },
+  {
+    "setNumber": 1201,
+    "name": "Paldea Evolved",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 7 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 57 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 32 packs" }
+    ]
+  },
+  {
+    "setNumber": 1202,
+    "name": "Obsidian Flames",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 7 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 52 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 32 packs" }
+    ]
+  },
+  {
+    "setNumber": 1202.5,
+    "name": "Pokemon 151",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 8 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 16 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 51 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 32 packs" }
+    ]
+  },
+  {
+    "setNumber": 1203,
+    "name": "Paradox Rift",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 82 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 47 packs" }
+    ]
+  },
+  {
+    "setNumber": 1203.5,
+    "name": "Paldean Fates",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 62 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 14 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 58 packs" },
+      { "rarity": "Shiny", "odds": "1 in 4 packs" },
+      { "rarity": "Shiny Ultra Rare", "odds": "1 in 13 packs" }
+    ]
+  },
+  {
+    "setNumber": 1204,
+    "name": "Temporal Forces",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 139 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 86 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1205,
+    "name": "Twilight Masquerade",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 146 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 86 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1205.5,
+    "name": "Shrouded Fable",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 144 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 67 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1206,
+    "name": "Stellar Crown",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 137 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 90 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1207,
+    "name": "Surging Sparks",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 188 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 87 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1207.5,
+    "name": "Prismatic Evolutions",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 13 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 180 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 45 packs" },
+      { "rarity": "ACE SPEC", "odds": "1 in 21 packs" },
+      { "rarity": "Poke Ball Reverse", "odds": "1 in 3 packs" },
+      { "rarity": "Master Ball Reverse", "odds": "1 in 20 packs" }
+    ]
+  },
+  {
+    "setNumber": 1208,
+    "name": "Journey Together",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 15 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 139 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 86 packs" }
+    ]
+  },
+  {
+    "setNumber": 1209,
+    "name": "Destined Rivals",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 16 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 149 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 94 packs" }
+    ]
+  },
+  {
+    "setNumber": 1209.51,
+    "name": "Black Bolt",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 17 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 496 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 80 packs" },
+      { "rarity": "Poke Ball Reverse", "odds": "1 in 3 packs" },
+      { "rarity": "Master Ball Reverse", "odds": "1 in 19 packs" }
+    ]
+  },
+  {
+    "setNumber": 1209.52,
+    "name": "White Flare",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 17 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 496 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 6 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 80 packs" },
+      { "rarity": "Poke Ball Reverse", "odds": "1 in 3 packs" },
+      { "rarity": "Master Ball Reverse", "odds": "1 in 19 packs" }
+    ]
+  },
+  {
+    "setNumber": 1210,
+    "name": "Mega Evolution",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 1250 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 9 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 101 packs" }
+    ]
+  },
+  {
+    "setNumber": 1211,
+    "name": "Phantasmal Flames",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 1250 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 9 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 80 packs" }
+    ]
+  },
+  {
+    "setNumber": 1211.5,
+    "name": "Ascended Heroes",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 1250 packs" },
+      { "rarity": "Mega Attack Rare", "odds": "1 in 27 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 8 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 65 packs" }
+    ]
+  }
+]

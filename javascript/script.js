@@ -1,8 +1,28 @@
 let packs = [];
 let filteredPacks = [];
+let pullRatesMap = {}; // Keyed by setNumber for fast lookup
 let activeFilter = "all";
 let lastSortCriteria = "nameAsc";
-let eventListenerAttached = false; // Flag to track if event listener is attached
+let eventListenerAttached = false;
+
+// Fetch pull rates from local JSON file
+async function fetchPullRates() {
+    try {
+        const response = await fetch('pullRates.json');
+        if (!response.ok) throw new Error(`Failed to load pull rates: ${response.status}`);
+        const data = await response.json();
+
+        // Build a map keyed by setNumber for O(1) lookup
+        data.forEach(set => {
+            pullRatesMap[set.setNumber] = set.rates;
+        });
+
+        console.log("Pull rates loaded:", Object.keys(pullRatesMap).length, "sets");
+    } catch (error) {
+        console.error("Error loading pull rates:", error);
+        // Non-fatal — packs will still display, just without pull rate info
+    }
+}
 
 // Fetch packs data from Firebase Firestore
 async function fetchPacks() {
@@ -14,7 +34,7 @@ async function fetchPacks() {
 
         const querySnapshot = await window.getDocs(window.collection(window.db, "sets"));
         const data = [];
-        
+
         querySnapshot.forEach((doc) => {
             data.push(doc.data());
         });
@@ -39,18 +59,15 @@ function initializePacks(data) {
     if (data.length > 0 && data[0].lastUpdated) {
         const timestamp = data[0].lastUpdated;
         let date;
-        
-        // Check if it's a Firebase Timestamp object
+
         if (timestamp.toDate) {
             date = timestamp.toDate();
         } else if (timestamp.seconds) {
-            // If it's a plain object with seconds
             date = new Date(timestamp.seconds * 1000);
         } else {
             date = new Date(timestamp);
         }
-        
-        // Convert to EST (UTC-5)
+
         const estOptions = {
             timeZone: 'America/New_York',
             weekday: 'short',
@@ -62,17 +79,14 @@ function initializePacks(data) {
             second: '2-digit',
             timeZoneName: 'short'
         };
-        
-        const lastUpdatedText = date.toLocaleString('en-US', estOptions);
-        
-        document.getElementById("lastUpdated").textContent = `Last Updated: ${lastUpdatedText}`;
+
+        document.getElementById("lastUpdated").textContent =
+            `Last Updated: ${date.toLocaleString('en-US', estOptions)}`;
     } else {
         document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
     }
 
-    // Attach event listener once
     attachEventListener();
-    
     applyFilter();
 }
 
@@ -81,7 +95,6 @@ function handleError(error) {
     document.getElementById("packs-list").innerHTML = "<li>Error loading packs</li>";
 }
 
-// Attach event listener to the parent ul element once
 function attachEventListener() {
     if (!eventListenerAttached) {
         const ul = document.getElementById("packs-list");
@@ -94,71 +107,51 @@ function attachEventListener() {
 function displayPacks() {
     const ul = document.getElementById("packs-list");
     ul.innerHTML = "";
-    
+
     console.log("Displaying packs, count:", filteredPacks.length);
 
     filteredPacks.forEach((pack, packIndex) => {
         const li = document.createElement("li");
         li.className = "pack-item";
-        
-        // Create main pack info (clickable)
+
+        // --- Pack Header ---
         const packHeader = document.createElement("div");
         packHeader.className = "pack-header";
         packHeader.setAttribute("data-pack-index", packIndex);
-        
-        // Create text content container
+
         const textContent = document.createElement("span");
         textContent.textContent = `${pack.name} - Value: $${pack.value.toFixed(2)} - EV: $${pack.ev.toFixed(2)} - Percent Return: ${(pack.adjEv * 100).toFixed(2)}%`;
-        
-        // Create logo image
+
         const logoImg = document.createElement("img");
         const logoFileName = pack.setNumber.toString().replace('.', '_') + '.png';
         logoImg.src = `logos/${logoFileName}`;
         logoImg.alt = `${pack.name} logo`;
         logoImg.className = "pack-logo";
-        
-        // Fallback: hide image if logo doesn't exist
-        logoImg.onerror = () => {
-            logoImg.style.display = 'none';
-        };
-        
-        // Append text and logo to header
+        logoImg.onerror = () => { logoImg.style.display = 'none'; };
+
         packHeader.appendChild(textContent);
         packHeader.appendChild(logoImg);
-        
-        // Create expandable details section
+
+        // --- Expandable Details ---
         const detailsSection = document.createElement("div");
         detailsSection.className = "pack-details";
         detailsSection.setAttribute("data-pack-index", packIndex);
         detailsSection.style.display = "none";
-        
+
         // Buy indicator
         const percentReturn = pack.adjEv * 100;
-        let buyIndicator = "";
-        let buyClass = "";
-        
-        if (percentReturn >= 80) {
-            buyIndicator = "Strong Buy";
-            buyClass = "strong-buy";
-        } else if (percentReturn >= 60) {
-            buyIndicator = "Moderate Buy";
-            buyClass = "moderate-buy";
-        } else if (percentReturn >= 40) {
-            buyIndicator = "OK Buy";
-            buyClass = "ok-buy";
-        } else if (percentReturn >= 20) {
-            buyIndicator = "Weak Buy";
-            buyClass = "weak-buy";
-        } else {
-            buyIndicator = "Terrible Buy";
-            buyClass = "terrible-buy";
-        }
-        
+        let buyIndicator, buyClass;
+        if (percentReturn >= 80)      { buyIndicator = "Strong Buy";   buyClass = "strong-buy"; }
+        else if (percentReturn >= 60) { buyIndicator = "Moderate Buy"; buyClass = "moderate-buy"; }
+        else if (percentReturn >= 40) { buyIndicator = "OK Buy";       buyClass = "ok-buy"; }
+        else if (percentReturn >= 20) { buyIndicator = "Weak Buy";     buyClass = "weak-buy"; }
+        else                          { buyIndicator = "Terrible Buy"; buyClass = "terrible-buy"; }
+
         const buyIndicatorDiv = document.createElement("div");
         buyIndicatorDiv.className = `buy-indicator ${buyClass}`;
         buyIndicatorDiv.textContent = `Buy Indicator: ${buyIndicator}`;
         detailsSection.appendChild(buyIndicatorDiv);
-        
+
         // Top 5 cards
         if (pack.top5Cards && pack.top5Cards.length > 0) {
             const top5Title = document.createElement("h4");
@@ -166,62 +159,82 @@ function displayPacks() {
             top5Title.style.marginTop = "15px";
             top5Title.style.marginBottom = "10px";
             detailsSection.appendChild(top5Title);
-            
+
             const cardsList = document.createElement("ul");
             cardsList.className = "top5-cards-list";
-            
-            pack.top5Cards.forEach((card, index) => {
+            pack.top5Cards.forEach((card) => {
                 const cardItem = document.createElement("li");
                 cardItem.textContent = `${card.name} - #${card.number} - $${card.price.toFixed(2)}`;
                 cardsList.appendChild(cardItem);
             });
-            
             detailsSection.appendChild(cardsList);
         }
-        
+
+        // --- Pull Rates Section ---
+        const matchingRates = pullRatesMap[pack.setNumber];
+        if (matchingRates && matchingRates.length > 0) {
+            const pullRatesTitle = document.createElement("h4");
+            pullRatesTitle.style.marginTop = "15px";
+            pullRatesTitle.style.marginBottom = "10px";
+            detailsSection.appendChild(pullRatesTitle);
+
+            const ratesTable = document.createElement("div");
+            ratesTable.className = "rates-table";
+
+            // Table header
+            const tableHeader = document.createElement("div");
+            tableHeader.className = "rates-table-row rates-table-header";
+            tableHeader.innerHTML = `
+                <div class="rates-table-cell"><strong>Rarity</strong></div>
+                <div class="rates-table-cell"><strong>Odds</strong></div>
+            `;
+            ratesTable.appendChild(tableHeader);
+
+            // Table rows
+            matchingRates.forEach((rate) => {
+                const row = document.createElement("div");
+                row.className = "rates-table-row";
+                row.innerHTML = `
+                    <div class="rates-table-cell"><strong>${rate.rarity}</strong></div>
+                    <div class="rates-table-cell">${rate.odds}</div>
+                `;
+                ratesTable.appendChild(row);
+            });
+
+            detailsSection.appendChild(ratesTable);
+        }
+
         // Close button
         const closeButton = document.createElement("button");
         closeButton.textContent = "Close";
         closeButton.className = "close-details-btn";
         closeButton.setAttribute("data-pack-index", packIndex);
         closeButton.type = "button";
-        
         detailsSection.appendChild(closeButton);
-        
+
         li.appendChild(packHeader);
         li.appendChild(detailsSection);
         ul.appendChild(li);
     });
-    
+
     console.log("Finished displaying packs");
 }
 
-// Event delegation handler for Safari compatibility
 function handlePackListClick(event) {
     const target = event.target;
-    
-    // Handle pack header clicks (but not if clicking on the logo)
+
     if (target.classList.contains("pack-header") || target.parentElement.classList.contains("pack-header")) {
         const packHeader = target.classList.contains("pack-header") ? target : target.parentElement;
-        const packIndex = parseInt(packHeader.getAttribute("data-pack-index"));
         const detailsSection = packHeader.nextElementSibling;
-        
-        console.log("Pack header clicked:", filteredPacks[packIndex].name);
-        
         const isExpanded = detailsSection.style.display === "block";
         detailsSection.style.display = isExpanded ? "none" : "block";
         packHeader.classList.toggle("expanded", !isExpanded);
     }
-    
-    // Handle close button clicks
+
     if (target.classList.contains("close-details-btn")) {
         event.stopPropagation();
-        const packIndex = parseInt(target.getAttribute("data-pack-index"));
         const detailsSection = target.parentElement;
         const packHeader = detailsSection.previousElementSibling;
-        
-        console.log("Close button clicked");
-        
         detailsSection.style.display = "none";
         packHeader.classList.remove("expanded");
     }
@@ -229,16 +242,16 @@ function handlePackListClick(event) {
 
 function sortPacks(criteria) {
     const sorters = {
-        nameAsc: (a, b) => a.name.localeCompare(b.name),
-        nameDesc: (a, b) => b.name.localeCompare(a.name),
-        valueAsc: (a, b) => a.value - b.value,
-        valueDesc: (a, b) => b.value - a.value,
-        evAsc: (a, b) => a.ev - b.ev,
-        evDesc: (a, b) => b.ev - a.ev,
-        adjEvAsc: (a, b) => a.adjEv - b.adjEv,
-        adjEvDesc: (a, b) => b.adjEv - a.adjEv,
+        nameAsc:      (a, b) => a.name.localeCompare(b.name),
+        nameDesc:     (a, b) => b.name.localeCompare(a.name),
+        valueAsc:     (a, b) => a.value - b.value,
+        valueDesc:    (a, b) => b.value - a.value,
+        evAsc:        (a, b) => a.ev - b.ev,
+        evDesc:       (a, b) => b.ev - a.ev,
+        adjEvAsc:     (a, b) => a.adjEv - b.adjEv,
+        adjEvDesc:    (a, b) => b.adjEv - a.adjEv,
         setNumberAsc: (a, b) => a.setNumber - b.setNumber,
-        setNumberDesc: (a, b) => b.setNumber - a.setNumber,
+        setNumberDesc:(a, b) => b.setNumber - a.setNumber,
     };
 
     if (sorters[criteria]) {
@@ -252,17 +265,17 @@ function sortPacks(criteria) {
 
 function applyFilter() {
     const filterers = {
-        all: () => packs,
-        gen1: () => packs.filter((pack) => pack.setNumber <= 106),
-        gen2: () => packs.filter((pack) => pack.setNumber >= 107 && pack.setNumber <= 203),
-        gen3: () => packs.filter((pack) => pack.setNumber >= 300 && pack.setNumber <= 408),
-        gen4: () => packs.filter((pack) => pack.setNumber >= 500 && pack.setNumber <= 604),
-        gen5: () => packs.filter((pack) => pack.setNumber >= 700 && pack.setNumber <= 710),
-        gen6: () => packs.filter((pack) => pack.setNumber >= 800 && pack.setNumber <= 811),
-        gen7: () => packs.filter((pack) => pack.setNumber >= 900 && pack.setNumber <= 911),
-        gen8: () => packs.filter((pack) => pack.setNumber >= 1000 && pack.setNumber <= 1104),
-        gen9: () => packs.filter((pack) => pack.setNumber >= 1200 && pack.setNumber <= 1215),
-        special: () => packs.filter((pack) => pack.setNumber % 1 !== 0)
+        all:     () => packs,
+        gen1:    () => packs.filter((p) => p.setNumber <= 106),
+        gen2:    () => packs.filter((p) => p.setNumber >= 107  && p.setNumber <= 203),
+        gen3:    () => packs.filter((p) => p.setNumber >= 300  && p.setNumber <= 408),
+        gen4:    () => packs.filter((p) => p.setNumber >= 500  && p.setNumber <= 604),
+        gen5:    () => packs.filter((p) => p.setNumber >= 700  && p.setNumber <= 710),
+        gen6:    () => packs.filter((p) => p.setNumber >= 800  && p.setNumber <= 811),
+        gen7:    () => packs.filter((p) => p.setNumber >= 900  && p.setNumber <= 911),
+        gen8:    () => packs.filter((p) => p.setNumber >= 1000 && p.setNumber <= 1104),
+        gen9:    () => packs.filter((p) => p.setNumber >= 1200 && p.setNumber <= 1215),
+        special: () => packs.filter((p) => p.setNumber % 1 !== 0),
     };
 
     if (filterers[activeFilter]) {
@@ -277,9 +290,9 @@ function findExactPack(packName) {
     return packs.find((pack) => pack.name.toLowerCase() === packName.toLowerCase());
 }
 
+// Dropdowns
 document.getElementById("sortDropdown").addEventListener("change", (event) => {
-    const sortCriteria = event.target.value;
-    sortPacks(sortCriteria);
+    sortPacks(event.target.value);
 });
 
 document.getElementById("filterDropdown").addEventListener("change", (event) => {
@@ -292,23 +305,15 @@ const productValueButton = document.querySelector(".productValueButton");
 if (productValueButton) {
     productValueButton.addEventListener("click", function () {
         const productPrice = parseFloat(prompt("Enter the price of the product:"));
-        if (isNaN(productPrice)) {
-            alert("Invalid price entered. Please enter a numeric value.");
-            return;
-        }
+        if (isNaN(productPrice)) { alert("Invalid price entered."); return; }
         const negativeProductPrice = -Math.abs(productPrice);
-
         const numberOfPacks = parseInt(prompt("Enter the number of packs in the product:"), 10);
-        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-            alert("Please enter a valid number of packs!");
-            return;
-        }
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) { alert("Please enter a valid number of packs!"); return; }
 
         let packTotal = 0;
         for (let i = 0; i < numberOfPacks; i++) {
             const packName = prompt(`Enter the name of pack ${i + 1}:`);
             const pack = findExactPack(packName);
-
             if (pack) {
                 packTotal += parseFloat(pack.value);
                 alert(`Pack '${pack.name}' with value of $${pack.value} added. Running total: $${packTotal.toFixed(2)}`);
@@ -319,10 +324,7 @@ if (productValueButton) {
 
         const totalProfit = packTotal + negativeProductPrice;
         const percentProfit = ((packTotal / Math.abs(negativeProductPrice)) - 1) * 100;
-
-        alert(`Total Value of packs: $${packTotal.toFixed(2)}\n` + 
-              `Total Profit: $${totalProfit.toFixed(2)}\n` + 
-              `Percent Profit: ${percentProfit.toFixed(2)}%`);
+        alert(`Total Value of packs: $${packTotal.toFixed(2)}\nTotal Profit: $${totalProfit.toFixed(2)}\nPercent Profit: ${percentProfit.toFixed(2)}%`);
     });
 }
 
@@ -331,23 +333,15 @@ const sealedProductEvButton = document.querySelector(".sealedProductEvButton");
 if (sealedProductEvButton) {
     sealedProductEvButton.addEventListener("click", function () {
         const productPrice = parseFloat(prompt("Enter the price of the sealed product:"));
-        if (isNaN(productPrice)) {
-            alert("Invalid price entered. Please enter a numeric value.");
-            return;
-        }
+        if (isNaN(productPrice)) { alert("Invalid price entered."); return; }
         const negativeProductPrice = -Math.abs(productPrice);
-
         const numberOfPacks = parseInt(prompt("Enter the number of packs in the sealed product:"), 10);
-        if (isNaN(numberOfPacks) || numberOfPacks <= 0) {
-            alert("Please enter a valid number of packs!");
-            return;
-        }
+        if (isNaN(numberOfPacks) || numberOfPacks <= 0) { alert("Please enter a valid number of packs!"); return; }
 
         let packTotalEv = 0;
         for (let i = 0; i < numberOfPacks; i++) {
             const packName = prompt(`Enter the name of pack ${i + 1}:`);
             const pack = findExactPack(packName);
-
             if (pack) {
                 packTotalEv += parseFloat(pack.ev);
                 alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${packTotalEv.toFixed(2)}`);
@@ -356,10 +350,7 @@ if (sealedProductEvButton) {
             }
         }
 
-        const sealedProductEv = packTotalEv + negativeProductPrice;
-
-        alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\n` +
-              `Expected Profit for the sealed product: $${sealedProductEv.toFixed(2)}`);
+        alert(`Total EV of packs: $${packTotalEv.toFixed(2)}\nExpected Profit: $${(packTotalEv + negativeProductPrice).toFixed(2)}`);
     });
 }
 
@@ -368,13 +359,10 @@ const multiplePacksEvButton = document.querySelector(".multiplePacksEvButton");
 if (multiplePacksEvButton) {
     multiplePacksEvButton.addEventListener("click", function () {
         let totalEv = 0;
-
         while (true) {
             const packName = prompt("Enter the pack name (or type 'done' to finish):").trim();
             if (packName.toLowerCase() === "done") break;
-
             const pack = findExactPack(packName);
-
             if (pack) {
                 totalEv += parseFloat(pack.ev);
                 alert(`Pack '${pack.name}' with EV of $${pack.ev} added. Running total EV: $${totalEv.toFixed(2)}`);
@@ -382,7 +370,6 @@ if (multiplePacksEvButton) {
                 alert(`Pack '${packName}' not found. Please try again.`);
             }
         }
-
         alert(`Total EV for the entered packs: $${totalEv.toFixed(2)}`);
     });
 }
@@ -393,15 +380,13 @@ if (singlePackEvButton) {
     singlePackEvButton.addEventListener("click", function () {
         const packName = prompt("Enter the name of the pack:").trim();
         const pack = findExactPack(packName);
-
         if (pack) {
-            const totalEv = parseFloat(pack.ev);
-            alert(`Pack: ${pack.name}\nEV: $${totalEv.toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
+            alert(`Pack: ${pack.name}\nEV: $${parseFloat(pack.ev).toFixed(2)}\nReturn on Investment: ${(pack.adjEv * 100).toFixed(2)}%`);
         } else {
             alert(`Pack '${packName}' not found.`);
         }
     });
 }
 
-// Fetch and initialize packs on page load
-fetchPacks();
+// Load pull rates first, then fetch packs
+fetchPullRates().then(() => fetchPacks());

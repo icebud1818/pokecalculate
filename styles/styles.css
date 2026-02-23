@@ -743,3 +743,24 @@ body.dark-mode .result-warning {
     background-color: #78350f;
     color: #fef3c7;
 }
+
+.rates-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.rates-table-row {
+    display: contents;
+}
+
+.rates-table-cell {
+    padding: 4px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.rates-table-header .rates-table-cell {
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    margin-bottom: 4px;
+}
