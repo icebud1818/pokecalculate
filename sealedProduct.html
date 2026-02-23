@@ -65,23 +65,63 @@
                     <option value="releaseAsc">Release Date (Latest to Earliest)</option>
                 </select>
             </div>
+        </div>
 
-            <div class="dropdown-container">
-                <label for="filterDropdown">Filter By</label>
-                <select id="filterDropdown">
-                    <option value="all" selected>All Packs</option>
-                    <option value="gen6">Generation 6</option>
-                    <option value="gen7">Generation 7</option>
-                    <option value="gen8">Generation 8</option>
-                    <option value="gen9">Generation 9</option>
+        <!-- Filters -->
+        <div class="filters-container">
+
+            <div class="filter-group">
+                <label>Year Range</label>
+                <div class="range-inputs">
+                    <input type="number" id="yearFrom" placeholder="From" min="1999" max="2025" step="1">
+                    <span>to</span>
+                    <input type="number" id="yearTo" placeholder="To" min="1999" max="2025" step="1">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label>Price Range</label>
+                <div class="range-inputs">
+                    <input type="number" id="priceMin" placeholder="Min $" min="0" step="0.01">
+                    <span>to</span>
+                    <input type="number" id="priceMax" placeholder="Max $" min="0" step="0.01">
+                </div>
+            </div>
+
+            <div class="filter-group">
+            <label>Buy Indicator Range</label>
+            <div class="range-inputs">
+                <select id="buyIndicatorFrom">
+                    <option value="extreme-buy">Extreme</option>
+                    <option value="strong-buy">Strong</option>
+                    <option value="moderate-buy">Moderate</option>
+                    <option value="ok-buy">Ok</option>
+                    <option value="weak-buy">Weak</option>
+                    <option value="terrible-buy" selected>Terrible</option>
+                </select>
+                <span>to</span>
+                <select id="buyIndicatorTo">
+                    <option value="extreme-buy" selected>Extreme</option>
+                    <option value="strong-buy">Strong</option>
+                    <option value="moderate-buy">Moderate</option>
+                    <option value="ok-buy">Ok</option>
+                    <option value="weak-buy">Weak</option>
+                    <option value="terrible-buy">Terrible</option>
                 </select>
             </div>
+        </div>
+
+            <div class="filter-buttons">
+                <button id="applyFiltersBtn">Apply Filters</button>
+                <button id="clearFiltersBtn">Clear Filters</button>
+            </div>
+
         </div>
 
         <div class="products-list">
             <h2>Sealed Products</h2>
             <ul id="products-list">
-                <!-- List of packs will be populated here -->
+                <!-- List of products will be populated here -->
             </ul>
         </div>
     </div>
@@ -97,22 +137,18 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-        // Import Firebase modules
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyApyB4FLYRVcWqPLN6WlWI_dN1Dr1YZYaA",
             authDomain: "pokecalculate-96c76.firebaseapp.com",
             projectId: "pokecalculate-96c76"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Make db available globally
         window.db = db;
         window.collection = collection;
         window.getDocs = getDocs;
