@@ -47,6 +47,23 @@ const BUY_INDICATOR_RANK = {
     "terrible-buy": 5
 };
 
+// Helper: calculate total EV for a product (pack EVs * count + promo value)
+function calculateProductEV(product) {
+    if (!window.packsData || !product.packList) return null;
+
+    let packEVTotal = 0;
+    for (const pack of product.packList) {
+        const match = window.packsData.find(
+            (p) => p.name.toLowerCase() === pack.name.toLowerCase()
+        );
+        if (match) {
+            packEVTotal += match.ev * pack.count;
+        }
+    }
+
+    return packEVTotal + product.promoPrice;
+}
+
 // Fetch sealed products data from Firebase Firestore
 async function fetchProducts() {
     console.log("Starting to fetch sealed products...");
@@ -70,13 +87,13 @@ async function fetchProducts() {
         });
 
         console.log("Total sealed products fetched:", data.length);
-        initializeProducts(data);
+        await initializeProducts(data);
     } catch (error) {
         handleError(error);
     }
 }
 
-function initializeProducts(data) {
+async function initializeProducts(data) {
     products = data.map((item) => {
         const totalValue = item.packTotal + (item.promoPrice || 0);
         const percentProfit = item.price > 0 ? ((totalValue - item.price) / item.price) * 100 : 0;
@@ -120,6 +137,9 @@ function initializeProducts(data) {
     } else {
         document.getElementById("lastUpdated").textContent = `Last Updated: N/A`;
     }
+
+    // Load pack EV data so calculateProductEV works when user expands a product
+    await ensurePacksData();
 
     attachEventListener();
     applyFilter();
@@ -182,16 +202,22 @@ function displayProducts() {
         valueBreakdown.style.marginTop = "15px";
 
         const totalsContainer = document.createElement("div");
-        totalsContainer.style.cssText = "display:flex; justify-content:center; gap:40px; margin-bottom:20px;";
+        totalsContainer.style.cssText = "display:flex; justify-content:center; gap:20px; margin-bottom:20px; align-items:center; text-align:center;";
 
         const promoValueDiv = document.createElement("div");
         promoValueDiv.innerHTML = `<strong>Total Promo Value:</strong> $${product.promoPrice.toFixed(2)}`;
-        promoValueDiv.style.fontSize = "1.1rem";
+        promoValueDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
         totalsContainer.appendChild(promoValueDiv);
+
+        const totalEV = calculateProductEV(product);
+        const evDiv = document.createElement("div");
+        evDiv.innerHTML = `<strong>Total Expected Value:</strong> ${totalEV !== null ? '$' + totalEV.toFixed(2) : 'N/A'}`;
+        evDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
+        totalsContainer.appendChild(evDiv);
 
         const packValueDiv = document.createElement("div");
         packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> $${product.packTotal.toFixed(2)}`;
-        packValueDiv.style.fontSize = "1.1rem";
+        packValueDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
         totalsContainer.appendChild(packValueDiv);
 
         valueBreakdown.appendChild(totalsContainer);
