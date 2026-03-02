@@ -292,19 +292,19 @@ earlyExSetList = [
     EarlyExSet("Team Magma vs Team Aqua", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-magma-vs-team-aqua", 1/36, 1/15, 98550, 1377, 303),
     EarlyExSet("Hidden Legends", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/hidden-legends", 0, 1/15, 98595, 1416, 304),
     EarlyExSet("FireRed & LeafGreen", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/firered-and-leafgreen", 1/36, 1/15, 98946, 1419, 305),
-    EarlyExSet("Emerald", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerald", 0, 1/15, 98546, 1410, 306)
+    EarlyExSet("Emerald", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/emerald", 0, 1/15, 98546, 1410, 308)
 ]
 
 goldStarSetList = [
-    GoldStarSet("Team Rocket Returns", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket-returns", 1/36, 1/15, 1/72, 98578, 1428, 400),
-    GoldStarSet("Deoxys", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/deoxys", 0, 1/15, 1/72, 98562, 1404, 401),
-    GoldStarSet("Unseen Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unseen-forces", 1/36, 1/15, 1/72, 98577, 1398, 402),
-    GoldStarSet("Delta Species", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/delta-species", 0, 1/15, 1/72, 98944, 1429, 403),
-    GoldStarSet("Legend Maker", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legend-maker", 0, 1/15, 1/72, 98557, 1378, 404),
-    GoldStarSet("Holon Phantoms", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/holon-phantoms", 0, 1/36, 1/72, 98522, 1379, 405),
-    GoldStarSet("Crystal Guardians", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crystal-guardians", 0, 1/15, 1/72, 98566, 1395, 406),
-    GoldStarSet("Dragon Frontiers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-frontiers", 0, 1/15, 1/72, 98533, 1411, 407),
-    GoldStarSet("Power Keepers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/power-keepers", 0, 1/10, 1/54, 98529, 1383, 408)
+    GoldStarSet("Team Rocket Returns", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/team-rocket-returns", 1/36, 1/15, 1/72, 98578, 1428, 306),
+    GoldStarSet("Deoxys", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/deoxys", 0, 1/15, 1/72, 98562, 1404, 307),
+    GoldStarSet("Unseen Forces", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/unseen-forces", 1/36, 1/15, 1/72, 98577, 1398, 309),
+    GoldStarSet("Delta Species", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/delta-species", 0, 1/15, 1/72, 98944, 1429, 310),
+    GoldStarSet("Legend Maker", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/legend-maker", 0, 1/15, 1/72, 98557, 1378, 311),
+    GoldStarSet("Holon Phantoms", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/holon-phantoms", 0, 1/36, 1/72, 98522, 1379, 312),
+    GoldStarSet("Crystal Guardians", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/crystal-guardians", 0, 1/15, 1/72, 98566, 1395, 313),
+    GoldStarSet("Dragon Frontiers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/dragon-frontiers", 0, 1/15, 1/72, 98533, 1411, 314),
+    GoldStarSet("Power Keepers", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/power-keepers", 0, 1/10, 1/54, 98529, 1383, 315)
 ]
 
 levelXSetList = [
@@ -437,8 +437,6 @@ def getBoxPrices(boxSet):
 
     return price, round(pricePer, 2), boxSet.name, boxSet.setNumber
 
-
-
 expectedValueList = []
 setNameList = []
 packValueList = []
@@ -455,20 +453,14 @@ top5CardsList = []
 def getSetName(set):
     return set.name
 
-num = 0
-
 for set in vintageSetList:
     adjev, price, ev, top_5_cards = gen1.calculate(set)
     expectedValueList.append(adjev)
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(100 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
-
 
 for set in earlyReverseSetList:
     adjev, price, ev, top_5_cards = earlyReverse.calculate(set)
@@ -476,11 +468,8 @@ for set in earlyReverseSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(200 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in earlyExSetList:
     adjev, price, ev, top_5_cards = earlyEx.calculate(set)
@@ -488,11 +477,8 @@ for set in earlyExSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(300 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in goldStarSetList:
     adjev, price, ev, top_5_cards = goldStar.calculate(set)
@@ -500,11 +486,8 @@ for set in goldStarSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(400 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in levelXSetList:
     adjev, price, ev, top_5_cards = dp.calculate(set)
@@ -512,11 +495,8 @@ for set in levelXSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(500 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in hgssSetList:
     adjev, price, ev, top_5_cards = hgss.calculate(set)
@@ -524,11 +504,8 @@ for set in hgssSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(600 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in bwSetList:
     adjev, price, ev, top_5_cards = bw.calculate(set)
@@ -536,19 +513,16 @@ for set in bwSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(700 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1   
 
 adjev, price, ev, top_5_cards = bw.legendaryTreasures()
 expectedValueList.append(adjev)
 packValueList.append(price)
 setNameList.append("Legendary Treasures")
 actualEvList.append(ev)
-setNumberList.append(710)
+setNumberList.append(set.setNumber)
 top5CardsList.append(top_5_cards)
-
-num = 0
 
 for set in xySetList:
     adjev, price, ev, top_5_cards = xy.calculate(set)
@@ -556,11 +530,8 @@ for set in xySetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(800 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in smSetList:
     adjev, price, ev, top_5_cards = sm.calculate(set)
@@ -568,11 +539,8 @@ for set in smSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(900 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in swshSetList:
     adjev, price, ev, top_5_cards = swsh.calculate(set)
@@ -580,11 +548,8 @@ for set in swshSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(1000 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in lateSwshSetList:
     adjev, price, ev, top_5_cards = swsh.lateSwshSets(set)
@@ -592,11 +557,8 @@ for set in lateSwshSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(1100 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
-
-num = 0
 
 for set in svSetList:
     adjev, price, ev, top_5_cards = sv.calculate(set)
@@ -604,11 +566,9 @@ for set in svSetList:
     packValueList.append(price)
     setNameList.append(getSetName(set))
     actualEvList.append(ev)
-    setNumberList.append(1200 + num)
+    setNumberList.append(set.setNumber)
     top5CardsList.append(top_5_cards)
-    num += 1
     
-
 adjev, price, ev, top_5_cards = specialSets.dragonVault()
 expectedValueList.append(adjev)
 packValueList.append(price)
