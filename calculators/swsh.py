@@ -297,6 +297,20 @@ def lateSwshSets(set):
         number = item.get("number")
         setName = item.get("set")
 
+        # Track for top 5 cards (main set)
+        card_name_raw = item.get('productName', 'Unknown')
+        card_name = myUtils.clean_card_name(card_name_raw)
+        card_number = item.get('number', 'N/A')
+
+        if card_name not in unique_cards or marketPrice > unique_cards[card_name]['price']:
+            unique_cards[card_name] = {
+                'name': card_name,
+                'price': marketPrice,
+                'rarity': rarity,
+                'condition': condition,
+                'number': card_number
+            }
+
         # Identify if this is a Reverse Holo, Holofoil, or Normal card
         is_reverse = condition in reverse_condition_priority
         is_holofoil = condition in holo_condition_priority  # Checks if it's a Holofoil condition
