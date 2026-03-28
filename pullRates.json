@@ -1291,5 +1291,16 @@
       { "rarity": "Illustration Rare", "odds": "1 in 8 packs" },
       { "rarity": "Secret Illustration Rare", "odds": "1 in 65 packs" }
     ]
+  },
+  {
+    "setNumber": 1212,
+    "name": "Perfect Order",
+    "rates": [
+      { "rarity": "Double Rare", "odds": "1 in 5 packs" },
+      { "rarity": "Ultra Rare", "odds": "1 in 12 packs" },
+      { "rarity": "Hyper Rare", "odds": "1 in 1250 packs" },
+      { "rarity": "Illustration Rare", "odds": "1 in 9 packs" },
+      { "rarity": "Secret Illustration Rare", "odds": "1 in 80 packs" }
+    ]
   }
 ]
