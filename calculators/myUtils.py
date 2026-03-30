@@ -35,8 +35,8 @@ def get_set_name(set_number):
     return None  # if document doesn't exist
 
 def clean_card_name(name):
-    # Remove everything from the first " - " onward (like " - #H28/H32 - $615.95")
-    name = re.sub(r'\s*-.*$', '', name)
+    # Remove everything from the first " - " onward (space-hyphen-space, not bare hyphens)
+    name = re.sub(r'\s+-\s+.*$', '', name)
     # Remove card numbers/codes in parentheses (like "(114 Full Art)" or "(H28)")
     name = re.sub(r'\s*\([^)]+\)\s*$', '', name)
     # Remove (Secret) and similar parentheticals at the end
