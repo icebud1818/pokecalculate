@@ -44,3 +44,22 @@ def clean_card_name(name):
     # Remove any trailing whitespace
     name = name.strip()
     return name
+
+COLLECTR_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjZlYThjYzhlLTFjYWUtNDIwMS1iOGM1LTI5NWZhNDI2N2UzMiIsImRhdGUiOiIyMDI2LTAzLTMwVDAyOjQ1OjA1LjAzOFoifQ.YfwO3dkfWBb1pZ0jV2_-nA2x3QqHbLyPBS3l_5rAMDY"
+COLLECTR_COLLECTION_ID = "6ea8cc8e-1cae-4201-b8c5-295fa4267e32"
+COLLECTR_COLLECTION_PARAM = "a6faf9b7-c8a3-442b-985e-41e37fbf6e71"
+
+COLLECTR_HEADERS = {
+    "authorization": COLLECTR_TOKEN,
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.9",
+    "origin": "https://app.getcollectr.com",
+    "referer": "https://app.getcollectr.com/",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+    "sec-ch-ua": '"Not:A-Brand";v="99", "Google Chrome";v="145", "Chromium";v="145"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+}

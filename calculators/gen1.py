@@ -67,9 +67,17 @@ def calculate(set):
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")   
-    packData = packResponse.json() 
-    packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(set.setNumber)
+    packResponse = requests.get(
+        f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/{set.productId}",
+        headers=myUtils.COLLECTR_HEADERS,
+        params={
+            "collectionId": myUtils.COLLECTR_COLLECTION_PARAM,
+            "currency": "USD",
+            "details": "false"
+        }
+    )
+    packData = packResponse.json()
+    packPrice = float(packData["data"]["market_price"]) if packData.get("data", {}).get("market_price") else myUtils.get_last_pack_value(set.setNumber)
     
     expValue = 0
     if(set.secretOdds > 0):

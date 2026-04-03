@@ -7,15 +7,15 @@ from calculators import (
 # import gen1
 # import earlyReverse
 # import specialSets
-# # import earlyEx
-# # import goldStar
-# # import dp
-# # import hgss
-# # import bw
-# # import xy
-# # import sm
-# # import swsh
-# # import sv
+# import earlyEx
+# import goldStar
+# import dp
+# import hgss
+# import bw
+# import xy
+# import sm
+# import swsh
+# import sv
 # import myUtils
 
 # ------------------------------------------------------------------------------------------------------------------
@@ -745,7 +745,7 @@ for record in output_data:
     myUtils.db.collection("sets").document(doc_id).set(record)
 
 
-# #Booster Box 
+#Booster Box 
 
 box_output_data = []
 
