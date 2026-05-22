@@ -89,3 +89,5 @@ for product in sealed_output_data:
     myUtils.db.collection("sealedProducts").document(doc_id).set(product)
 
 print("Done!")
+
+myUtils.print_price_source_summary("sealed", title="Sealed Product Price Sources")

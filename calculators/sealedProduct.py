@@ -214,10 +214,26 @@ def calculate(product, scraper=None):
     """
     # Try to get price from Collectr first
     productPrice = get_collectr_price(product.productId, scraper)
-    
-    # Fallback to TCGPlayer if Collectr fails
+    price_source = "collectr" if productPrice is not None else None
+
+    # Fallback: use the previous price stored in Firestore
     if productPrice is None:
-        print("failed to get price")
+        try:
+            prev_doc = myUtils.db.collection("sealedProducts").document(str(product.productId)).get()
+            if prev_doc.exists:
+                prev_price = prev_doc.to_dict().get("price")
+                if prev_price is not None:
+                    print(f"Collectr failed, using previous price from database: ${prev_price}")
+                    productPrice = prev_price
+                    price_source = "previous"
+                else:
+                    print("Collectr failed and no previous price in database — writing null")
+            else:
+                print("Collectr failed and no previous record in database — writing null")
+        except Exception as e:
+            print(f"Collectr failed and previous-price lookup errored ({e}) — writing null")
+
+    myUtils.record_price_source("sealed", product.name, price_source or "none", productPrice)
     
     # Get promo list with details
     promo_list = get_promo_list_with_details(product.promos)

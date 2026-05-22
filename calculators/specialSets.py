@@ -122,22 +122,7 @@ def dragonVault():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/98948",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/98948/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(705.5)
+    packPrice = myUtils.get_pack_price(98948, 705.5, "Dragon Vault")
 
     expValue = 0
 
@@ -318,22 +303,7 @@ def doubleCrisis():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/229226",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/229226/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(804.5)
+    packPrice = myUtils.get_pack_price(229226, 804.5, "Double Crisis")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 3)
@@ -538,22 +508,7 @@ def shiningLegends():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/155880",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/155880/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(902.5)
+    packPrice = myUtils.get_pack_price(155880, 902.5, "Shining Legends")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -763,22 +718,7 @@ def dragonMajesty():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/173392",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/173392/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(906.5)
+    packPrice = myUtils.get_pack_price(173392, 906.5, "Dragon Majesty")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -983,22 +923,7 @@ def championsPath():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/218789",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/218789/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1002.5)
+    packPrice = myUtils.get_pack_price(218789, 1002.5, "Champions Path")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -1218,22 +1143,7 @@ def pokemonGo():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/274421",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/274421/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1101.5)
+    packPrice = myUtils.get_pack_price(274421, 1101.5, "Pokemon Go")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 5)
@@ -1446,22 +1356,7 @@ def pokemon151():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/504467",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/504467/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1202.5)
+    packPrice = myUtils.get_pack_price(504467, 1202.5, "Pokemon 151")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 4)
@@ -1675,22 +1570,7 @@ def shroudedFable():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/552997",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/552997/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1205.5)
+    packPrice = myUtils.get_pack_price(552997, 1205.5, "Shrouded Fable")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 4)
@@ -1911,22 +1791,7 @@ def paldeanFates():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/528038",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/528038/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1203.5)
+    packPrice = myUtils.get_pack_price(528038, 1203.5, "Paldean Fates")
 
     expValue = 0
     expValue += (totalCommonValue / commonCount * 4)
@@ -2281,22 +2146,7 @@ def hiddenFates():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/198634",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/198634/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(910.5)
+    packPrice = myUtils.get_pack_price(198634, 910.5, "Hidden Fates")
     rareSlot = 0
     reverseSlot = 0
 
@@ -2669,22 +2519,7 @@ def shiningFates():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/232636",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/232636/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1003.5)
+    packPrice = myUtils.get_pack_price(232636, 1003.5, "Shining Fates")
     rareSlot = 0
     reverseSlot = 0
 
@@ -3032,22 +2867,7 @@ def generations():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/187238",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/187238/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(807.5)
+    packPrice = myUtils.get_pack_price(187238, 807.5, "Generations")
 
     rareSlot = 0
     reverseSlot = 0
@@ -3420,22 +3240,7 @@ def crownZenith():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/453466",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/453466/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1103.5)
+    packPrice = myUtils.get_pack_price(453466, 1103.5, "Crown Zenith")
 
     rareSlot = 0
     reverseSlot = 0
@@ -3824,22 +3629,7 @@ def celebrations():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/248577",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/248577/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1006.5)
+    packPrice = myUtils.get_pack_price(248577, 1006.5, "Celebrations")
 
     rareSlot = 0
     reverseSlot = 0
@@ -4088,22 +3878,7 @@ def prismaticEvolutions():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/593294",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/593294/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1207.5)
+    packPrice = myUtils.get_pack_price(593294, 1207.5, "Prismatic Evolutions")
 
     rareSlot = 0
     reverseSlot1 = 0
@@ -4339,22 +4114,7 @@ def blackBolt():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/642597",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/642597/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1209.51)
+    packPrice = myUtils.get_pack_price(642597, 1209.51, "Black Bolt")
 
     rareSlot = 0
     reverseSlot1 = 0
@@ -4591,22 +4351,7 @@ def whiteFlare():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/630699",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/630699/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1209.52)
+    packPrice = myUtils.get_pack_price(630699, 1209.52, "White Flare")
 
     rareSlot = 0
     reverseSlot1 = 0
@@ -4878,22 +4623,7 @@ def ascendedHeroes():
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
     
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/672434",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/672434/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(1211.5)
+    packPrice = myUtils.get_pack_price(672434, 1211.5, "Ascended Heroes")
         
     rareSlot = 0
     reverseSlot1 = 0

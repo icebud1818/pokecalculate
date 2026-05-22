@@ -185,22 +185,7 @@ def calculate(set):
     all_unique_cards = list(unique_cards.values())
     top_5_cards = sorted(all_unique_cards, key=lambda x: x['price'], reverse=True)[:5]
 
-    packPrice = None
-    try:
-        packResponse = requests.get(
-            f"https://api-v2.getcollectr.com/collections/{myUtils.COLLECTR_COLLECTION_ID}/products/{set.productId}",
-            headers=myUtils.COLLECTR_HEADERS,
-            params={"collectionId": myUtils.COLLECTR_COLLECTION_PARAM, "currency": "USD", "details": "false"}
-        )
-        if packResponse.status_code == 200:
-            packPrice = float(packResponse.json()["data"]["market_price"])
-    except Exception:
-        pass
-
-    if not packPrice:
-        packResponse = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{set.productId}/details?mpfev=3442")
-        packData = packResponse.json()
-        packPrice = packData.get("marketPrice") or packData.get("medianPrice") or packData.get("lowestPrice") or myUtils.get_last_pack_value(set.setNumber)
+    packPrice = myUtils.get_pack_price(set.productId, set.setNumber, set.name)
 
 
     commonQuantity = 5

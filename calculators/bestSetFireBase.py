@@ -409,13 +409,7 @@ svSetList = [
     svSet("ME03: Perfect Order", "https://www.tcgplayer.com/categories/trading-and-collectible-card-games/pokemon/price-guides/me03-perfect-orders", .0008, .2, .0833, .1111, .0125, 0, 672398, 24587, 1212)
 
 
-]# Function to get the last Box Value by Set Number
-def get_last_box_value(set_number):
-    doc_ref = myUtils.db.collection("boosterBoxes").document(str(set_number))
-    doc = doc_ref.get()
-    if doc.exists:
-        return doc.to_dict().get("boxPrice")
-    return None  # if document doesn't exist
+]
 
 def findSet(name, list):
     for set in list:
@@ -425,12 +419,8 @@ def findSet(name, list):
 
 
 def getBoxPrices(boxSet):
-
-    response = requests.get(f"https://mp-search-api.tcgplayer.com/v2/product/{boxSet.productId}/details?mpfev=3442")   
-    data = response.json() 
-    
-    price = data.get("marketPrice") or data.get("medianPrice") or data.get("lowestPrice") or get_last_box_value(boxSet.setNumber)
-    pricePer = float(price/36)
+    price = myUtils.get_box_price(boxSet.productId, boxSet.setNumber, boxSet.name)
+    pricePer = float(price / 36) if price else 0
 
     print("\n")
     print("Set Name: " + boxSet.name)
@@ -764,5 +754,9 @@ for box in box_output_data:
     doc_id = str(box["setNumber"])
 
     myUtils.db.collection("boosterBoxes").document(doc_id).set(box)
+
+
+myUtils.print_price_source_summary("pack", title="Pack Price Sources")
+myUtils.print_price_source_summary("box", title="Booster Box Price Sources")
 
 

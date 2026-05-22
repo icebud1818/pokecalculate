@@ -13,8 +13,14 @@ let activeFilters = {
     buyIndicatorTo:   "extreme-buy"
 };
 
+// Helper: format a numeric dollar amount, or "N/A" when missing
+function fmtDollars(n) {
+    return (typeof n === 'number' && !isNaN(n)) ? `$${n.toFixed(2)}` : 'N/A';
+}
+
 // Helper: get buy indicator class for a product
 function getBuyIndicatorClass(product) {
+    if (product.price === null || product.price <= 0) return "terrible-buy";
     const percentReturn = (product.totalValue / product.price) * 100;
     if (percentReturn >= 150) return "extreme-buy";
     if (percentReturn >= 120) return "strong-buy";
@@ -95,16 +101,21 @@ async function fetchProducts() {
 
 async function initializeProducts(data) {
     products = data.map((item) => {
-        const totalValue = item.packTotal + (item.promoPrice || 0);
-        const percentProfit = item.price > 0 ? ((totalValue - item.price) / item.price) * 100 : 0;
-        
+        const price = (typeof item.price === 'number') ? item.price : null;
+        const packTotal = (typeof item.packTotal === 'number') ? item.packTotal : 0;
+        const promoPrice = (typeof item.promoPrice === 'number') ? item.promoPrice : 0;
+        const totalValue = packTotal + promoPrice;
+        const percentProfit = (price !== null && price > 0)
+            ? ((totalValue - price) / price) * 100
+            : null;
+
         return {
             id: item.id,
             productId: item.productId,
             name: item.name,
-            price: item.price,
-            promoPrice: item.promoPrice || 0,
-            packTotal: item.packTotal,
+            price: price,
+            promoPrice: promoPrice,
+            packTotal: packTotal,
             totalValue: totalValue,
             percentProfit: percentProfit,
             packs: item.packs || [],
@@ -181,8 +192,16 @@ function displayProducts() {
         productHeader.className = "product-header";
         productHeader.setAttribute("data-product-index", productIndex);
         
-        const profitSign = product.percentProfit >= 0 ? '+' : '';
-        productHeader.textContent = `${displayName} - Price: $${product.price.toFixed(2)}, Total Value: $${product.totalValue.toFixed(2)}, Profit: ${profitSign}${product.percentProfit.toFixed(2)}%`;
+        const priceStr = fmtDollars(product.price);
+        const totalValueStr = fmtDollars(product.totalValue);
+        let profitStr;
+        if (typeof product.percentProfit === 'number' && !isNaN(product.percentProfit)) {
+            const profitSign = product.percentProfit >= 0 ? '+' : '';
+            profitStr = `${profitSign}${product.percentProfit.toFixed(2)}%`;
+        } else {
+            profitStr = 'N/A';
+        }
+        productHeader.textContent = `${displayName} - Price: ${priceStr}, Total Value: ${totalValueStr}, Profit: ${profitStr}`;
         
         const detailsSection = document.createElement("div");
         detailsSection.className = "product-details";
@@ -205,18 +224,18 @@ function displayProducts() {
         totalsContainer.style.cssText = "display:flex; justify-content:center; gap:20px; margin-bottom:20px; align-items:center; text-align:center;";
 
         const promoValueDiv = document.createElement("div");
-        promoValueDiv.innerHTML = `<strong>Total Promo Value:</strong> $${product.promoPrice.toFixed(2)}`;
+        promoValueDiv.innerHTML = `<strong>Total Promo Value:</strong> ${fmtDollars(product.promoPrice)}`;
         promoValueDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
         totalsContainer.appendChild(promoValueDiv);
 
         const totalEV = calculateProductEV(product);
         const evDiv = document.createElement("div");
-        evDiv.innerHTML = `<strong>Total Expected Value:</strong> ${totalEV !== null ? '$' + totalEV.toFixed(2) : 'N/A'}`;
+        evDiv.innerHTML = `<strong>Total Expected Value:</strong> ${fmtDollars(totalEV)}`;
         evDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
         totalsContainer.appendChild(evDiv);
 
         const packValueDiv = document.createElement("div");
-        packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> $${product.packTotal.toFixed(2)}`;
+        packValueDiv.innerHTML = `<strong>Total Pack Value:</strong> ${fmtDollars(product.packTotal)}`;
         packValueDiv.style.fontSize = "font-size:1.1rem; text-align:center;";
         totalsContainer.appendChild(packValueDiv);
 
@@ -286,15 +305,25 @@ function handleProductListClick(event) {
 }
 
 function sortProducts(criteria) {
+    // Null-aware numeric comparator: null values always sort to the bottom
+    const cmpNum = (a, b, dir) => {
+        const aNull = a === null || a === undefined || isNaN(a);
+        const bNull = b === null || b === undefined || isNaN(b);
+        if (aNull && bNull) return 0;
+        if (aNull) return 1;
+        if (bNull) return -1;
+        return dir === 'asc' ? a - b : b - a;
+    };
+
     const sorters = {
         nameAsc:     (a, b) => a.name.localeCompare(b.name),
         nameDesc:    (a, b) => b.name.localeCompare(a.name),
-        priceAsc:    (a, b) => a.price - b.price,
-        priceDesc:   (a, b) => b.price - a.price,
-        valueAsc:    (a, b) => a.totalValue - b.totalValue,
-        valueDesc:   (a, b) => b.totalValue - a.totalValue,
-        profitAsc:   (a, b) => a.percentProfit - b.percentProfit,
-        profitDesc:  (a, b) => b.percentProfit - a.percentProfit,
+        priceAsc:    (a, b) => cmpNum(a.price, b.price, 'asc'),
+        priceDesc:   (a, b) => cmpNum(a.price, b.price, 'desc'),
+        valueAsc:    (a, b) => cmpNum(a.totalValue, b.totalValue, 'asc'),
+        valueDesc:   (a, b) => cmpNum(a.totalValue, b.totalValue, 'desc'),
+        profitAsc:   (a, b) => cmpNum(a.percentProfit, b.percentProfit, 'asc'),
+        profitDesc:  (a, b) => cmpNum(a.percentProfit, b.percentProfit, 'desc'),
         releaseAsc:  (a, b) => new Date(b.releaseDate) - new Date(a.releaseDate),
         releaseDesc: (a, b) => new Date(a.releaseDate) - new Date(b.releaseDate),
     };
